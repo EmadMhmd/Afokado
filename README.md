@@ -1,5 +1,5 @@
 # Afokado
- This is GP Project for lawyer booking
+ This is Graduation Project for lawyer booking
 ### this project is being developed using
  mern stack => mongo db , express js , react js and node js
 ### the project contain on two directory
