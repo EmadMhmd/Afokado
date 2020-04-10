@@ -16,7 +16,6 @@ export const apply=(id)=>{
         }
     }
 }
-
 export const fetchApplications=()=>{
     return async dispatch =>{
         try{
@@ -33,7 +32,6 @@ export const fetchApplications=()=>{
 }
 
 
-
 export const deleteApplication=id=>{
     return async dispatch =>{
         try{
@@ -46,6 +44,7 @@ export const deleteApplication=id=>{
         }
     }
 }
+
 
 export const updateApplication=id=>{
     return async dispatch =>{

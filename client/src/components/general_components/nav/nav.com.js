@@ -1,4 +1,4 @@
-import React, { Component} from 'react';
+import React, { Component,Fragment} from 'react';
 import { NavLink} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logUserOut } from '../../../actions/auth.actions.js';
@@ -17,18 +17,25 @@ class NavBar extends Component {
         this.props.logUserOut()
         this.props.history.push('/')
       }
+      share(){
+          const {logUserOut}=this.props;
+          return(
+            <Fragment>
+            <NavLink className="link" to='/profile'>Profile</NavLink>
+            <p className="link" onClick={()=>logUserOut()}>Logout</p>
+        </Fragment>
+          )
+      }
     _renderLinks() {
-        const { isAuth, profile ,logUserOut  ,booksCount ,internshipsCount ,deletesCount} = this.props;
+        const { isAuth, profile  ,booksCount ,applicationsCount ,deletesCount} = this.props;
         if (isAuth) {
             if (profile.type === 1) {
                 return (
                     <div>
                         
                         <NavLink className="link" to='/my_books'>My Books</NavLink>
-                        <NavLink className="link" to='/user_profile'>{profile.userName} Profile</NavLink>
                         <NavLink className="link" to='/list'>Book</NavLink>
-                        <p className="link">  welcome {profile.userName}</p>
-                        <p className="link" onClick={()=>logUserOut()}>Logout</p>
+                        {this.share()}
                     </div>
                 )
             }
@@ -43,23 +50,23 @@ class NavBar extends Component {
                            Requests 
                            <Badge color="danger"> {deletesCount} </Badge>
                           <Badge color="secondary"> {booksCount} </Badge>
+                          <Badge color="dark"> {applicationsCount} </Badge>
                         </NavLink>
                         <NavLink className="link" to='/agenda'>Agenda</NavLink>
-                        <NavLink className="link" to='/lawyer_profile'>Profile</NavLink>
-                        <p className="link" onClick={()=>logUserOut()}>Logout</p>
+                        {this.share()}
                     </div>
                 )
             }
             if (profile.type === 3) {
                 return (
                     <div>
-                        <NavLink className="link" to='/apply'>Aplly</NavLink>
-                        <NavLink className="link" to='/student_profile'>{profile.userName} Profile</NavLink>
-                        <p className="link" onClick={()=>logUserOut()}>Logout</p>
+                        <NavLink className="link" to='/'>Apply</NavLink>
+                        <NavLink className="link" to='/my_app'>My App</NavLink>
+                        {this.share()}
                     </div>
                 )
             }
-
+         
         } else {
             return (
                 <div>
@@ -92,7 +99,8 @@ const mapStateToProps = ({ auth ,book,internship ,notify}) => {
         profile: auth.profile,
         internships:internship.internships,
         booksCount:notify.booksCount,
-        deletesCount:notify.deletesCount
+        deletesCount:notify.deletesCount,
+        applicationsCount:notify.applicationsCount
 
     }
 }

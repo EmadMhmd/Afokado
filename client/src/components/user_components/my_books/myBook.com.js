@@ -11,7 +11,6 @@ class MyBook extends Component{
  
     render(){
         const {books}=this.props;
-        //const books=[...this.props.books]
         return(
             <div>
                 <h3>My Books</h3>

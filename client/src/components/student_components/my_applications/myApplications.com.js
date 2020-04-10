@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {fetchApplications ,deleteApplication ,updateApplication} from '../../../actions/apply.action.js';
 import { Button } from 'reactstrap';
 
-class MyApplications extends Component{
+class MyApp extends Component{
     componentDidMount(){
         const {fetchApplications } =this.props;
         fetchApplications()
@@ -13,7 +13,7 @@ class MyApplications extends Component{
         const {applications}=this.props;
         return(
             <div>
-                <h3>My Applications</h3>
+                <h3>My Books</h3>
                 {applications.map(app=>(
                     <div key={app._id}>
                         <p>{app.no}</p>
@@ -32,4 +32,4 @@ const mapStateToProps=({apply ,fetch})=>{
     }
 }
 
-export default connect(mapStateToProps,{fetchApplications,deleteApplication,updateApplication})(MyApplications);
+export default connect(mapStateToProps,{fetchApplications,deleteApplication,updateApplication})(MyApp);

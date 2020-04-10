@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchInternships } from '../../../actions/internalship.action';
 import Spinner from '../../general_components/spinner_com/spinner.com.js';
-//import HeaderSearch from '../book_search_header/bookHeader.com.js';
+import HeaderSearch from '../apply_search_header/applyHeader.com.js';
 import { Link } from 'react-router-dom';
 import './lawyerList.style.css';
 //import lm from './lawm.png';
@@ -19,7 +19,7 @@ class Internships extends Component {
         }
         return (
             <div className="list">
-                
+                <HeaderSearch />
                 <div className='conatiner'>
                 <div className='sort'>
                         <p className='count'>

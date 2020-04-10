@@ -43,7 +43,7 @@ class App extends Component {
             <div>
               <Route exact path='/' component={Home} />
               <Route exact path='/my_books' component={MyBooks} />
-              <Route path='/user_profile' component={Profile} exact/>
+              <Route path='/profile' component={Profile} exact/>
               <Route exact path='/list' component={LawyerList} />
               <Route exact path='/lawyerpage/:id' component={LawyerPage} />
             
@@ -57,7 +57,7 @@ class App extends Component {
               <Route path='/' component={CasesList} exact/>
               <Route path='/internalships' component={Internalships} exact/>
               <Route path='/times' component={Times} exact/>
-              <Route path='/lawyer_profile' component={Profile} exact/>
+              <Route path='/profile' component={Profile} exact/>
               <Route path='/book_requests' component={BookRequests} exact/>
               <Route path='/internship_requests' component={BookRequests} exact/>
               <Route path='/agenda' component={Agenda} exact/>
@@ -66,7 +66,10 @@ class App extends Component {
         }else if(type===3){
           return(
             <div>
-              <Route path='/student_profile' component={Profile} exact/>
+              <Route path='/profile' component={Profile} exact/>
+                <Route exact path='/' component={Internships} />
+            <Route exact path='/applypage/:id' component={ApplyPage} />
+            <Route exact path='/my_app' component={MyApp} />
             </div>
           );
         }
@@ -94,9 +97,7 @@ class App extends Component {
           <div className="App">
             <NavBar />
             {this.renderLayout()}
-            <Route exact path='/interns' component={Internships} />
-            <Route exact path='/applypage/:id' component={ApplyPage} />
-            <Route exact path='/myapp' component={MyApp} />
+          
             <Footer />
           </div>
         </BrowserRouter>

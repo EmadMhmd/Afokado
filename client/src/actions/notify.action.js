@@ -8,8 +8,8 @@ export const fetchNotifications = () => {
         try {
             dispatch(fetchingTime())
             dispatch(clearError());
-            const {data:{booksCount , deletesCount}}=await apiFetchNotifications()
-            dispatch({type:NOTIFICATIONS_FETCHING_SUCCESS , booksCount ,deletesCount})
+            const {data:{booksCount , deletesCount, applicationsCount}}=await apiFetchNotifications()
+            dispatch({type:NOTIFICATIONS_FETCHING_SUCCESS , booksCount ,deletesCount , applicationsCount})
             dispatch(fetchingFailed())
         } catch (e) {
             dispatch(fetchingFailed())
