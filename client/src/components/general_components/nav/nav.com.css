@@ -1,0 +1,41 @@
+.nav{
+    overflow: hidden;
+    background-color: #0070cd;
+    color: white;
+    padding: 10px;;
+}
+.nav .logo{
+    float: left;
+    width: 40%;
+    
+}
+.nav .logo .title{
+    text-decoration: none;
+    font-size: 34px;
+    font-weight: bold;
+    color: white;
+}
+.nav .logo .title span{
+    border-bottom: 2px solid red;
+    margin-bottom: 30px;
+}
+.nav .links{
+    float: left;
+    width: 55%;
+    padding-top: 10px;
+}
+.nav .links .link{
+    list-style: none;
+    margin-right: 30px;
+    float: left;
+    text-decoration: none;
+    color: white;
+    font-size: 19px;
+    transition: all .5s ease-in-out;
+}
+.nav .links .active{
+    color: red;
+}
+.nav .links .link:hover{
+    color: red;
+}

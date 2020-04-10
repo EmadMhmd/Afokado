@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1= title
+  form( method='post') 
+   input(type="text" , placeholder='text' name='userName')
+   br
+   input(type="email" , placeholder='email' name='email')
+   br
+   input(type="password" placeholder='pass'  name='password')
+   br
+   input(type="text" placeholder='type'  name='type')
+   br
+   input(type="submit" value='Add')
