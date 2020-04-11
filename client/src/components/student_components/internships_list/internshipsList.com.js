@@ -5,6 +5,7 @@ import Spinner from '../../general_components/spinner_com/spinner.com.js';
 import HeaderSearch from '../apply_search_header/applyHeader.com.js';
 import { Link } from 'react-router-dom';
 import './lawyerList.style.css';
+import EmptyMessage from '../../general_components/empty.com.js';
 //import lm from './lawm.png';
 
 class Internships extends Component {
@@ -12,6 +13,15 @@ class Internships extends Component {
         const {fetchInternships} =this.props;
         fetchInternships()
     }
+    emptyCase(){
+        const { internships } = this.props
+        const data='internship'
+        if(internships.length===0){
+            return (
+                <EmptyMessage data={data} />
+            )
+        }
+    } 
     render() {
         const { fetching, internships } = this.props
         if (fetching) {
@@ -37,7 +47,7 @@ class Internships extends Component {
                             </select>
                         </div>
                  </div>
-       
+                 {this.emptyCase()}
                 <div className='lawyers'>
                     {internships.map((item) => (
                         <div className='lawyer' key={item._id}>

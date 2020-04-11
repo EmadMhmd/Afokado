@@ -8,7 +8,7 @@ import { Button , ButtonGroup} from 'reactstrap';
 import moment from 'moment';
 import Message from '../../general_components/message_com/message.com';
 import Spinner from '../../general_components/spinner_com/spinner.com.js';
-
+import EmptyMessage from '../../general_components/empty.com.js';
 
 class CasesList extends Component {
     componentDidMount() {
@@ -19,6 +19,15 @@ class CasesList extends Component {
     {
         const { fetchCases } = this.props;
         fetchCases(archive)
+    }
+    emptyCase(){
+        const { cases } = this.props
+        const data='case'
+        if(cases.length===0){
+            return (
+                <EmptyMessage data={data} />
+            )
+        }
     }
     render() {
         const { fetching, cases } = this.props
@@ -33,6 +42,7 @@ class CasesList extends Component {
                 <h3>My Cases</h3>
                 < Message />
                 <hr />
+                {this.emptyCase()}
                 {cases.map((item) => (
 
                     <div key={item._id} style={{ overflow: 'hidden' }}>

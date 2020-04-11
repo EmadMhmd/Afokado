@@ -10,6 +10,7 @@ export const addRate=(rate)=>{
             dispatch(clearError())
             await apiAddRate(rate);
             dispatch({type:RATE_ADDED});
+            dispatch(fetchRates(rate.id))
         }catch(e){
             dispatch(addError(e))
         }

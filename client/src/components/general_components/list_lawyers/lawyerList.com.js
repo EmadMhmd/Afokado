@@ -6,8 +6,18 @@ import HeaderSearch from '../book_search_header/bookHeader.com.js';
 import { Link } from 'react-router-dom';
 import './lawyerList.style.css';
 import lm from './lawm.png';
+import EmptyMessage from '../../general_components/empty.com.js';
 
 class LawyerList extends Component {
+    emptyCase(){
+        const { lawyers } = this.props
+        const data='lawyers'
+        if(lawyers.length===0){
+            return (
+                <EmptyMessage data={data} />
+            )
+        }
+    }
     render() {
         const { fetching, lawyers } = this.props
         if (fetching) {
@@ -33,7 +43,7 @@ class LawyerList extends Component {
                             </select>
                         </div>
                  </div>
-       
+                 {this.emptyCase()}
                 <div className='lawyers'>
                     {lawyers.map((item) => (
                         <div className='lawyer' key={item._id}>

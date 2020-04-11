@@ -5,7 +5,7 @@ import { Button , ButtonGroup} from 'reactstrap';
 import moment from 'moment';
 import AddTime  from './addTime.com.js';
 import Spinner from '../../general_components/spinner_com/spinner.com.js';
-
+import EmptyMessage from '../../general_components/empty.com.js';
 
 
 class TimesList extends Component {
@@ -13,8 +13,15 @@ class TimesList extends Component {
         const { fetchTimes ,profile:{_id}} = this.props;
         fetchTimes(_id)
     }
- 
-    
+    emptyCase(){
+        const { times } = this.props
+        const data='time'
+        if(times.length===0){
+            return (
+                <EmptyMessage data={data} />
+            )
+        }
+    } 
     render() {
         const { fetching, times } = this.props
         if (fetching) {
@@ -26,6 +33,7 @@ class TimesList extends Component {
                
                 <h3>My Times</h3>
                 <hr />
+                {this.emptyCase()}
                 {times.map((item) => (
 
                     <div key={item._id} style={{ overflow: 'hidden' }}>

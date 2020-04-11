@@ -5,13 +5,22 @@ import { fetchInternships, deleteInternship } from '../../../actions/internalshi
 import { connect } from 'react-redux';
 import { Button ,ButtonGroup} from 'reactstrap';
 import moment from 'moment';
-
+import EmptyMessage from '../../general_components/empty.com.js';
 import Spinner from '../../general_components/spinner_com/spinner.com.js';
 
 class InternalshipsList extends Component {
     componentDidMount() {
         const { fetchInternships } = this.props;
         fetchInternships()
+    }
+    emptyCase(){
+        const { internships } = this.props
+        const data='internship'
+        if(internships.length===0){
+            return (
+                <EmptyMessage data={data} />
+            )
+        }
     }
     render() {
         const { fetching, internships } = this.props
@@ -24,6 +33,7 @@ class InternalshipsList extends Component {
                 <AddInternalship />
                 <h3>My internships</h3>
                 <hr />
+                {this.emptyCase()}
                 {internships.map((item) => (
                     <div key={item._id} style={{ overflow: 'hidden' }}>
                         <div className='conatiner' style={{ overflow: 'hidden', marginBottom: 50 }}>
