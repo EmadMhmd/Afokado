@@ -1,7 +1,7 @@
 import {INETRNSHIP_ADDED ,INTERNSHIPS_FETCHING_SUCCESS  ,INETRNSHIP_UPDATED ,INETRNSHIP_DELETED } from '../actions/actionTypes';
 import {addError ,clearError} from './error.action';
 import {fetchingTime , fetchingFailed} from './fetch.action';
-import {apiAddInternship ,apiFetchInternships , apiUpdateInternship ,apiDeleteInternship } from '../api/internship.api';
+import {apiAddInternship ,apiFetchInternshipsForLawyer , apiFetchInternshipsForApply , apiUpdateInternship ,apiDeleteInternship } from '../api/internship.api';
 
 export const addInternship= intern =>{
 return async dispatch=>{
@@ -9,7 +9,7 @@ return async dispatch=>{
         dispatch(clearError())
         await  apiAddInternship(intern);
         dispatch({type : INETRNSHIP_ADDED})
-        dispatch(fetchInternships())
+        dispatch(fetchInternshipsForLawyer())
     }catch(e){
         dispatch(addError(e))
     }
@@ -22,7 +22,7 @@ export const updateInternship= intern =>{
             dispatch(clearError())
             await apiUpdateInternship(intern);
             dispatch({type : INETRNSHIP_UPDATED})
-            dispatch(fetchInternships())
+            dispatch(fetchInternshipsForLawyer())
         }catch(e){
             dispatch(addError(e))
         }
@@ -35,20 +35,20 @@ export const deleteInternship= id =>{
             dispatch(clearError())
             await  apiDeleteInternship(id);
             dispatch({type:INETRNSHIP_DELETED})
-            dispatch(fetchInternships())
+            dispatch(fetchInternshipsForLawyer())
         }catch(e){
             dispatch(addError(e))
         }
     }
     }
 
-export const fetchInternships= () =>{
+export const fetchInternshipsForLawyer= () =>{
     return async dispatch=>{
         try{
             dispatch(clearError())
             dispatch(fetchingTime())
-            const {data} =await apiFetchInternships();
-            dispatch({type:INTERNSHIPS_FETCHING_SUCCESS , payload:data.internships})
+            const {data:{internships}} =await apiFetchInternshipsForLawyer();
+            dispatch({type:INTERNSHIPS_FETCHING_SUCCESS , payload:internships})
             dispatch(fetchingFailed())
         }catch(e){
             dispatch(fetchingFailed())
@@ -56,3 +56,17 @@ export const fetchInternships= () =>{
         }
     }
     }
+    export const fetchInternshipsForApply= (query) =>{
+        return async dispatch=>{
+            try{
+                dispatch(clearError())
+                dispatch(fetchingTime())
+                const {data:{internships}} =await apiFetchInternshipsForApply(query);
+                dispatch({type:INTERNSHIPS_FETCHING_SUCCESS , payload:internships})
+                dispatch(fetchingFailed())
+            }catch(e){
+                dispatch(fetchingFailed())
+                dispatch(addError(e))
+            }
+        }
+        }

@@ -2,6 +2,7 @@ import React ,{Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchBookRequests} from '../../../actions/book.action.js';
 import EmptyMessage from '../../general_components/empty.com.js';
+import Spinner from '../../general_components/spinner_com/spinner.com.js';
 
 class BookRequests extends Component{
     componentDidMount(){
@@ -11,15 +12,18 @@ class BookRequests extends Component{
     }
     emptyCase(){
         const { books } = this.props
-        const data='notification'
+        const message=`great! you haven't any notification !?`
         if(books.length===0){
             return (
-                <EmptyMessage data={data} />
+                <EmptyMessage message={message} />
             )
         }
     } 
     render(){
-        const {books}=this.props;
+        const {books,fetching}=this.props;
+        if (fetching) {
+            return <Spinner size={50} />
+        }
         return(
             <div>
                 <h2>Book Requests</h2>

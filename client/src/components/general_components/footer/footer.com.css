@@ -10,18 +10,18 @@
   margin-top: 0;
     
 }
-.footer .footer-search{
+.footer-search{
     width: 45%;
     float: left;
     margin-right: 0;
 }
-.footer .about{
+.about{
     width: 45%;
     float: left;
 }
 
 
-.footer .about .title{
+.about .title{
     text-decoration: none;
     font-size: 30px;
     font-weight: bold;
@@ -29,11 +29,11 @@
     margin-bottom: 30px;
     
 }
-.footer .about .title span{
+.about .title span{
     border-bottom: 2px solid red;
     margin-bottom: 30px;
 }
-.footer .about .link{
+.about .link{
     list-style: none;
     float: left;
     width: 100%;
@@ -43,7 +43,7 @@
     transition: all .5s ease-in-out;
     margin-top: 10px;
 }
-.footer .footer-search p{
+.footer-search p{
     color: #fff;
     font-size: 22px;
     font-weight: bold;
@@ -51,7 +51,7 @@
     text-align: left;
     margin-top: 0;
 }
-.footer .footer-search .link{
+.footer-search .link{
     list-style: none;
     float: left;
     width: 100%;
@@ -63,9 +63,9 @@
     margin-left: 15px;
     text-align: left;
 }
-.footer .link:hover{
+.link:hover{
     color: red;
 }
-.footer .about .links .active {
+about .links .active {
     color :red;
 }

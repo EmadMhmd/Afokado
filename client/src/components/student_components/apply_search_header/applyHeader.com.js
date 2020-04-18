@@ -5,7 +5,7 @@ import {FormGroup ,Button ,Input } from 'reactstrap';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {connect} from 'react-redux';
-import {fetchLawyers} from '../../../actions/lawyer.action.js';
+import {fetchInternshipsForApply} from '../../../actions/internalship.action.js';
 
 
 var homeStyle = {
@@ -13,9 +13,9 @@ var homeStyle = {
 };
 class Header extends Component{
     _handleFormSubmit = (values, bag) => {
-        const { fetchLawyers } = this.props;
-        fetchLawyers(values)
-        this.props.history.push('/list');
+        const { fetchInternshipsForApply } = this.props;
+        fetchInternshipsForApply(values)
+        //this.props.history.push('/list');
     }
     render(){
         return(
@@ -23,9 +23,9 @@ class Header extends Component{
 
                 <p>Best Lawyers in Egypt</p>
                 <Formik
-                            initialValues={{ userName: '', city: '', spec: ''}}
+                            initialValues={{ paid: '', city: '', spec: ''}}
                             validationSchema={Yup.object().shape({
-                                userName: Yup.string(),
+                                paid: Yup.number(),
                                 city: Yup.string(),
                                 spec: Yup.string(),
 
@@ -40,18 +40,16 @@ class Header extends Component{
                                 handleChange,
                                 handleBlur,
                                 handleSubmit,
-                              
-                                /* and other goodies */
                             }) => (
                                     <div>
                                         <FormGroup className='field'>
                                             <Input
-                                                placeholder="Name"
-                                                type="text"
-                                                name="userName"
+                                                placeholder="paid"
+                                                type="number"
+                                                name="paid"
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
-                                                value={values.userName}
+                                                value={values.paid}
                                             />
                                         </FormGroup >
                                         <FormGroup>
@@ -98,4 +96,4 @@ class Header extends Component{
 }
 
 
-export default connect(null,{fetchLawyers})(Header);
+export default connect(null,{fetchInternshipsForApply})(Header);

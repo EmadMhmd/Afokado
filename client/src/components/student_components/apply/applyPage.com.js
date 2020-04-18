@@ -7,12 +7,15 @@ class ApplyPage extends Component{
     componentDidMount(){
 
     }
-    render(){
+    applied=()=>{
         const {apply}=this.props
+        apply(this.props.match.params.id)
+        this.props.history.push('/my_app')
+    }
+    render(){
         return(
             <div>
-                <h1>{this.props.match.params.id}</h1>
-                <Button onClick={()=>apply(this.props.match.params.id)} >Apply Now</Button>
+                <Button onClick={()=>this.applied()} >Apply Now</Button>
             </div>
         )
     }

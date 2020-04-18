@@ -27,14 +27,13 @@ class NavBar extends Component {
           )
       }
     _renderLinks() {
-        const { isAuth, profile  ,booksCount ,applicationsCount ,deletesCount} = this.props;
+        const { isAuth, profile  ,booksCount ,applicationsCount ,BookDeletesCount ,AppDeletesCount , rejectsCount ,acceptsCount} = this.props;
         if (isAuth) {
             if (profile.type === 1) {
                 return (
                     <div>
                         
                         <NavLink className="link" to='/my_books'>My Books</NavLink>
-                        <NavLink className="link" to='/list'>Book</NavLink>
                         {this.share()}
                     </div>
                 )
@@ -47,10 +46,14 @@ class NavBar extends Component {
                         <NavLink className="link" to='/internalships'>My Internalships</NavLink>
                         <NavLink className="link" to='/times'>Times</NavLink>
                         <NavLink className="link" to='/book_requests'>
-                           Requests 
-                           <Badge color="danger"> {deletesCount} </Badge>
-                          <Badge color="secondary"> {booksCount} </Badge>
-                          <Badge color="dark"> {applicationsCount} </Badge>
+                           Books 
+                           <Badge color="danger"> {BookDeletesCount} </Badge>
+                           <Badge color="secondary"> {booksCount} </Badge>
+                        </NavLink>
+                        <NavLink className="link" to='/app_requests'>
+                           Applications 
+                           <Badge color="danger"> {AppDeletesCount} </Badge>
+                          <Badge color="secondary"> {applicationsCount} </Badge>
                         </NavLink>
                         <NavLink className="link" to='/agenda'>Agenda</NavLink>
                         {this.share()}
@@ -61,7 +64,11 @@ class NavBar extends Component {
                 return (
                     <div>
                         <NavLink className="link" to='/'>Apply</NavLink>
-                        <NavLink className="link" to='/my_app'>My App</NavLink>
+                        <NavLink className="link" to='/my_app'>
+                            My App 
+                            <Badge color="danger"> { rejectsCount } </Badge>
+                            <Badge color="secondary"> {acceptsCount} </Badge>
+                        </NavLink>
                         {this.share()}
                     </div>
                 )
@@ -99,9 +106,11 @@ const mapStateToProps = ({ auth ,book,internship ,notify}) => {
         profile: auth.profile,
         internships:internship.internships,
         booksCount:notify.booksCount,
-        deletesCount:notify.deletesCount,
-        applicationsCount:notify.applicationsCount
-
+        BookDeletesCount:notify.BookDeletesCount,
+        applicationsCount:notify.applicationsCount,
+        AppDeletesCount:notify.AppDeletesCount,
+        rejectsCount:notify.rejectsCount,
+        acceptsCount:notify.acceptsCount
     }
 }
 export default connect(mapStateToProps, { logUserOut })(NavBar);

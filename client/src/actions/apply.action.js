@@ -1,8 +1,8 @@
-import {APPLY ,APPLICATION_UPDATED , APPLICATION_DELETED ,APPLICATIONS_FETCHING_SUCCESS } from './actionTypes';
+import {APPLY ,APPLICATION_UPDATED , APPLICATION_DELETED ,APPLICATIONS_FETCHING_SUCCESS , APPLICATION_REJECTED ,APPLICATION_ACCEPTED } from './actionTypes';
 import {addError ,clearError} from './error.action';
 import {fetchingFailed ,fetchingTime} from './fetch.action'
-import {apiApply , apiFetchApplications ,apiDeleteApplication ,apiFetchApplicationRequests,apiUpdateApplication } from '../api/apply.api.js';
-import {openNotifications} from './notify.action'
+import {apiApply , apiFetchApplications ,apiDeleteApplication ,apiFetchApplicationRequests,apiUpdateApplication  , apiAcceptApplication ,apiRejectApplication} from '../api/apply.api.js';
+import {openLawyerNotifications ,openStudentNotifications} from './notify.action'
 
 
 export const apply=(id)=>{
@@ -21,6 +21,7 @@ export const fetchApplications=()=>{
         try{
             dispatch(clearError())
             dispatch(fetchingTime())
+            await openStudentNotifications()
             const {data:{applications}}=await apiFetchApplications()
             dispatch({type:APPLICATIONS_FETCHING_SUCCESS , payload:applications})
             dispatch(fetchingFailed())
@@ -44,7 +45,30 @@ export const deleteApplication=id=>{
         }
     }
 }
-
+export const rejectApplication=id=>{
+    return async dispatch =>{
+        try{
+            dispatch(clearError())
+           await apiRejectApplication(id)
+           dispatch({type:APPLICATION_REJECTED})
+           dispatch(fetchApplicationRequests())
+        }catch(e){
+            dispatch(addError(e))
+        }
+    }
+}
+export const acceptApplication=id=>{
+    return async dispatch =>{
+        try{
+            dispatch(clearError())
+           await apiAcceptApplication(id)
+           dispatch({type:APPLICATION_ACCEPTED})
+           dispatch(fetchApplicationRequests())
+        }catch(e){
+            dispatch(addError(e))
+        }
+    }
+}
 
 export const updateApplication=id=>{
     return async dispatch =>{
@@ -52,7 +76,6 @@ export const updateApplication=id=>{
             dispatch(clearError())
            await apiUpdateApplication(id)
            dispatch({type:APPLICATION_UPDATED})
-           dispatch(fetchApplications())
         }catch(e){
             dispatch(addError(e))
         }
@@ -64,7 +87,7 @@ export const fetchApplicationRequests =()=>{
         try{
             dispatch(clearError())
             dispatch(fetchingTime())
-            dispatch(openNotifications())
+            dispatch(openLawyerNotifications("app"))
             const {data:{applications}}=await apiFetchApplicationRequests()
             dispatch({type:APPLICATIONS_FETCHING_SUCCESS , payload:applications})
             dispatch(fetchingFailed())

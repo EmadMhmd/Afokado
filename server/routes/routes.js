@@ -18,7 +18,7 @@ const passport = require('passport');
  
 var router = express.Router();
 /*---------------------- {Routes On Router Layer} --------------------------------*/
-router.get('/fetch_internships/:_id?', internshipController.fetchInternships);
+
 
 
 router.post('/sign', authController.sign );
@@ -58,12 +58,16 @@ router.all('*',(req ,res , next )=>{
   router.post('/add_internship', internshipController.addInternship);
   router.delete('/delete_internship/:_id', internshipController.deleteInternship);
   router.put('/update_internship/:_id', internshipController.updateInternship);
+  router.get('/fetch_internships_for_lawyer/:_id?', internshipController.fetchInternshipsForLawyer);
+  router.get('/fetch_internships_for_apply/:spec?/:city?/:paid?', internshipController.fetchInternshipsForApply);
 
   
   router.post('/apply/:_id', applyController.apply);
   router.get('/fetch_applications', applyController.fetchApplications);
   router.delete('/delete_application/:_id', applyController.deleteApplication);
   router.put('/confirm_application/:_id', applyController.confiremApplication);
+  router.put('/reject_application/:_id', applyController.rejectApplication);
+  router.put('/accept_application/:_id', applyController.acceptApplication);
   router.get('/fetch_application_requests', applyController.fetchApplicationRequests);
 
   
@@ -86,8 +90,10 @@ router.all('*',(req ,res , next )=>{
   router.put('/update_task/:_id',taskController.updateTask);
   router.get('/fetch_tasks',taskController.fetchTasks);
 
-  router.get('/fetch_notifications',notifyController.NotificationsCount);
-  router.put('/open_notifications' , notifyController.openNotifications)
+  router.get('/fetch_lawyer_notifications',notifyController.lawyerNotificationsCount);
+  router.get('/fetch_student_notifications',notifyController.studentNotificationsCount);
+  router.put('/open_lawyer_notifications/:type' , notifyController.openLawyerNotifications);
+  router.put('/open_student_notifications' , notifyController.openStudentNotifications);
 
   
 

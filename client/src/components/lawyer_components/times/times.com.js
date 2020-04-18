@@ -15,10 +15,10 @@ class TimesList extends Component {
     }
     emptyCase(){
         const { times } = this.props
-        const data='time'
+        const message=`oops! you still don't have any time !?`
         if(times.length===0){
             return (
-                <EmptyMessage data={data} />
+                <EmptyMessage message={message} />
             )
         }
     } 

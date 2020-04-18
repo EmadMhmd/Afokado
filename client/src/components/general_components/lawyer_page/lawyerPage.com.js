@@ -29,7 +29,7 @@ class LawyerPage extends Component {
         const { isAuth } = this.props;
         if (isAuth) {
             apiBook(this.state.value)
-            console.log('slected time ', this.state.value)
+            this.props.history.push('/my_books')
         } else {
             console.log('you are not auth')
             const data = { lawyer_id: this.props.match.params.id, time_id: this.state.value }

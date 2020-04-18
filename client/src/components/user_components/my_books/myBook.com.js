@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {fetchBooks ,deleteBook ,updateBook} from '../../../actions/book.action.js';
 import { Button } from 'reactstrap';
 import EmptyMessage from '../../general_components/empty.com.js';
+import Spinner from '../../general_components/spinner_com/spinner.com.js';
 
 class MyBook extends Component{
     componentDidMount(){
@@ -11,15 +12,18 @@ class MyBook extends Component{
     }
     emptyCase(){
         const { books } = this.props
-        const data='book'
+        const message=`oops! you still don't have any book !?`
         if(books.length===0){
             return (
-                <EmptyMessage data={data} />
+                <EmptyMessage message={message} />
             )
         }
     } 
     render(){
-        const {books}=this.props;
+        const {books ,fetching}=this.props;
+        if (fetching) {
+            return <Spinner size={50} />
+        }
         return(
             <div>
                 <h3>My Books</h3>

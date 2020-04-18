@@ -2,7 +2,7 @@ import {BOOKED ,BOOKS_FETCHING_SUCCESS , BOOK_UPDATED ,BOOK_DELETED } from './ac
 import {addError ,clearError} from './error.action';
 import {fetchingFailed ,fetchingTime} from './fetch.action'
 import {apiFetchBooks ,apiDeleteBook ,apiFetchBookRequests,apiUpdateBook } from '../api/book.api.js';
-import {openNotifications} from './notify.action'
+import {openLawyerNotifications} from './notify.action'
 
 export const fetchBooks=()=>{
     return async dispatch =>{
@@ -39,7 +39,6 @@ export const updateBook=id=>{
             dispatch(clearError())
            await apiUpdateBook(id)
            dispatch({type:BOOK_UPDATED})
-           dispatch(fetchBooks())
         }catch(e){
             dispatch(addError(e))
         }
@@ -51,7 +50,7 @@ export const fetchBookRequests =()=>{
         try{
             dispatch(clearError())
             dispatch(fetchingTime())
-            dispatch(openNotifications())
+            dispatch(openLawyerNotifications("book"))
             const {data:{books}}=await apiFetchBookRequests()
             dispatch({type:BOOKS_FETCHING_SUCCESS , payload:books})
             

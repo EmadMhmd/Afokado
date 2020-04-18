@@ -56,6 +56,9 @@ const user = mongoose.Schema({
         type : Number,
         default:type
     },
+    rank :{
+        type : Number,
+    },
     joined:{
         type:Date,
         default:new Date()

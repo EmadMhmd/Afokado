@@ -16,10 +16,18 @@ class LoginPage extends Component {
             this.bag.setSubmitting(false);
         }   
     }
+    routeTo(){
+        const {error ,isAuth ,attempting}=this.props
+        if(isAuth === true){
+            this.props.history.push('/')    
+        }
+        else   this.props.history.push('/auth')     
+    }
     _handleFormSubmit = (values, bag) => {
         this.props.login(values);
         this.bag = bag; 
-        this.props.history.push('/')                
+        this.routeTo()
+        //this.props.history.push('/')                
     }
     render() {
         return (
@@ -76,7 +84,7 @@ class LoginPage extends Component {
                                         </FormGroup>
                                         <div className='filed'>
                                             <Button type="submit" className='btn' disabled={isSubmitting} onClick={handleSubmit || !isValid}>
-                                                Submit
+                                                Login
                                             </Button>
                                         </div>
                                     </div>

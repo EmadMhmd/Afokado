@@ -6,7 +6,6 @@ import { fetchCases, deleteCase, archievCase } from '../../../actions/case.actio
 import { connect } from 'react-redux';
 import { Button , ButtonGroup} from 'reactstrap';
 import moment from 'moment';
-import Message from '../../general_components/message_com/message.com';
 import Spinner from '../../general_components/spinner_com/spinner.com.js';
 import EmptyMessage from '../../general_components/empty.com.js';
 
@@ -22,10 +21,10 @@ class CasesList extends Component {
     }
     emptyCase(){
         const { cases } = this.props
-        const data='case'
+        const message=`oops! you still don't have any case !?`
         if(cases.length===0){
             return (
-                <EmptyMessage data={data} />
+                <EmptyMessage message={message} />
             )
         }
     }
@@ -40,7 +39,7 @@ class CasesList extends Component {
                 <Button onClick={()=>this.fetchArchive(1)}>Archive</Button>
                 <Button onClick={()=>this.fetchArchive(0)}>Current</Button>
                 <h3>My Cases</h3>
-                < Message />
+                
                 <hr />
                 {this.emptyCase()}
                 {cases.map((item) => (

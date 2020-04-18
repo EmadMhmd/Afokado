@@ -7,10 +7,16 @@ export const apiAddInternship= internship => {
 }
 
 
-export const apiFetchInternships= () => {
-    return axios.get('http://localhost:5000/fetch_internships')
+export const apiFetchInternshipsForLawyer= () => {
+    return axios.get(`http://localhost:5000/fetch_internships_for_lawyer`)
 }
 
+export const apiFetchInternshipsForApply=(query)=>{
+    if(query.spec || query.city || query.userName){
+        return axios.get(`http://localhost:5000/fetch_internships_for_apply/${ (query.spec) ? query.spec : 'em'}/${ (query.city) ? query.city : 'em'}/${ (query.paid) ? query.paid : 'em'}`);
+    }
+    return axios.get('http://localhost:5000/fetch_internships_for_apply')
+}
 
 export const apiUpdateInternship= internship => {
 

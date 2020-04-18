@@ -17,10 +17,10 @@ class Agenda extends Component {
     }
     emptyCase(){
         const { tasks } = this.props
-        const data='task'
+        const message=`oops! you still don't have any task !?`
         if(tasks.length===0){
             return (
-                <EmptyMessage data={data} />
+                <EmptyMessage message={message} />
             )
         }
     }

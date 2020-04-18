@@ -11,10 +11,10 @@ import EmptyMessage from '../../general_components/empty.com.js';
 class LawyerList extends Component {
     emptyCase(){
         const { lawyers } = this.props
-        const data='lawyers'
+        const message=`oops!! your search don't match any lawyer , please search again `
         if(lawyers.length===0){
             return (
-                <EmptyMessage data={data} />
+                <EmptyMessage message={message} />
             )
         }
     }

@@ -1,11 +1,12 @@
 import React , {Component} from 'react';
 import {NavLink} from 'react-router-dom';
 import './footer.com.css';
+import {Foot} from '../../../style.js';
 
 class Footer extends Component{
     render(){
         return(
-            <div className='footer'>
+            <Foot className='footer'>
                 <div className='about'>
                     <NavLink className='title' to='/'>Afo<span>kado</span></NavLink>
                     <div className='links'>
@@ -21,7 +22,7 @@ class Footer extends Component{
                     <NavLink className='link' to=''>Area</NavLink>
                     <NavLink className='link' to=''>Name</NavLink>
                 </div>
-            </div>
+            </Foot>
         )
     }
 }

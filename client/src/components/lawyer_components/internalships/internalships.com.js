@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AddInternalship from './addInternalship.com.js';
 import UpdateInternalship from './updateInternalship.com.js';
-import { fetchInternships, deleteInternship } from '../../../actions/internalship.action';
+import { fetchInternshipsForLawyer, deleteInternship } from '../../../actions/internalship.action';
 import { connect } from 'react-redux';
 import { Button ,ButtonGroup} from 'reactstrap';
 import moment from 'moment';
@@ -10,15 +10,15 @@ import Spinner from '../../general_components/spinner_com/spinner.com.js';
 
 class InternalshipsList extends Component {
     componentDidMount() {
-        const { fetchInternships } = this.props;
-        fetchInternships()
+        const { fetchInternshipsForLawyer } = this.props;
+        fetchInternshipsForLawyer()
     }
     emptyCase(){
         const { internships } = this.props
-        const data='internship'
+        const message=`oops! you still don't have any internship !?`
         if(internships.length===0){
             return (
-                <EmptyMessage data={data} />
+                <EmptyMessage message={message} />
             )
         }
     }
@@ -71,4 +71,4 @@ const mapStateToProps = ({ internship ,fetch}) => {
     }
 }
 
-export default connect(mapStateToProps, { fetchInternships, deleteInternship })(InternalshipsList);
+export default connect(mapStateToProps, { fetchInternshipsForLawyer, deleteInternship })(InternalshipsList);

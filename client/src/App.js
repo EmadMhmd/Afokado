@@ -18,6 +18,8 @@ import LawyerList from './components/general_components/list_lawyers/lawyerList.
 import LawyerPage from './components/general_components/lawyer_page/lawyerPage.com.js';
 import MyBooks from './components/user_components/my_books/myBook.com.js';
 import BookRequests from './components/lawyer_components/requests/book_requests.com.js';
+import AppRequests from './components/lawyer_components/requests/app_requests.com.js';
+
 import LoginDirect from './components/general_components/auth/authDirect.com.js';
 import Agenda from './components/lawyer_components/agenda/agenda.com.js';
 import Message from './components/general_components/message_com/message.com';
@@ -43,7 +45,7 @@ class App extends Component {
             <div>
               <Route exact path='/' component={Home} />
               <Route exact path='/my_books' component={MyBooks} />
-              <Route path='/profile' component={Profile} exact/>
+              <Route exact path='/profile' component={Profile} />
               <Route exact path='/list' component={LawyerList} />
               <Route exact path='/lawyerpage/:id' component={LawyerPage} />
             
@@ -54,22 +56,23 @@ class App extends Component {
           return(
             <div>
               
-              <Route path='/' component={CasesList} exact/>
-              <Route path='/internalships' component={Internalships} exact/>
-              <Route path='/times' component={Times} exact/>
-              <Route path='/profile' component={Profile} exact/>
-              <Route path='/book_requests' component={BookRequests} exact/>
-              <Route path='/internship_requests' component={BookRequests} exact/>
-              <Route path='/agenda' component={Agenda} exact/>
+              <Route exact path='/' component={CasesList} />
+              <Route exact path='/internalships' component={Internalships} />
+              <Route exact path='/times' component={Times} />
+              <Route exact path='/profile' component={Profile} />
+              <Route exact path='/book_requests' component={BookRequests} />
+              <Route exact path='/app_requests' component={AppRequests} />
+              <Route exact path='/internship_requests' component={BookRequests} />
+              <Route exact path='/agenda' component={Agenda} />
             </div>
           );
         }else if(type===3){
           return(
             <div>
-              <Route path='/profile' component={Profile} exact/>
-                <Route exact path='/' component={Internships} />
-            <Route exact path='/applypage/:id' component={ApplyPage} />
-            <Route exact path='/my_app' component={MyApp} />
+              <Route exact path='/profile' component={Profile} />
+              <Route exact path='/' component={Internships} />
+              <Route exact path='/applypage/:id' component={ApplyPage} />
+              <Route exact path='/my_app' component={MyApp} />
             </div>
           );
         }
@@ -85,7 +88,7 @@ class App extends Component {
             <Route exact path='/lawyerpage/:id' component={LawyerPage} />
             <Route exact path='/login_book/:lawyer_id/:time_id' component={LoginDirect} />
             <Route exact path='/login_book' component={LoginDirect} />
-            <Redirect to='/' />
+            <Redirect to='/auth' />
         </div>
       )
     }

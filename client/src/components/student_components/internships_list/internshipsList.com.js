@@ -1,27 +1,42 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchInternships } from '../../../actions/internalship.action';
+import { fetchInternshipsForApply } from '../../../actions/internalship.action';
+import { apply } from '../../../actions/apply.action.js';
 import Spinner from '../../general_components/spinner_com/spinner.com.js';
 import HeaderSearch from '../apply_search_header/applyHeader.com.js';
 import { Link } from 'react-router-dom';
+import {Button} from 'reactstrap';
 import './lawyerList.style.css';
 import EmptyMessage from '../../general_components/empty.com.js';
 //import lm from './lawm.png';
 
 class Internships extends Component {
-    componentDidMount(){
-        const {fetchInternships} =this.props;
-        fetchInternships()
-    }
+  componentDidMount(){
+      const {internships}=this.props;
+      if(internships.length ===0){
+          const {fetchInternshipsForApply}=this.props;
+          const query={
+              spec: "",
+              city:"",
+              paid:""
+          }
+          fetchInternshipsForApply(query)
+      }
+  }
     emptyCase(){
         const { internships } = this.props
-        const data='internship'
+        const message=`oops! your search  don't match any internship !?`
         if(internships.length===0){
             return (
-                <EmptyMessage data={data} />
+                <EmptyMessage message={message} />
             )
         }
     } 
+    applied=(id)=>{
+        const {apply}=this.props
+        apply(id)
+        this.props.history.push('/my_app')
+    }
     render() {
         const { fetching, internships } = this.props
         if (fetching) {
@@ -56,8 +71,8 @@ class Internships extends Component {
                                     <Link className='degName' to={'/lawyerpage/' + item._id}>{item.description}</Link>
                                     <p>{item.count}</p>
                                     <p>{item.paid}</p>
-                                    <p><Link to={'/applypage/' + item._id}>Details</Link></p>
-                                    <p><Link to={'/applypage/' + item._id}>Apply Now</Link></p>
+                                    <Button onClick={()=>this.applied(item._id)} >Apply Direct</Button>
+                                    <Button><Link to={'/applypage/' + item._id}>Details First</Link></Button>
                                 </div>
                             </div>
                         </div>
@@ -76,4 +91,5 @@ const mapStateToProps = ({ internship ,fetch}) => {
         fetching: fetch.fetching
     }
 }
-export default connect(mapStateToProps, { fetchInternships })(Internships);
+          
+export default connect(mapStateToProps,{fetchInternshipsForApply , apply})(Internships);

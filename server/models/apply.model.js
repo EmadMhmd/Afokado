@@ -1,8 +1,13 @@
 const mongoose =require('mongoose');
 
 const init=0;
+const status='pending';
 const applySchema = mongoose.Schema({
     notify:{
+        type:Number,
+        default:init
+    },
+    stuNotify:{
         type:Number,
         default:init
     },
@@ -13,6 +18,10 @@ const applySchema = mongoose.Schema({
     confirmed:{
         type:Number,
         default:init
+    },
+    status:{
+        type:String,
+        default:status
     },
     internshipId:{
         type : mongoose.Schema.Types.ObjectId,

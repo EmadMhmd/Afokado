@@ -3,7 +3,7 @@ import {addError ,clearError} from './error.action';
 import {addMessage ,clearMessage } from './message.action';
 import { apiLogin , apiSign ,apiSignForBook ,apiGetProfile } from "../api/auth.api.js";
 import setAuthHeadre from '../api/setAuthHeader.js';
-import {fetchNotifications} from './notify.action';
+import {fetchLawyerNotifications , fetchStudentNotifications} from './notify.action';
 
 const TOKEN_NAME='afokado_app_token'
 
@@ -59,10 +59,11 @@ export const getProfile = ()=>{
             const {data : {user}} = await apiGetProfile();
             dispatch({type : PROFILE_GETTING , payload :user});
             if(user.type===2){
-                dispatch(fetchNotifications())
+                dispatch(fetchLawyerNotifications())
             }
-            //return dispatch({type : PROFILE_FETCHED , payload :user});
-            
+            if(user.type===3){
+                dispatch(fetchStudentNotifications())
+            }
         }catch(e){
             dispatch(addError(e))
         }
@@ -91,7 +92,7 @@ export const logUserOut =()=>{
         dispatch(clearMessage())
         localStorage.clear();
         dispatch({ type : UESR_LOGOUT})
-             }
+    }
 }
 //action , not action creator
 const success = (token)=>{

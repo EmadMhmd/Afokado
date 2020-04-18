@@ -3,11 +3,11 @@ import { Alert } from 'reactstrap';
 
 class EmptyMessage extends Component {
     render() {
-        const {data} =this.props
+        const {message} =this.props
         return (
             <div>
                 <Alert color='dark'>
-                    oops! you still don't have any {data} !?
+                     {message} 
                 </Alert>           
             </div>
         )
