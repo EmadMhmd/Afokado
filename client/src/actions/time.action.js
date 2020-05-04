@@ -1,5 +1,6 @@
 import {TIME_ADDED ,TIME_DELETED  , TIMES_FETCHING_SUCCESS } from '../actions/actionTypes';
 import {addError ,clearError} from './error.action';
+import {addMessage ,clearMessage} from './message.action';
 import {fetchingTime , fetchingFailed} from './fetch.action';
 import {apiAddTime ,apiDeleteTime  ,apiFetchTimes } from '../api/times.api';
 
@@ -7,9 +8,11 @@ export const addTime= time =>{
 return async dispatch=>{
     try{
         dispatch(clearError())
-        await  apiAddTime(time);
+        dispatch(clearMessage())
+        const {data:{message}}=await  apiAddTime(time);
         dispatch({type : TIME_ADDED})
         dispatch(fetchTimes(time.owner))
+        dispatch(addMessage(message))
     }catch(e){
         dispatch(addError(e))
     }
@@ -20,9 +23,11 @@ export const deleteTime= time =>{
     return async dispatch=>{
         try{
             dispatch(clearError())
-            await  apiDeleteTime(time._id);
+            dispatch(clearMessage())
+            const {data:{message}}=await  apiDeleteTime(time._id);
             dispatch({type:TIME_DELETED})
             dispatch(fetchTimes(time.owner))
+            dispatch(addMessage(message))
         }catch(e){
             dispatch(addError(e))
         }

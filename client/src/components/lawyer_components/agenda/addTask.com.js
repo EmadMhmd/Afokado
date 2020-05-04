@@ -44,10 +44,11 @@ class AddTaskPage extends Component{
                     <div className='case'>
                         <h3>Add New Task</h3>
                         <Formik
-                            initialValues={{ description: '', notes: '', dateline: '' }}
+                            initialValues={{ description: '', notes: '', dateline: '' ,subLawyer:''}}
                             validationSchema={Yup.object().shape({
                                 description: Yup.string().required(),
                                 notes: Yup.string(),
+                                subLawyer: Yup.string(),
                                 dateline: Yup.date().required()
                             })}
                             onSubmit={this._handleFormSubmit.bind(this)}
@@ -91,7 +92,20 @@ class AddTaskPage extends Component{
 
                                             {errors.dateline && touched.dateline ? (<FormFeedback>{errors.dateline}</FormFeedback>) : null}
                                         </FormGroup>
+                                        <FormGroup className='field'>
+                                            <Label>Lawyer</Label>
+                                            <Input
+                                                placeholder="Enter sub lawyer"
+                                                invalid={errors.subLawyer && touched.subLawyer && errors.subLawyer}
+                                                type="text"
+                                                name="subLawyer"
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                value={values.subLawyer}
+                                            />
 
+                                            {errors.subLawyer && touched.subLawyer ? (<FormFeedback>{errors.subLawyer}</FormFeedback>) : null}
+                                        </FormGroup >
                                         <FormGroup className='field'>
                                             <Label>Any Notes</Label>
                                             <Input

@@ -46,7 +46,7 @@ class AddCasePage extends Component {
                             <div className='case'>
                                 <h3>Add New Case</h3>
                                 <Formik
-                                    initialValues={{ claimant: '', defendant: '', court: '', type: '', number: '', title:'' }}
+                                    initialValues={{ claimant: '', defendant: '', court: '', type: '', number: '', title:'' ,description:'' }}
                                     validationSchema={Yup.object().shape({
                                         claimant: Yup.string().required(),
                                         defendant: Yup.string().required(),
@@ -54,12 +54,10 @@ class AddCasePage extends Component {
                                         number: Yup.number().required(),
                                         type: Yup.string().required(),
                                         title: Yup.string().required(),
+                                        description:Yup.string()
                                     })}
                                     onSubmit={this._handleFormSubmit.bind(this)}
-
                                 >
-
-
                                     {({
                                         values,
                                         errors,
@@ -114,7 +112,20 @@ class AddCasePage extends Component {
 
                                                     {errors.defendant && touched.defendant ? (<FormFeedback>{errors.defendant}</FormFeedback>) : null}
                                                 </FormGroup>
+                                                <FormGroup className='field'>
+                                                    <Label>Description</Label>
+                                                    <Input
+                                                        placeholder="Enter description"
+                                                        invalid={errors.description && touched.description && errors.description}
+                                                        type="text"
+                                                        name="description"
+                                                        onChange={handleChange}
+                                                        onBlur={handleBlur}
+                                                        value={values.description}
+                                                    />
 
+                                                    {errors.description && touched.description ? (<FormFeedback>{errors.description}</FormFeedback>) : null}
+                                                </FormGroup >
                                                 <FormGroup className='field'>
                                                     <Label>court</Label>
                                                     <Input
@@ -146,12 +157,18 @@ class AddCasePage extends Component {
                                                     <Input
                                                         placeholder="Enter Case Type"
                                                         invalid={errors.type && touched.type && errors.type}
-                                                        type="text"
+                                                        type="select"
                                                         name="type"
                                                         onChange={handleChange}
                                                         onBlur={handleBlur}
                                                         value={values.type}
-                                                    />
+                                                    >
+                                                        <option  >select case Type</option>
+                                                        <option  value='criminal' >Criminal</option>
+                                                        <option  value='civil'>Civil</option>
+                                                        <option  value='legitimate'>Legitimate</option>
+                                                        <option  value='state council'>State Council</option>
+                                                    </Input>
                                                     {errors.type && touched.type ? (<FormFeedback>{errors.type}</FormFeedback>) : null}
                                                 </FormGroup>
 

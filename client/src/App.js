@@ -9,8 +9,9 @@ import UserSignUp from './components/general_components/signup/signup.user.com.j
 import LawyerSignUp from './components/general_components/signup/signup.lawyer.com.js';
 import StudentSignUp from './components/general_components/signup/singup.student.com.js';
 import Footer from './components/general_components/footer/footer.com';
-import Home from './components/general_components/home_header/home.com.js';
+import Home from './components/general_components/home/home.com.js';
 import CasesList from './components/lawyer_components/cases/cases.com.js';
+import CasePage from './components/lawyer_components/cases/casePage.com.js';
 import Internalships from './components/lawyer_components/internalships/internalships.com.js';
 import Times from './components/lawyer_components/times/times.com.js';
 import Profile from './components/general_components/profile/profile.com';
@@ -27,8 +28,6 @@ import Message from './components/general_components/message_com/message.com';
 import Internships from './components/student_components/internships_list/internshipsList.com.js';
 import ApplyPage from './components/student_components/apply/applyPage.com.js';
 import MyApp from './components/student_components/my_applications/myApplications.com.js';
-
-
 import {connect} from 'react-redux';
 
 class App extends Component {
@@ -64,6 +63,7 @@ class App extends Component {
               <Route exact path='/app_requests' component={AppRequests} />
               <Route exact path='/internship_requests' component={BookRequests} />
               <Route exact path='/agenda' component={Agenda} />
+              <Route exact path='/casepage/:id' component={CasePage}/>
             </div>
           );
         }else if(type===3){
@@ -88,7 +88,7 @@ class App extends Component {
             <Route exact path='/lawyerpage/:id' component={LawyerPage} />
             <Route exact path='/login_book/:lawyer_id/:time_id' component={LoginDirect} />
             <Route exact path='/login_book' component={LoginDirect} />
-            <Redirect to='/auth' />
+           
         </div>
       )
     }
@@ -97,10 +97,10 @@ class App extends Component {
   render(){
     return(
         <BrowserRouter>
-          <div className="App">
+          <div className="App pos">
             <NavBar />
+            <Message />
             {this.renderLayout()}
-          
             <Footer />
           </div>
         </BrowserRouter>

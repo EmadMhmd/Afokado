@@ -6,7 +6,6 @@ import * as Yup from 'yup';
 import './signup.com.css';
 import { connect } from 'react-redux';
 import { sign } from '../../../actions/auth.actions.js';
-import Message from '../../general_components/message_com/message.com';
 
 
 
@@ -32,17 +31,14 @@ class Signup_user extends Component {
                 <div className='container'>
                     <div className='sign'>
                         <h3>Sign Up</h3>
-                        < Message />
                         <Formik
-                            initialValues={{ userName: '', email: '', password: '', mobile: '', address: '', city: '', state: '', zip: '' }}
+                            initialValues={{ userName: '', email: '', password: '', mobile: '' }}
                             validationSchema={Yup.object().shape({
                                 userName: Yup.string().required(),
                                 email: Yup.string().email().required(),
                                 password: Yup.string().min(6).required(),
                                 mobile: Yup.number().min(11).required(),
-                                address: Yup.string(),
-                                city: Yup.string(),
-                                state: Yup.string(),
+                             
 
                             })}
                             onSubmit={this._handleFormSubmit.bind(this)}
@@ -91,7 +87,7 @@ class Signup_user extends Component {
                                             {errors.email && touched.email ? (<FormFeedback>{errors.email}</FormFeedback>) : null}
                                         </FormGroup>
                                         <FormGroup className='field'>
-                                            <Label>Mobile Number</Label>
+                                            <Label>Mobile Number <span>*</span></Label>
                                             <Input
                                                 placeholder="Enter Your Number"
                                                 invalid={errors.mobile && touched.mobile && errors.mobile}
@@ -104,63 +100,9 @@ class Signup_user extends Component {
 
                                             {errors.mobile && touched.mobile ? (<FormFeedback>{errors.mobile}</FormFeedback>) : null}
                                         </FormGroup>
-                                        
-                                       
-                                        <FormGroup>
-                                            <Label >Addres</Label>
-                                            <Input
-                                                type="text"
-                                                name="address"
-                                                placeholder="Apartment, studio, or floor"
-                                                invalid={errors.address && touched.address && errors.address}
-                                                onChange={handleChange}
-                                                onBlur={handleBlur}
-                                                value={values.address}
-                                            />
-                                            {errors.address && touched.address ? (<FormFeedback>{errors.address}</FormFeedback>) : null}
-                                        </FormGroup>
-                                        <Row form>
-                                            <Col md={6}>
-                                                <FormGroup>
-                                                    <Label >City</Label>
-                                                    <Input
-                                                        type="text"
-                                                        name="city"
-                                                        placeholder="city"
-                                                        onChange={handleChange}
-                                                        onBlur={handleBlur}
-                                                        value={values.city}
-                                                    />
-                                                </FormGroup>
-                                            </Col>
-                                            <Col md={4}>
-                                                <FormGroup>
-                                                    <Label >State</Label>
-                                                    <Input
-                                                        type="text"
-                                                        name="state"
-                                                        placeholder="state"
-                                                        onChange={handleChange}
-                                                        onBlur={handleBlur}
-                                                        value={values.state}
-                                                    />
-                                                </FormGroup>
-                                            </Col>
-                                            <Col md={2}>
-                                                <FormGroup>
-                                                    <Label >Zip</Label>
-                                                    <Input
-                                                        type="text"
-                                                        name="zip"
-                                                        onChange={handleChange}
-                                                        onBlur={handleBlur}
-                                                        value={values.zip} />
-                                                </FormGroup>
-                                            </Col>
-                                        </Row>
 
                                         <FormGroup className='field'>
-                                            <Label>Password</Label>
+                                            <Label>Password <span>*</span></Label>
                                             <Input
                                                 placeholder="Enter Your password"
                                                 invalid={errors.password && touched.password && errors.password}
@@ -176,7 +118,7 @@ class Signup_user extends Component {
 
 
                                         <Button type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
-                                            Sign Up
+                                            Sign Up 
                                         </Button>
                                     </div>
                                 )}

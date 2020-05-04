@@ -1,0 +1,29 @@
+{
+    "egypt":[
+        "Ain Shams University",
+        "Al-Azhar University",
+        "Alexandria University",
+        "Assiut University",
+        "Aswan University",
+        "Banha University",
+        "Beni-Suef University",	
+        "Cairo University"	,
+        "Damanhour University",		
+        "Damietta University",
+        "Fayoum University"	,
+        "Helwan University"	,	
+        "Kafrelsheikh University",	
+        "Mansoura University"	,
+        "Minia University"	,
+        "Minufiya University",		
+        "Port Said University",	
+        "Sohag University"		,
+        "South Valley University",
+        "Suez Canal University"	,
+        "Suez University"	,
+        "Tanta University"	,	
+        "Sadat City University",	
+        "Zagazig University"  ,
+        "other"      
+    ]
+}

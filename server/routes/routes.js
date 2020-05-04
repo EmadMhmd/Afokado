@@ -49,7 +49,7 @@ router.all('*',(req ,res , next )=>{
   router.get('/me',authController.me)
 
   router.post('/add_case', caseController.addCase);
-  router.get('/fetch_cases/:archive?', caseController.fetchCases);
+  router.get('/fetch_cases/:archive?/:type?', caseController.fetchCases);
   router.delete('/delete_case/:_id', caseController.deleteCase);
   router.put('/archive_case/:_id', caseController.archiveCase);
   router.put('/update_case/:_id', caseController.updateCase);
@@ -88,11 +88,13 @@ router.all('*',(req ,res , next )=>{
   router.post('/add_task',taskController.addTask);
   router.delete('/delete_task/:_id',taskController.deleteTask)
   router.put('/update_task/:_id',taskController.updateTask);
-  router.get('/fetch_tasks',taskController.fetchTasks);
+  router.get('/fetch_tasks/:dateline?/:subLawyer?',taskController.fetchTasks);
+  router.get('/fetch_tasks_for_case/:_id',taskController.fetchTasksForCase);
 
   router.get('/fetch_lawyer_notifications',notifyController.lawyerNotificationsCount);
   router.get('/fetch_student_notifications',notifyController.studentNotificationsCount);
-  router.put('/open_lawyer_notifications/:type' , notifyController.openLawyerNotifications);
+  router.put('/open_app_notifications/' , notifyController.openAppNotifications);
+  router.put('/open_book_notifications/' , notifyController.openBookNotifications);
   router.put('/open_student_notifications' , notifyController.openStudentNotifications);
 
   

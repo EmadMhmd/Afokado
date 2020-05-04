@@ -8,16 +8,17 @@ import { Button , ButtonGroup} from 'reactstrap';
 import moment from 'moment';
 import Spinner from '../../general_components/spinner_com/spinner.com.js';
 import EmptyMessage from '../../general_components/empty.com.js';
+import { Link } from 'react-router-dom';
+import CaseSearch from './caseSearch.com.js';
 
 class CasesList extends Component {
     componentDidMount() {
-        const { fetchCases } = this.props;
-        fetchCases()
-    }
-    fetchArchive(archive)
-    {
-        const { fetchCases } = this.props;
-        fetchCases(archive)
+        const { fetchCases ,cases}  = this.props;
+        if(cases.length === 0){
+            
+            fetchCases({archive:'em' , type:'em'})
+        }
+        
     }
     emptyCase(){
         const { cases } = this.props
@@ -35,9 +36,8 @@ class CasesList extends Component {
         }
         return (
             <div>
+                <CaseSearch />
                 <AddCase  />
-                <Button onClick={()=>this.fetchArchive(1)}>Archive</Button>
-                <Button onClick={()=>this.fetchArchive(0)}>Current</Button>
                 <h3>My Cases</h3>
                 
                 <hr />
@@ -54,6 +54,7 @@ class CasesList extends Component {
                                 <p>Type :{item.type}, Court :{item.court},  Number :{item.number}</p>
                             
                                 <span >{moment(item.created).format('LL')}</span>
+                                <Link to={'/casepage/' + item._id}>Details of Case</Link>
                             </div>
                             <div className='Btns' style={{ float: 'left', width: '40%' }}>
                         
@@ -76,7 +77,6 @@ class CasesList extends Component {
         )
     }
 }
-
 
 const mapStateToProps = ({ cases,fetch }) => {
     return {

@@ -1,5 +1,4 @@
-const mongoose =require('mongoose');
-const bcryptjs =require('bcryptjs');
+const mongoose =require('mongoose');0
 
 const archive = 0;
 const caseSchema = mongoose.Schema({
@@ -37,16 +36,9 @@ const caseSchema = mongoose.Schema({
         type : mongoose.Schema.Types.ObjectId,
         ref : 'User'
     },
-    tasks:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Task',
-    } ,
     finalDecision :{
         type : String,
     },
 })
-
-
-
 
 module.exports = mongoose.model( 'Case' , caseSchema) ;

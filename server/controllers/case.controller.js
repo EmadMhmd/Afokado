@@ -21,13 +21,35 @@ caseController.addCase = async (req , res ,next)=>{
 
 caseController.fetchCases= async (req , res , next)=>{
     const {user} = req;
-    const {archive}=req.params
-    const query ={
-        owner : user._id,
-        archive
-    };
+    const {archive , type}=req.params
+    let query;
+    if(archive && type){
+        if(archive !=='em' && type !== 'em'){
+            const archiveToBool =(archive === 'archive' ? 1 :0)
+            query ={
+                owner : user._id,
+                archive:archiveToBool,
+                type
+            };
+        }else if(archive ==='em' && type !== 'em'){
+            query ={
+                owner : user._id,
+                type
+            };
+        }else if(archive !=='em' && type === 'em'){
+            const archiveToBool =(archive === 'archive' ? 1 :0)
+            query ={
+                owner : user._id,
+                archive:archiveToBool
+            };
+        }
+    }else{
+        query ={
+            owner : user._id
+        };
+    }
     try{
-        const cases = await Case.find(query).sort({created : 'desc'});
+        const cases = await Case.find(query).sort({created : 'desc' , archive:0});
         return res.send({
             cases : cases
         });
@@ -37,6 +59,25 @@ caseController.fetchCases= async (req , res , next)=>{
         });
     }
 }
+
+// caseController.fetchCases= async (req , res , next)=>{
+//     const {user} = req;
+//     const {archive}=req.params
+//     const query ={
+//         owner : user._id,
+//         archive
+//     };
+//     try{
+//         const cases = await Case.find(query).sort({created : 'desc'});
+//         return res.send({
+//             cases : cases
+//         });
+//     }catch(e){
+//         return res.status(401).send({
+//             error :'fetching failed , try again !!'
+//         });
+//     }
+// }
 
 caseController.deleteCase= async (req , res , next)=>{
     try{

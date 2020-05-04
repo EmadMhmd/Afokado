@@ -1,99 +1,142 @@
-import React , {Component} from 'react';
+import React, { Component,Fragment } from 'react';
 import './applyHeader.com.css';
 import Background from './home3.jpg';
-import {FormGroup ,Button ,Input } from 'reactstrap';
-import {Formik} from 'formik';
+import { FormGroup, Button, Input } from 'reactstrap';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
-import {connect} from 'react-redux';
-import {fetchInternshipsForApply} from '../../../actions/internalship.action.js';
-
+import { connect } from 'react-redux';
+import { fetchInternshipsForApply } from '../../../actions/internalship.action.js';
+import axios from 'axios';
 
 var homeStyle = {
-    backgroundImage: "url(" +  Background  + ")",
+    backgroundImage: "url(" + Background + ")",
+    height: "300px"
 };
-class Header extends Component{
+class Header extends Component {
     _handleFormSubmit = (values, bag) => {
         const { fetchInternshipsForApply } = this.props;
         fetchInternshipsForApply(values)
         //this.props.history.push('/list');
     }
-    render(){
-        return(
-            <div className='head' style={ homeStyle }>
+    state = {
+        spec: [],
+        city: []
+    }
+    componentDidMount() {
+        axios.get('./data/spec.json ').then(res => {
+            this.setState({
+                spec: res.data.spec
+            })
+        })
+        axios.get('./data/city.json ').then(res => {
+            this.setState({
+                city: res.data.egypt
+            })
+        })
+    }
+    renderSpecOptions() {
+        return (
+            <Fragment>
+                {this.state.spec.map(sp => (
+                    <option key={Math.random()} value={sp} className='searchoOption'>{sp}</option>
+                ))}
+            </Fragment>
+        )
+    }
+    renderCityOptions() {
+        return (
+            <Fragment>
+                {this.state.city.map(ct => (
+                    <option key={Math.random()} value={ct} className='searchoOption'>{ct}</option>
+                ))}
+            </Fragment>
+        )
+    }
+    render() {
+        return (
+            <div className='head' style={homeStyle}>
 
                 <p>Best Lawyers in Egypt</p>
                 <Formik
-                            initialValues={{ paid: '', city: '', spec: ''}}
-                            validationSchema={Yup.object().shape({
-                                paid: Yup.number(),
-                                city: Yup.string(),
-                                spec: Yup.string(),
+                    className='form'
+                    initialValues={{ paid: '', city: '', spec: '' }}
+                    validationSchema={Yup.object().shape({
+                        paid: Yup.number(),
+                        city: Yup.string(),
+                        spec: Yup.string(),
 
-                            })}
-                            onSubmit={this._handleFormSubmit.bind(this)}
+                    })}
+                    onSubmit={this._handleFormSubmit.bind(this)}
 
-                        >
-
-
-                            {({
-                                values,
-                                handleChange,
-                                handleBlur,
-                                handleSubmit,
-                            }) => (
-                                    <div>
-                                        <FormGroup className='field'>
-                                            <Input
-                                                placeholder="paid"
-                                                type="number"
-                                                name="paid"
-                                                onChange={handleChange}
-                                                onBlur={handleBlur}
-                                                value={values.paid}
-                                            />
-                                        </FormGroup >
-                                        <FormGroup>
-                                            <Input 
-                                                type="select" 
-                                                name="spec"
-                                                placeholder="spec"
-                                                onChange={handleChange}
-                                                onBlur={handleBlur}
-                                                value={values.spec} 
-                                                >
-                                            <option >Select Spec</option>
-                                                <option  value='spec 1'>spec 1</option>
-                                                <option value='spec 2'>spec 2</option>
-                                                <option value='spec 3'>spec 3</option>
-                                                <option value='spec 4'>spec 4</option>
-                                            </Input>
-                                        </FormGroup>
-                                        <FormGroup>
-                                            <Input
-                                                type="text"
-                                                name="city"
-                                                placeholder="city"
-                                                onChange={handleChange}
-                                                onBlur={handleBlur}
-                                                value={values.city}
-                                            />
-                                        </FormGroup>
+                >
 
 
+                    {({
+                        values,
+                        handleChange,
+                        handleBlur,
+                        handleSubmit,
+                    }) => (
+                            <div>
+                                <FormGroup className='field'>
+                                    <Input
+                                        className='firstSearchCell'
+                                        placeholder="paid"
+                                        type="select"
+                                        name="paid"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.paid}
+                                    >
+                                        <option>Paid/Unpaid</option>
+                                        <option value='paid'>Paid</option>
+                                        <option value='unpaid'>Unpaid</option>
+                                    </Input>
+                                </FormGroup >
+                                <FormGroup>
+                                    <Input
+                                        className='cell'
+                                        type="select"
+                                        name="spec"
+                                        placeholder="spec"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.spec}
+                                    >
+                                        <option className='searchOption'>Select All Spec</option>
+                                        {this.renderSpecOptions()}
+                                    </Input>
+                                </FormGroup>
+                                <FormGroup>
+                                    <Input
+                                        className='cell'
+                                        type="select"
+                                        name="city"
+                                        placeholder="city"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.city}
+                                    >
+                                        <option className='searchOption'>Select all cities</option>
+                                        {this.renderCityOptions()}
+                                    </Input>
+                                </FormGroup>
 
-                                        <Button type="submit" onClick={handleSubmit}>
-                                            Search
-                                        </Button>
-                                    </div>
-                                )}
 
-                        </Formik>
 
-             </div>
-        
+                                <Button type="submit" onClick={handleSubmit} className='cell searchBtn'>
+                                    Search
+                                 </Button>
+                            </div>
+                        )}
+
+                </Formik>
+
+            </div>
+
         )
     }
 }
 
 
-export default connect(null,{fetchInternshipsForApply})(Header);
+export default connect(null, { fetchInternshipsForApply })(Header);

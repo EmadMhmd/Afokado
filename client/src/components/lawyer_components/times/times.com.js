@@ -40,9 +40,7 @@ class TimesList extends Component {
                         <div className='conatiner' style={{ overflow: 'hidden', marginBottom: 50 }}>
 
                             <div className='caseData' style={{ float: 'left', width: '40%' }}>
-                             
-                                <p>time :{item.time}</p>
-                                <span >{moment(item.created).format('LL')}</span>
+                                <p>time :{moment(item.time).format('DD-MM-YY dddd ')}</p>
                             </div>
                             <div className='Btns' style={{ float: 'left', width: '40%' }}>
                         

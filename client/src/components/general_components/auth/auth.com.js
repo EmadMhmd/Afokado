@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {NavLink } from 'react-router-dom';
-import Message from '../../general_components/message_com/message.com';
 import { Button, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
 import { Formik } from 'formik';
 import './auth.com.css';
@@ -16,18 +15,10 @@ class LoginPage extends Component {
             this.bag.setSubmitting(false);
         }   
     }
-    routeTo(){
-        const {error ,isAuth ,attempting}=this.props
-        if(isAuth === true){
-            this.props.history.push('/')    
-        }
-        else   this.props.history.push('/auth')     
-    }
     _handleFormSubmit = (values, bag) => {
         this.props.login(values);
         this.bag = bag; 
-        this.routeTo()
-        //this.props.history.push('/')                
+        this.props.history.push('/')   
     }
     render() {
         return (
@@ -36,7 +27,6 @@ class LoginPage extends Component {
                     <div className='sign'>
                         <h3>Login IN</h3>
                         <hr />
-                        <Message />
                         <Formik
                             initialValues={{ email: '', password: '' }}
                             validationSchema={Yup.object().shape({

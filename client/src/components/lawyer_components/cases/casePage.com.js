@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
-import AddTask from './addTask.com.js';
+import AddTask from '../agenda/addTask.com.js';
+import UpdateTask from '../agenda/updateTask.com.js';
 import { connect } from 'react-redux';
 import { Button , ButtonGroup} from 'reactstrap';
 import moment from 'moment';
 import Spinner from '../../general_components/spinner_com/spinner.com.js';
-import TaskSearch from './taskSearch.com'
-import UpdateTask from './updateTask.com.js';
-import { fetchTasks ,deleteTask } from '../../../actions/task.action';
+
+import {fetchTasksForCase , deleteTask} from '../../../actions/task.action';
 import EmptyMessage from '../../general_components/empty.com';
-import FloatBtn from '../../general_components/float_btn/floatBtn.com';
-class Agenda extends Component {
+
+class CasePage extends Component {
     componentDidMount() {
-        const { fetchTasks , tasks} = this.props;
-        if(tasks.length===0){
-            fetchTasks({dateline:'em' ,subLawyer:'em'})
-        }
+        const {fetchTasksForCase}=this.props
+        const {id}=this.props.match.params
+        fetchTasksForCase(id)
     }
     emptyCase(){
         const { tasks } = this.props
@@ -26,20 +25,16 @@ class Agenda extends Component {
         }
     }
     render() {
-        const { fetching, tasks ,fetchTasks} = this.props
+        const { fetching, tasks } = this.props
+        const {id}=this.props.match.params
         if (fetching) {
             return <Spinner size={50} />
         }
         return (
             <div>
-                <FloatBtn />
-                <TaskSearch />
-                <h3>My Agenda</h3>
-                <Button >Yesterday</Button>
-                <Button onClick={()=>fetchTasks({dateline:moment().add(6,'days'), subLawyer:'em'})}>Today</Button>
-                <Button>Tomorrow</Button>
-                <AddTask
-                 />
+                
+                <h3>Taks</h3>
+                <AddTask caseId={id}/>
                 <hr />
                 {this.emptyCase()}
                 {tasks.map((item) => (
@@ -52,7 +47,8 @@ class Agenda extends Component {
                                 <h3>{item.title}</h3>
                                 <p>description :{item.description}</p>
                                 <p>Notes :{item.notes}</p>
-                                <p>subLawyer :{item.subLawyer}</p>
+                                <p>Decision :{item.decision}</p>
+                            
                                 <span >{moment(item.dateline).format('LL')}</span>
                             </div>
                             <div className='Btns' style={{ float: 'left', width: '40%' }}>
@@ -83,4 +79,4 @@ const mapStateToProps = ({ task,fetch }) => {
     }
 }
 
-export default connect(mapStateToProps, { fetchTasks, deleteTask })(Agenda);
+export default connect(mapStateToProps, { fetchTasksForCase, deleteTask })(CasePage);

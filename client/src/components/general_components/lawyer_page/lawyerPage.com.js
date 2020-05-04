@@ -7,6 +7,7 @@ import AddReview from '../rate/addReview.com.js';
 import HeaderSearch from '../book_search_header/bookHeader.com.js';
 import lm from './lawm.png';
 import './lawyerPage.style.css';
+import moment from 'moment';
 
 class LawyerPage extends Component {
     componentDidMount() {
@@ -75,7 +76,7 @@ class LawyerPage extends Component {
                         </div>
 
                         <div className='lawyerAbout sec'>
-                            <h3>bout Lawyer</h3>
+                            <h3>About Lawyer</h3>
                             <p>{lawyer.summary}</p>
                         </div>
                         <div className='lawyerReview sec'>
@@ -101,9 +102,7 @@ class LawyerPage extends Component {
                                         
                                         <option disabled selected>Select Time</option>
                                         {times.map(onetime => (
-                                            <Fragment key={Math.random()}>
-                                                <option value={onetime._id}>{onetime.time}</option>
-                                            </Fragment>
+                                            <option key={onetime._id} value={onetime._id}> {moment(onetime.time).format(' DD-MM-YYYY  dddd')}</option>
                                         ))}
                                     </Input>
                                 </FormGroup>

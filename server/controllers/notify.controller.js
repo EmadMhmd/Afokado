@@ -25,18 +25,26 @@ notifyController.lawyerNotificationsCount= async (req ,res ,next)=>{
         });
     }
 }
-notifyController.openLawyerNotifications=async(req ,res ,next)=>{
+notifyController.openBookNotifications=async(req ,res ,next)=>{
     const {user} =req
-    const {type}=req.params
     try{
-        if(type==="app"){
-            await Apply.deleteMany({lawyer:user._id ,deleted:1})
-            await Apply.updateMany({lawyer:user._id , deleted:0 , confirmed:1} , {notify:1})
-        }
-        if(type==="book"){
-            await Book.updateMany({lawyer:user._id , deleted:0, confirmed:1} , {notify:1})
-            await Book.deleteMany({lawyer:user._id ,deleted:1})
-        }
+        await Book.updateMany({lawyer:user._id , deleted:0, confirmed:1} , {notify:1})
+        await Book.deleteMany({lawyer:user._id ,deleted:1})
+        return res.send({
+           message:'Opened successfully'
+            
+        })
+    }catch(e){
+        return res.status(401).send({
+            error :'open notification failed'
+        });
+    }
+}
+notifyController.openAppNotifications=async(req ,res ,next)=>{
+    const {user} =req
+    try{
+        await Apply.deleteMany({lawyer:user._id ,deleted:1})
+        await Apply.updateMany({lawyer:user._id , deleted:0 , confirmed:1} , {notify:1})
         return res.send({
            message:'Opened successfully'
             
@@ -71,8 +79,8 @@ notifyController.openStudentNotifications=async(req ,res ,next)=>{
     try{
         
         //await Apply.deleteMany({trainee:user._id ,deleted:1 })
-        await Apply.updateMany({trainee:user._id , stuNotify:0 ,status:'accept'} , {stuNotify:1})
-        await Apply.updateMany({trainee:user._id , stuNotify:0 ,status:'reject'} , {stuNotify:1})
+        //await Apply.updateMany({trainee:user._id , stuNotify:0 ,status:'reject'} , {stuNotify:1})
+        await Apply.updateMany({$or: [ { trainee:user._id , stuNotify:0 ,status:'accept' }, {trainee:user._id , stuNotify:0 ,status:'reject' } ]} , {stuNotify:1})
         return res.send({
            message:'Opened successfully'
             

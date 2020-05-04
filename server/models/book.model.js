@@ -1,6 +1,7 @@
 const mongoose =require('mongoose');
 
 const init=0;
+const dvStatus='cur';
 const bookSchema = mongoose.Schema({
     notify:{
         type:Number,
@@ -18,8 +19,9 @@ const bookSchema = mongoose.Schema({
         type : mongoose.Schema.Types.ObjectId,
         ref : 'Time'
     },
-    time:{
-        type : Date,
+    timeStatus:{
+        type:String,
+        default:dvStatus
     },
     created:{
         type:Date,
@@ -29,9 +31,6 @@ const bookSchema = mongoose.Schema({
     lawyer:{
         type : mongoose.Schema.Types.ObjectId,
         ref : 'User'
-    },
-    lawyerName:{
-        type:String
     },
     no:{
         type:Number

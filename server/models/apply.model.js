@@ -2,6 +2,7 @@ const mongoose =require('mongoose');
 
 const init=0;
 const status='pending';
+const dvStatus='cur';
 const applySchema = mongoose.Schema({
     notify:{
         type:Number,
@@ -22,6 +23,10 @@ const applySchema = mongoose.Schema({
     status:{
         type:String,
         default:status
+    },
+    timeStatus:{
+        type:String,
+        default:dvStatus
     },
     internshipId:{
         type : mongoose.Schema.Types.ObjectId,

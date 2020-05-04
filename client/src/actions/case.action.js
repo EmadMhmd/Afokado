@@ -1,15 +1,18 @@
 import {CASE_ADDED ,CASES_FETCHING_SUCCESS  ,CASE_DELETED ,CASE_UPDATED} from '../actions/actionTypes';
 import {addError ,clearError} from './error.action';
 import {fetchingTime , fetchingFailed} from './fetch.action';
-import {apiAddCase ,apiFetchCases , apiUpdateCase ,apiDeleteCase ,apiArchiveCase} from '../api/case.api'
+import {apiAddCase ,apiFetchCases , apiUpdateCase ,apiDeleteCase ,apiArchiveCase} from '../api/case.api';
+import {addMessage ,clearMessage} from './message.action';
 
 export const addCase= newCase =>{
 return async dispatch=>{
     try{
         dispatch(clearError())
-        await  apiAddCase(newCase);
+        dispatch(clearMessage())
+        const {data:{message}}=await  apiAddCase(newCase);
         dispatch({type : CASE_ADDED})
-        dispatch(fetchCases())
+        dispatch(fetchCases({archive:'em' , type:'em'}))
+        dispatch(addMessage(message))
     }catch(e){
         dispatch(addError(e))
     }
@@ -20,9 +23,11 @@ export const updateCase= newCase =>{
     return async dispatch=>{
         try{
             dispatch(clearError())
-            await  apiUpdateCase(newCase);
+            dispatch(clearMessage())
+            const {data:{message}}=await  apiUpdateCase(newCase);
             dispatch({type : CASE_UPDATED})
-            dispatch(fetchCases())
+            dispatch(fetchCases({archive:'em' , type:'em'}))
+            dispatch(addMessage(message))
         }catch(e){
             dispatch(addError(e))
         }
@@ -32,9 +37,11 @@ export const deleteCase= id =>{
     return async dispatch=>{
         try{
             dispatch(clearError())
-            await  apiDeleteCase(id);
+            dispatch(clearMessage())
+            const {data:{message}}=await  apiDeleteCase(id);
             dispatch({type:CASE_DELETED})
-            dispatch(fetchCases())
+            dispatch(fetchCases({archive:'em' , type:'em'}))
+            dispatch(addMessage(message))
         }catch(e){
             dispatch(addError(e))
         }
@@ -44,8 +51,10 @@ export const archievCase= id =>{
         return async dispatch=>{
             try{
                 dispatch(clearError())
-                await  apiArchiveCase(id);
-                dispatch(fetchCases())
+                dispatch(clearMessage())
+                const {data:{message}}=await  apiArchiveCase(id);
+                dispatch(fetchCases({archive:'em' , type:'em'}))
+                dispatch(addMessage(message))
             }catch(e){
                 dispatch(addError(e))
             }
@@ -53,12 +62,13 @@ export const archievCase= id =>{
         }
 
 
-export const fetchCases= (archive=0) =>{
+export const fetchCases= (query) =>{
     return async dispatch=>{
         try{
             dispatch(clearError())
+            dispatch(clearMessage())
             dispatch(fetchingTime())
-            const {data:{cases}} =await apiFetchCases(archive);
+            const {data:{cases}} =await apiFetchCases(query);
             dispatch({type:CASES_FETCHING_SUCCESS , payload:cases})
             dispatch(fetchingFailed())
         }catch(e){

@@ -1,32 +1,37 @@
 import React , {Component, Fragment } from 'react';
-import { Alert } from 'reactstrap';
+import { UncontrolledAlert } from 'reactstrap';
 import {connect} from 'react-redux';
 
 class Message extends Component{
+
+    
     _renderMessage(){
+        const msg={
+            marginBottom:'0'
+        }
         const {message , error}=this.props;
         if(error && !message){
             return (
-                <Alert color='danger'>
+                <UncontrolledAlert style={msg} color='danger'>
                         {error}
-                </Alert>
+                </UncontrolledAlert>
             );
         }
         else if(message && !error){
             return (
-            <Alert color='dark'>
+            <UncontrolledAlert style={msg} color='dark'>
                 {message}
-            </Alert>
+            </UncontrolledAlert>
             );
         }else if(message && error){
             return (
                 <Fragment>
-                    <Alert color='danger'>
+                    <UncontrolledAlert style={msg} color='danger' >
                         {error}
-                    </Alert>
-                        <Alert color='dark'>
+                    </UncontrolledAlert>
+                    <UncontrolledAlert style={msg}  color='dark'>
                         {message}
-                    </Alert>
+                    </UncontrolledAlert >
                 </Fragment>
                 
             );
@@ -36,7 +41,7 @@ class Message extends Component{
     }
     render(){
         return(
-            <div>
+            <div >
                {this._renderMessage()}
             </div>
         )

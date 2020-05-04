@@ -1,16 +1,50 @@
 import { NavLink } from 'react-router-dom';
-import React, { Component } from 'react';
+import React, { Component,Fragment } from 'react';
 import { Button, FormGroup, Label, Input, FormFeedback ,Row ,Col} from 'reactstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import './signup.com.css';
 import { connect } from 'react-redux';
 import { sign } from '../../../actions/auth.actions.js';
+import axios from 'axios';
 
 
 
 class Signup_lawyer extends Component {
-
+    state = {
+        spec: [],
+        city: []
+    }
+    componentDidMount() {
+        axios.get('./data/spec.json ').then(res => {
+            this.setState({
+                spec: res.data.spec
+            })
+        })
+        axios.get('./data/city.json ').then(res => {
+            this.setState({
+                city: res.data.egypt
+            })
+        })
+    }
+    renderSpecOptions() {
+        return (
+            <Fragment>
+                {this.state.spec.map(sp => (
+                    <option key={Math.random()} value={sp}>{sp}</option>
+                ))}
+            </Fragment>
+        )
+    }
+    renderCityOptions() {
+        return (
+            <Fragment>
+                {this.state.city.map(ct => (
+                    <option key={Math.random()} value={ct}>{ct}</option>
+                ))}
+            </Fragment>
+        )
+    }
     _handleFormSubmit = (values, bag) => {
         //apiSignup(values)
 
@@ -149,10 +183,8 @@ class Signup_lawyer extends Component {
                                                 onBlur={handleBlur}
                                                 value={values.spec} 
                                                 >
-                                                <option>spec 1</option>
-                                                <option>spec 2</option>
-                                                <option>spec 3</option>
-                                                <option>spec 4</option>
+                                                <option>Select spec</option>
+                                                {this.renderSpecOptions()}
                                             </Input>
                                             {errors.spec && touched.spec ? (<FormFeedback>{errors.spec}</FormFeedback>) : null}
                                         </FormGroup>
@@ -167,10 +199,9 @@ class Signup_lawyer extends Component {
                                                 onBlur={handleBlur}
                                                 value={values.sspec} 
                                                 >
-                                                <option>spec 1</option>
-                                                <option>spec 2</option>
-                                                <option>spec 3</option>
-                                                <option>spec 4</option>
+                                                <option>select spec</option>
+                                                <option value='all' >All</option>
+                                                {this.renderSpecOptions()}
                                             </Input>
                                             {errors.sspec && touched.sspec ? (<FormFeedback>{errors.sspec}</FormFeedback>) : null}
                                         </FormGroup>
@@ -185,6 +216,7 @@ class Signup_lawyer extends Component {
                                                 onBlur={handleBlur}
                                                 value={values.gender} 
                                                 >
+                                                <option>Select geneder</option>
                                                 <option>Male</option>
                                                 <option>Femal</option>
                                                 
@@ -209,13 +241,17 @@ class Signup_lawyer extends Component {
                                                 <FormGroup>
                                                     <Label >City</Label>
                                                     <Input
-                                                        type="text"
+                                                        type="select"
                                                         name="city"
                                                         placeholder="city"
                                                         onChange={handleChange}
                                                         onBlur={handleBlur}
                                                         value={values.city}
-                                                    />
+                                                    >
+                                                        <option>Select city</option>
+                                                        {this.renderCityOptions()}
+                                                    </Input>
+
                                                 </FormGroup>
                                             </Col>
                                             <Col md={4}>

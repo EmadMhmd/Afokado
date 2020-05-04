@@ -7,8 +7,8 @@
     color: white;
     padding-top: 50px;
     padding-bottom: 50px;
-  margin-top: 0;
-    
+    margin-top: 0;
+
 }
 .footer-search{
     width: 45%;
@@ -19,8 +19,6 @@
     width: 45%;
     float: left;
 }
-
-
 .about .title{
     text-decoration: none;
     font-size: 30px;

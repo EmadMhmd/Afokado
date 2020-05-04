@@ -22,6 +22,9 @@ const taskSchema = mongoose.Schema({
     decision:{
         type:String
     },
+    subLawyer:{
+        type:String
+    },
     notes:{
         type:String
     },

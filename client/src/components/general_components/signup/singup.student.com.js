@@ -1,16 +1,51 @@
 import { NavLink } from 'react-router-dom';
-import React, { Component } from 'react';
-import { Button, FormGroup, Label, Input, FormFeedback ,Row ,Col} from 'reactstrap';
+import React, { Component, Fragment } from 'react';
+import { Button, FormGroup, Label, Input, FormFeedback, Row, Col } from 'reactstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import './signup.com.css';
 import { connect } from 'react-redux';
 import { sign } from '../../../actions/auth.actions.js';
+import axios from 'axios';
 
 
 
 class Signup_student extends Component {
+    state = {
+        city: [],
+        uni: []
+    }
+    componentDidMount() {
 
+        axios.get('./data/city.json ').then(res => {
+            this.setState({
+                city: res.data.egypt
+            })
+        })
+        axios.get('./data/uni.json ').then(res => {
+            this.setState({
+                uni: res.data.egypt
+            })
+        })
+    }
+    renderCityOptions() {
+        return (
+            <Fragment>
+                {this.state.city.map(ct => (
+                    <option key={Math.random()} value={ct}>{ct}</option>
+                ))}
+            </Fragment>
+        )
+    }
+    renderUniOptions() {
+        return (
+            <Fragment>
+                {this.state.uni.map(un => (
+                    <option key={Math.random()} value={un}>{un}</option>
+                ))}
+            </Fragment>
+        )
+    }
     _handleFormSubmit = (values, bag) => {
         if (values) {
             const { sign } = this.props;
@@ -20,7 +55,6 @@ class Signup_student extends Component {
         }
         else {
             bag.isSubmitting(false)
-
         }
     }
 
@@ -31,7 +65,7 @@ class Signup_student extends Component {
                     <div className='sign'>
                         <h3>Sign Up</h3>
                         <Formik
-                            initialValues={{ userName: '', email: '', password: '', mobile: '', level: '', age: '', address: '', city: '', state: '', uni: '', zip: '' ,gender:''}}
+                            initialValues={{ userName: '', email: '', password: '', mobile: '', level: '', age: '', address: '', city: '', state: '', uni: '', zip: '', gender: '' }}
                             validationSchema={Yup.object().shape({
                                 userName: Yup.string().required(),
                                 email: Yup.string().email().required(),
@@ -136,31 +170,30 @@ class Signup_student extends Component {
 
                                         <FormGroup>
                                             <Label>Uni</Label>
-                                            <Input 
-                                                type="select" 
+                                            <Input
+                                                type="select"
                                                 name="uni"
                                                 placeholder="select Your uni"
                                                 invalid={errors.uni && touched.uni && errors.uni}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                                 value={values.uni} >
-                                                <option>cairo</option>
-                                                <option>heiwan</option>
-                                                <option>alex</option>
-                                                <option>ain shams</option>
+                                                <option>Select Uni</option>
+                                                {this.renderUniOptions()}
                                             </Input>
                                             {errors.uni && touched.uni ? (<FormFeedback>{errors.uni}</FormFeedback>) : null}
                                         </FormGroup>
                                         <FormGroup>
                                             <Label>Gender</Label>
-                                            <Input 
-                                                type="select" 
+                                            <Input
+                                                type="select"
                                                 name="gender"
                                                 placeholder="select Your gender"
                                                 invalid={errors.gender && touched.gender && errors.gender}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                                 value={values.gender} >
+                                                <option>Select gender</option>
                                                 <option>male</option>
                                                 <option>female</option>
                                             </Input>
@@ -184,13 +217,16 @@ class Signup_student extends Component {
                                                 <FormGroup>
                                                     <Label >City</Label>
                                                     <Input
-                                                        type="text"
+                                                        type="select"
                                                         name="city"
                                                         placeholder="city"
                                                         onChange={handleChange}
                                                         onBlur={handleBlur}
                                                         value={values.city}
-                                                    />
+                                                    >
+                                                        <option>Select City</option>
+                                                        {this.renderCityOptions()}
+                                                    </Input>
                                                 </FormGroup>
                                             </Col>
                                             <Col md={4}>

@@ -4,8 +4,12 @@ export const apiAddCase= newCase => {
     return axios.post('http://localhost:5000/add_case',newCase)
 }
 
-export const apiFetchCases= (archive=0) => {
-    return axios.get(`http://localhost:5000/fetch_cases/${archive}`)
+
+export const apiFetchCases=(query)=>{
+    if(query.archive || query.type ){
+        return axios.get(`http://localhost:5000/fetch_cases/${ (query.archive) ? query.archive : 'em'}/${ (query.type) ? query.type : 'em'}`);
+    }
+    return axios.get(`http://localhost:5000/fetch_cases`);
 }
 
 export const apiUpdateCase= one_case => {

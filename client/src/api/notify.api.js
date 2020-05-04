@@ -1,6 +1,9 @@
 import axios from 'axios';
-export const apiOpenLawyerNotifications= type =>{
-    return axios.put(`http://localhost:5000/open_lawyer_notifications/${type}`)
+export const apiOpenAppNotifications= () =>{
+    return axios.put(`http://localhost:5000/open_app_notifications`)
+}
+export const apiOpenBookNotifications= () =>{
+    return axios.put(`http://localhost:5000/open_book_notifications`)
 }
 export const apiFetchLawyerNotifications= () =>{
     return axios.get('http://localhost:5000/fetch_lawyer_notifications')

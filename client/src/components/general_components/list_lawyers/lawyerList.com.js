@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchLawyers } from '../../../actions/lawyer.action';
 import Spinner from '../spinner_com/spinner.com.js';
-import HeaderSearch from '../book_search_header/bookHeader.com.js';
+import HeaderSearch from '../book_search_header/bookHeader.com';
 import { Link } from 'react-router-dom';
 import './lawyerList.style.css';
 import lm from './lawm.png';

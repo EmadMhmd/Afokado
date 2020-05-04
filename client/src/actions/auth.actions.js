@@ -10,29 +10,24 @@ const TOKEN_NAME='afokado_app_token'
 
 ////////////////////////////////////////////////// {ACTION CREATORS} ///////////////////////////////////////
 
-//action creator , not action
 export const login = (request_data) =>{
     return async dispatch =>{
         dispatch({type : AUTH_ATTEMPING }) 
         try{
             dispatch(clearError())
             dispatch(clearMessage())
-            const {data : {token , message}} = await apiLogin(request_data)
+            const {data : {token , message}} = await (await apiLogin(request_data))
             setAuthHeadre(token);
             dispatch(getProfile())
             dispatch(success(token))
             dispatch(addMessage(message))
         }catch(e){
-            
-            dispatch(addError(e))
-            
+            dispatch(addError(e)) 
         }
     }
 }
 
 
-
-//to check if you are looged or not 
 export const onLoadingSignIn = ()=>{
     return dispatch =>{
         try{
@@ -43,7 +38,6 @@ export const onLoadingSignIn = ()=>{
             }else{
                 setAuthHeadre(token)
                 dispatch(getProfile())
-                
                 return dispatch(success(token))
             }
         }catch(e){
@@ -74,27 +68,28 @@ export const sign=(user)=>{
     return async dispatch=>{
         try{     
             dispatch(clearError()) 
-            await apiSign(user)
+            dispatch(clearMessage())
+            const {data:{message}}=await apiSign(user)
             dispatch({type:USER_ADDED})
+            dispatch(addMessage(message))
         }catch(e){
             dispatch(addError(e))
         }
     }
 }
 
-
-//////////////////////////////////////// {ACTIONS} ///////////////////////////////////////
-
-//action , not action creator
 export const logUserOut =()=>{
     return async dispatch=>{
         dispatch(clearError())
         dispatch(clearMessage())
         localStorage.clear();
         dispatch({ type : UESR_LOGOUT})
+        
     }
 }
-//action , not action creator
+
+//////////////////////////////////////// {ACTIONS} ///////////////////////////////////////
+
 const success = (token)=>{
     localStorage.setItem(TOKEN_NAME,token)
     return {type :AUTH_SUCCESS}

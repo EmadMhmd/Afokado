@@ -1,6 +1,6 @@
 import {LAWYERS_FETCHING_SUCCESS ,LAWYER_GETTING_SUCCESS  ,RATES_FETCHING_SUCCESS ,TIMES_FETCHING_SUCCESS } from '../actions/actionTypes';
 import {fetchingTime ,fetchingFailed} from './fetch.action';
-import {addError ,clearError} from './error.action'
+import {addError ,clearError} from './error.action';
 import {apiFetchLawyers , apiGetLawyer} from '../api/lawyer.api';
 import {apiFetchRates} from '../api/rate.api.js';
 import {apiFetchTimes} from '../api/times.api.js';
