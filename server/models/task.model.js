@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
 const taskSchema = mongoose.Schema({
+    title:{
+        type:String
+    },
     created:{
         type:Date,
         default:new Date()
@@ -10,11 +13,13 @@ const taskSchema = mongoose.Schema({
     },
     caseId :{
         type : mongoose.Schema.Types.ObjectId,
-        ref : 'Case'
+        ref : 'Case',
+        required : true
     },
     owner :{
         type : mongoose.Schema.Types.ObjectId,
-        ref : 'User'
+        ref : 'User',
+        required : true
     },
     dateline:{
         type:Date

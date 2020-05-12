@@ -1,27 +1,27 @@
 import React, { Component } from 'react';
 import { fetchTimes, deleteTime } from '../../../actions/time.action';
 import { connect } from 'react-redux';
-import { Button , ButtonGroup} from 'reactstrap';
+import { Button } from 'reactstrap';
 import moment from 'moment';
-import AddTime  from './addTime.com.js';
+import AddTime from './addTime.com.js';
 import Spinner from '../../general_components/spinner_com/spinner.com.js';
 import EmptyMessage from '../../general_components/empty.com.js';
 
 
 class TimesList extends Component {
     componentDidMount() {
-        const { fetchTimes ,profile:{_id}} = this.props;
+        const { fetchTimes, profile: { _id } } = this.props;
         fetchTimes(_id)
     }
-    emptyCase(){
+    emptyCase() {
         const { times } = this.props
-        const message=`oops! you still don't have any time !?`
-        if(times.length===0){
+        const message = `oops! you still don't have any time !?`
+        if (times.length === 0) {
             return (
                 <EmptyMessage message={message} />
             )
         }
-    } 
+    }
     render() {
         const { fetching, times } = this.props
         if (fetching) {
@@ -29,45 +29,38 @@ class TimesList extends Component {
         }
         return (
             <div>
-               <AddTime />
-               
-                <h3>My Times</h3>
-                <hr />
-                {this.emptyCase()}
-                {times.map((item) => (
-
-                    <div key={item._id} style={{ overflow: 'hidden' }}>
-                        <div className='conatiner' style={{ overflow: 'hidden', marginBottom: 50 }}>
-
-                            <div className='caseData' style={{ float: 'left', width: '40%' }}>
-                                <p>time :{moment(item.time).format('DD-MM-YY dddd ')}</p>
-                            </div>
-                            <div className='Btns' style={{ float: 'left', width: '40%' }}>
-                        
-                                <ButtonGroup>
-                                    <Button onClick={() => this.props.deleteTime(item)}>Delete</Button>
-                                </ButtonGroup>
-                            </div>
+                <div className='bg items'>
+                    <div className='listConatiner'>
+                        <div cleas='headBar'>
+                            <h3 className='header'>My Times</h3>
+                            <AddTime />
                         </div>
-                        <hr/>
+
+                        {times.map((item) => (
+                            <div key={item._id} className='item'>
+                                <div className='itemBody' >
+                                    <pre className='bodyPara' >time       : {moment(item.time).format('DD-MM-YY dddd ')}</pre>
+                                    <abbr title='Delete the Time'><Button className='del' onClick={() => this.props.deleteTime(item)}><i className='fa fa-trash fas' /></Button></abbr>
+                                </div>
+                            </div>
+                        ))}
+
+
                     </div>
-
-
-                ))}
-
-
+                </div>
+                {this.emptyCase()}
             </div>
         )
     }
 }
 
 
-const mapStateToProps = ({ time ,fetch , auth}) => {
+const mapStateToProps = ({ time, fetch, auth }) => {
     return {
         fetching: fetch.fetching,
         times: time.times,
-        profile:auth.profile
+        profile: auth.profile
     }
 }
 
-export default connect(mapStateToProps, { fetchTimes, deleteTime})(TimesList);
+export default connect(mapStateToProps, { fetchTimes, deleteTime })(TimesList);

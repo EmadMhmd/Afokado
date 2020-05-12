@@ -3,6 +3,9 @@ const mongoose =require('mongoose');
 const count = 1;
 const init =0;
 const internshipSchema = mongoose.Schema({
+    title : {
+        type : String
+    },
     count : {
         type : Number,
         default:count
@@ -13,6 +16,9 @@ const internshipSchema = mongoose.Schema({
     },
     duration :{
         type : Number
+    },
+    startDate:{
+        type:Date,
     },
     description :{
         type : String,
@@ -30,7 +36,12 @@ const internshipSchema = mongoose.Schema({
     },
     owner :{
         type : mongoose.Schema.Types.ObjectId,
-        ref : 'User'
+        ref : 'User',
+        required : true
+    },
+    appCount:{
+        type:Number,
+        default:init
     }
 })
 

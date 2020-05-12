@@ -1,0 +1,30 @@
+.steps{
+    overflow: hidden;
+    text-align: center;
+    padding: 25px;
+}
+.steps>h3{
+    font-size: 35px;
+    margin-bottom: 50px;
+
+}
+.steps .step{
+    width: 32%;
+    text-align: center;
+    float: left;
+}
+.step .icon{
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+    color: #0070cd;
+}
+.step h3 span{
+    border: 1px solid #0070cd;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 50%;
+    color: #fff;
+    background-color: #0070cd;
+    margin-right: 10px;
+}

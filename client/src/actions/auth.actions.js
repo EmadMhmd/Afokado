@@ -1,7 +1,7 @@
 import {AUTH_ATTEMPING ,  AUTH_SUCCESS , UESR_LOGOUT , PROFILE_GETTING ,USER_ADDED ,ADD_ERROR } from './actionTypes';
 import {addError ,clearError} from './error.action';
 import {addMessage ,clearMessage } from './message.action';
-import { apiLogin , apiSign ,apiSignForBook ,apiGetProfile } from "../api/auth.api.js";
+import { apiLogin , apiSign  ,apiGetProfile } from "../api/auth.api.js";
 import setAuthHeadre from '../api/setAuthHeader.js';
 import {fetchLawyerNotifications , fetchStudentNotifications} from './notify.action';
 

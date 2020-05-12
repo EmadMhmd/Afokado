@@ -1,7 +1,7 @@
-import {CASE_ADDED ,CASES_FETCHING_SUCCESS  ,CASE_DELETED ,CASE_UPDATED} from '../actions/actionTypes';
+import {CASE_ADDED ,CASES_FETCHING_SUCCESS  ,CASE_DELETED ,CASE_UPDATED, CASE_GETTING_SUCCESS} from '../actions/actionTypes';
 import {addError ,clearError} from './error.action';
 import {fetchingTime , fetchingFailed} from './fetch.action';
-import {apiAddCase ,apiFetchCases , apiUpdateCase ,apiDeleteCase ,apiArchiveCase} from '../api/case.api';
+import {apiAddCase ,apiFetchCases , apiUpdateCase ,apiDeleteCase ,apiArchiveCase , apiGetCase} from '../api/case.api';
 import {addMessage ,clearMessage} from './message.action';
 
 export const addCase= newCase =>{
@@ -77,3 +77,18 @@ export const fetchCases= (query) =>{
         }
     }
     }
+export const getCase= (id) =>{
+        return async dispatch=>{
+            try{
+                dispatch(clearError())
+                dispatch(clearMessage())
+                dispatch(fetchingTime())
+                const {data:{cases}} =await apiGetCase(id);
+                dispatch({type:CASE_GETTING_SUCCESS , payload:cases})
+                dispatch(fetchingFailed())
+            }catch(e){
+                dispatch(fetchingFailed())
+                dispatch(addError(e))
+            }
+        }
+        }

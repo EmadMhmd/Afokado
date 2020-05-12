@@ -67,7 +67,7 @@ export const fetchTasksForCase=(id)=>{
             dispatch(clearError())
             dispatch(fetchingTime())
             const {data:{tasks}}= await apiFetchTasksForCase(id);
-            dispatch({type:TASKS_FETCHING_SUCCESS ,payload:tasks})
+            dispatch({type:TASKS_FETCHING_SUCCESS , payload:tasks})
             dispatch(fetchingFailed())
         }catch(e){
             dispatch(fetchingFailed(e))

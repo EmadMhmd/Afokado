@@ -3,7 +3,7 @@ import AddInternalship from './addInternalship.com.js';
 import UpdateInternalship from './updateInternalship.com.js';
 import { fetchInternshipsForLawyer, deleteInternship } from '../../../actions/internalship.action';
 import { connect } from 'react-redux';
-import { Button ,ButtonGroup} from 'reactstrap';
+import { Button } from 'reactstrap';
 import moment from 'moment';
 import EmptyMessage from '../../general_components/empty.com.js';
 import Spinner from '../../general_components/spinner_com/spinner.com.js';
@@ -13,10 +13,10 @@ class InternalshipsList extends Component {
         const { fetchInternshipsForLawyer } = this.props;
         fetchInternshipsForLawyer()
     }
-    emptyCase(){
+    emptyCase() {
         const { internships } = this.props
-        const message=`oops! you still don't have any internship !?`
-        if(internships.length===0){
+        const message = `oops! you still don't have any internship !?`
+        if (internships.length === 0) {
             return (
                 <EmptyMessage message={message} />
             )
@@ -29,42 +29,46 @@ class InternalshipsList extends Component {
         }
         return (
             <div>
-                
-                <AddInternalship />
-                <h3>My internships</h3>
-                <hr />
-                {this.emptyCase()}
-                {internships.map((item) => (
-                    <div key={item._id} style={{ overflow: 'hidden' }}>
-                        <div className='conatiner' style={{ overflow: 'hidden', marginBottom: 50 }}>
+                <div className='bg items'>
+                    <div className='listConatiner'>
 
-                            <div className='caseData' style={{ float: 'left', width: '40%' }}>
-                                <span >{moment(item.created).format('LL')}</span>
-                                <span >{item.description}</span>
+                        
 
-                            </div>
-                            <div className='Btns' style={{ float: 'left', width: '40%' }}>
 
-                                <ButtonGroup>
-                                    <UpdateInternalship internship={item} />
-                                    <Button onClick={() => this.props.deleteInternship(item._id)}>Delete</Button>
-                                </ButtonGroup>
-                            </div>
+                        <div cleas='headBar'>
+                            <h3 className='header'>My internships</h3>
+                            <AddInternalship />
                         </div>
-                        <hr />
+                        {internships.map((item) => (
+                            <div key={item._id} className='item'>
+                                <h3 className='itemHeader'>{item.title}</h3>
+                                <div className='itemBody'>
+                                    <p className="desc">Description :</p>
+                                    <p className='txt'> {item.description}</p>
+                                    <pre>Start Date         : {moment(item.startDate).format(' DD-MM-YYYY  dddd')}</pre>
+                                    <pre>count              : {item.count}</pre>
+                                    <pre>paid               : {item.paid}</pre>
+                                    <pre>created time       : {moment(item.created).format('LL')}</pre>
+                                    <abbr title='Delete the Case'><Button className='del' onClick={() => this.props.deleteInternship(item._id)}><i className='fa fa-trash fas' /></Button></abbr>
+                                </div>
+                                <hr />
+                                <UpdateInternalship internship={item} />
+                            </div>
+
+
+                        ))}
+
+
                     </div>
-                   
-               
-               ))}
-
-
+                </div>
+                {this.emptyCase()}
             </div>
         )
     }
 }
 
 
-const mapStateToProps = ({ internship ,fetch}) => {
+const mapStateToProps = ({ internship, fetch }) => {
     return {
         fetching: fetch.fetching,
         internships: internship.internships

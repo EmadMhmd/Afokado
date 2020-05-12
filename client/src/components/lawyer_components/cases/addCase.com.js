@@ -4,7 +4,6 @@ import { Button, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import './addCase.style.css';
 import { addCase, fetchCases } from '../../../actions/case.action.js';
 
 
@@ -38,13 +37,12 @@ class AddCasePage extends Component {
     render() {
         return (
             <div>
-                <Button onClick={this.toggle} style={{ position: 'fixed', top: 100, right: 50 }} >Add New Case</Button>
+                <Button onClick={this.toggle} className='add'>Add Case</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} >
                     <ModalHeader toggle={this.toggle}>Add New Case</ModalHeader>
                     <ModalBody>
-                        <div className=''>
-                            <div className='case'>
-                                <h3>Add New Case</h3>
+                            <div>
+                                <h3 className='formHeader'>Add New Case</h3>
                                 <Formik
                                     initialValues={{ claimant: '', defendant: '', court: '', type: '', number: '', title:'' ,description:'' }}
                                     validationSchema={Yup.object().shape({
@@ -70,7 +68,7 @@ class AddCasePage extends Component {
                                         /* and other goodies */
                                     }) => (
                                             <div>
-                                                <FormGroup className='field'>
+                                                <FormGroup>
                                                     <Label>Title</Label>
                                                     <Input
                                                         placeholder="Enter Title"
@@ -84,7 +82,7 @@ class AddCasePage extends Component {
 
                                                     {errors.title && touched.title ? (<FormFeedback>{errors.title}</FormFeedback>) : null}
                                                 </FormGroup >
-                                                <FormGroup className='field'>
+                                                <FormGroup>
                                                     <Label>Claimant</Label>
                                                     <Input
                                                         placeholder="Enter claimant"
@@ -98,7 +96,7 @@ class AddCasePage extends Component {
 
                                                     {errors.claimant && touched.claimant ? (<FormFeedback>{errors.claimant}</FormFeedback>) : null}
                                                 </FormGroup >
-                                                <FormGroup className='field'>
+                                                <FormGroup>
                                                     <Label>Defendant</Label>
                                                     <Input
                                                         placeholder="Enter Defendant"
@@ -112,7 +110,7 @@ class AddCasePage extends Component {
 
                                                     {errors.defendant && touched.defendant ? (<FormFeedback>{errors.defendant}</FormFeedback>) : null}
                                                 </FormGroup>
-                                                <FormGroup className='field'>
+                                                <FormGroup>
                                                     <Label>Description</Label>
                                                     <Input
                                                         placeholder="Enter description"
@@ -152,7 +150,7 @@ class AddCasePage extends Component {
                                                     />
                                                     {errors.number && touched.number ? (<FormFeedback>{errors.number}</FormFeedback>) : null}
                                                 </FormGroup>
-                                                <FormGroup className='field'>
+                                                <FormGroup>
                                                     <Label>Case Type</Label>
                                                     <Input
                                                         placeholder="Enter Case Type"
@@ -174,19 +172,16 @@ class AddCasePage extends Component {
 
 
                                                 <ModalFooter>
-                                                    <Button type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
+                                                    <Button className='modelBtn' type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
                                                         Add New Case
-                                            </Button>{' '}
-                                                    <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                                            </Button>
+                                                    <Button className='modelBtn' color="secondary" onClick={this.toggle}>Cancel</Button>
                                                 </ModalFooter>
                                             </div>
                                         )}
 
                                 </Formik>
                             </div>
-
-
-                        </div>
                     </ModalBody>
 
                 </Modal>

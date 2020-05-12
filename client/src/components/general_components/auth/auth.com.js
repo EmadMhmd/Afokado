@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import {NavLink } from 'react-router-dom';
-import { Button, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
+import {NavLink , withRouter} from 'react-router-dom';
+import { Button, FormGroup, Label, Input, FormFeedback} from 'reactstrap';
 import { Formik } from 'formik';
-import './auth.com.css';
-
 import * as Yup from 'yup';
 import { connect } from 'react-redux';
 import { login } from '../../../actions/auth.actions.js';
@@ -16,16 +14,22 @@ class LoginPage extends Component {
         }   
     }
     _handleFormSubmit = (values, bag) => {
-        this.props.login(values);
+        this.props.login(values).then(({auth}=this.props)=>{
+            if(auth){
+                this.props.history.push('/') 
+            }else{
+                this.props.history.push('/auth')   
+            }
+        })
         this.bag = bag; 
-        this.props.history.push('/')   
+        
     }
     render() {
         return (
             <div className='bg'>
                 <div className='container'>
-                    <div className='sign'>
-                        <h3>Login IN</h3>
+                    <div className='formPage'>
+                        <h3 className='formHeader'>Login IN</h3>
                         <hr />
                         <Formik
                             initialValues={{ email: '', password: '' }}
@@ -72,16 +76,14 @@ class LoginPage extends Component {
                                             />
                                             {errors.password && touched.password ? (<FormFeedback>{errors.password}</FormFeedback>) : null}
                                         </FormGroup>
-                                        <div className='filed'>
-                                            <Button type="submit" className='btn' disabled={isSubmitting} onClick={handleSubmit || !isValid}>
-                                                Login
-                                            </Button>
-                                        </div>
+                                        <Button className='formBtn' type="submit"  disabled={isSubmitting} onClick={handleSubmit || !isValid}>
+                                            Login
+                                        </Button>
                                     </div>
                                 )}
                         </Formik>
-                        <div className='sign'>
-                            <p>Create New Account  in Afokado ?</p>
+                        <div>
+                            <p className='checkPara'>Create New Account  in Afokado ?</p>
                             <NavLink to='/user_signup'>SignUp</NavLink>  
                             <br/>
                             <NavLink to='/lawyer_signup'>SignUp As Lawyer</NavLink>  
@@ -101,4 +103,5 @@ const mapStateToProps = ({ auth ,error}) => {
         error:error.err
     }
 }
-export default connect(mapStateToProps, { login })(LoginPage);
+const LoginWithRouter=withRouter(LoginPage)
+export default connect(mapStateToProps, { login })(LoginWithRouter);

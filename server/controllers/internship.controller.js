@@ -4,9 +4,9 @@ const Apply = require('../models/apply.model.js');
 
 
 internshipController.addInternship = async (req, res, next) => {
-    const { count, description, created, paid } = req.body;
+    const { count, description, created, paid , title , startDate , duration} = req.body;
     const newIntern = new Internship({
-        count, description, created, paid,
+        count, description, created, paid,title,startDate,duration,
         owner: req.user
     })
     try {
@@ -20,9 +20,6 @@ internshipController.addInternship = async (req, res, next) => {
         });
     }
 }
-/*
-       
-*/
 
 internshipController.fetchInternshipsForApply = async (req, res, next) => {
     var query;

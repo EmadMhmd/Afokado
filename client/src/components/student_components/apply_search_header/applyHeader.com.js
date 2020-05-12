@@ -1,6 +1,5 @@
 import React, { Component,Fragment } from 'react';
-import './applyHeader.com.css';
-import Background from './home3.jpg';
+import Background from '../../../images/home3.jpg';
 import { FormGroup, Button, Input } from 'reactstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -54,9 +53,9 @@ class Header extends Component {
     }
     render() {
         return (
-            <div className='head' style={homeStyle}>
+            <div className='searchCom' style={homeStyle}>
 
-                <p>Best Lawyers in Egypt</p>
+                <p className='searchPara'>Best Lawyers in Egypt</p>
                 <Formik
                     className='form'
                     initialValues={{ paid: '', city: '', spec: '' }}
@@ -78,9 +77,9 @@ class Header extends Component {
                         handleSubmit,
                     }) => (
                             <div>
-                                <FormGroup className='field'>
+                                <FormGroup >
                                     <Input
-                                        className='firstSearchCell'
+                                        className='firstSearchCell cellSizeFour'
                                         placeholder="paid"
                                         type="select"
                                         name="paid"
@@ -95,7 +94,7 @@ class Header extends Component {
                                 </FormGroup >
                                 <FormGroup>
                                     <Input
-                                        className='cell'
+                                        className='cell cellSizeFour'
                                         type="select"
                                         name="spec"
                                         placeholder="spec"
@@ -109,7 +108,7 @@ class Header extends Component {
                                 </FormGroup>
                                 <FormGroup>
                                     <Input
-                                        className='cell'
+                                        className='cell cellSizeFour'
                                         type="select"
                                         name="city"
                                         placeholder="city"
@@ -124,7 +123,7 @@ class Header extends Component {
 
 
 
-                                <Button type="submit" onClick={handleSubmit} className='cell searchBtn'>
+                                <Button type="submit" onClick={handleSubmit} className='cell searchBtn cellSizeFour'>
                                     Search
                                  </Button>
                             </div>

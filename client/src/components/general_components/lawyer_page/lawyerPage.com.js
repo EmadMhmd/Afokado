@@ -1,23 +1,26 @@
-import React, { Component, Fragment } from 'react';
-import { getLawyer} from '../../../actions/lawyer.action.js';
-import { Button ,FormGroup ,Input} from 'reactstrap'
+import React, { Component } from 'react';
+import { getLawyer } from '../../../actions/lawyer.action.js';
+import { Button, FormGroup, Input, Row, Col } from 'reactstrap'
 import { connect } from 'react-redux';
-import { apiBook } from '../../../api/book.api.js';
+import { book } from '../../../actions/book.action';
 import AddReview from '../rate/addReview.com.js';
 import HeaderSearch from '../book_search_header/bookHeader.com.js';
-import lm from './lawm.png';
+import lm from '../../../images/lawm.png';
 import './lawyerPage.style.css';
 import moment from 'moment';
+import Star from '../stars/star.com.js';
 
 class LawyerPage extends Component {
     componentDidMount() {
         const { getLawyer } = this.props;
         const { id } = this.props.match.params;
-        getLawyer(id);
+        getLawyer(id)
+        
     }
     constructor(props) {
         super(props);
-        this.state = { value: 0 };
+        
+        this.state = { value: 0 , rateing : 5};
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,15 +30,14 @@ class LawyerPage extends Component {
         this.setState({ value: event.target.value });
     }
     handleSubmit() {
-        const { isAuth } = this.props;
+        const { isAuth, book } = this.props;
         if (isAuth) {
-            apiBook(this.state.value)
-            this.props.history.push('/my_books')
+            book(this.state.value).then(() => this.props.history.push('/my_books'))
+
         } else {
-            console.log('you are not auth')
             const data = { lawyer_id: this.props.match.params.id, time_id: this.state.value }
             this.props.history.push({
-                pathname: '/login_book',
+                pathname: '/book_sign',
                 search: '?query=abc',
                 state: { detail: data }
             });
@@ -54,63 +56,81 @@ class LawyerPage extends Component {
             <></>
         )
     }
+    renderBio = (bio) => {
+        if (bio) {
+            return (
+                <div className='item'>
+                    <h3 className='itemHeader'>About Lawyer</h3>
+                    <p>{bio}</p>
+                </div>
+            )
+        }
+        return <></>
+    }
+ 
     render() {
         const { lawyer, times, rates } = this.props;
         return (
-            <div className='lawyerPage'>
-                 <HeaderSearch />
-                <div className=''>
-                   
-                    <div className='lawyer'>
+            <div className='bg items'>
+                <HeaderSearch />
+                <div className='listConatiner'>
 
-                        <div className='lawyerInfo sec'>
-                            <div className='img'>
-                                <img src={lm} alt='lawyer-img' />
-                            </div>
-                            <div className='info' >
-                                <p className='degName' to={'/lawyerpage/' + lawyer._id}>{lawyer.gender} <span className='name'>{lawyer.userName}</span></p>
-                                <p>{lawyer.address} , {lawyer.city} ,{lawyer.state}</p>
-                                <p>Speciality in:{lawyer.spec}</p>
 
-                            </div>
-                        </div>
+                    <div className='item headfix'>
+                        <h3 className='itemHeader'>Book Now</h3>
 
-                        <div className='lawyerAbout sec'>
-                            <h3>About Lawyer</h3>
-                            <p>{lawyer.summary}</p>
-                        </div>
-                        <div className='lawyerReview sec'>
-                            <h3>Lawyer Rates</h3>
-                            {this.checkAuthForReview()}
-                            {rates.map(rate => (
-                                <Fragment key={rate._id} >
-                                    <p>{rate.comment}</p>
-                                    <p>{rate.stars}</p>
-                                    <hr />
-                                </Fragment>
-                            ))}
-                        </div>
+                        <Row >
 
-                    </div>
-
-                    <div className='lawyerBook'>
-                        <h2>Book Now</h2>
-                        <form>
-                            
+                            <Col md={9}>
                                 <FormGroup>
-                                    <Input  type="select" name="select" onChange={this.handleChange}>
-                                        
-                                        <option disabled selected>Select Time</option>
+                                    <Input style={{ marginLeft: '25px' }} type="select" name="select" onChange={this.handleChange}>
+                                        <option>Select Time</option>
                                         {times.map(onetime => (
                                             <option key={onetime._id} value={onetime._id}> {moment(onetime.time).format(' DD-MM-YYYY  dddd')}</option>
                                         ))}
                                     </Input>
                                 </FormGroup>
-                                <Button onClick={this.handleSubmit}>Book</Button>
-                          
-                        </form>
+                            </Col>
+                            <Col md={3}>
+                                <Button style={{ marginTop: '0' }} className='mainBtn btnN' onClick={this.handleSubmit}>Book</Button>
+                            </Col>
+                        </Row>
+
 
                     </div>
+
+
+                    <div className='item'>
+                        <h3 className='itemHeader'><p className='degName' to={'/lawyerpage/' + lawyer._id}>{lawyer.gender} <span className='name'>{lawyer.userName}</span></p></h3>
+                        <div className='cardSec'>
+                            <img src={lm} className='cardImg' alt='lawyer-img' />
+                        </div>
+                        <div className='itemBody cardSec' >
+                            
+                            <Star stars={this.state.rateing} />
+                            <pre className='bodyPara'>{lawyer.address} , {lawyer.city} ,{lawyer.state}</pre>
+                            <pre className='bodyPara'>Speciality in:{lawyer.spec}</pre>
+                        </div>
+                    </div>
+
+                    {this.renderBio(lawyer.bio)}
+
+                    <div className='item' >
+                        <h3 className='itemHeader'>Lawyer Rates</h3>
+                        {this.checkAuthForReview()}
+                        {rates.map(rate => (
+                            <div className='review' key={rate._id} >
+                                <pre className='rater'><i className='fa fa-user-circle' />{rate.rater.userName}</pre>
+                                <Star stars={rate.stars} />
+                                <p className='comment'>{rate.comment}</p>
+
+                            </div>
+                        ))}
+                    </div>
+
+
+
+
 
 
                 </div>
@@ -118,15 +138,16 @@ class LawyerPage extends Component {
         )
     }
 }
-const mapStateToProps = ({ lawyer , auth,fetch ,time ,rate}) => {
+const mapStateToProps = ({ lawyer, auth, fetch, time, rate }) => {
     return {
         fetching: fetch.fetching,
         lawyer: lawyer.lawyer,
         times: time.times,
         rates: rate.rates,
         isAuth: auth.isAuth,
+        overallRate:rate.overallRate
 
     }
 }
 
-export default connect(mapStateToProps, { getLawyer})(LawyerPage);
+export default connect(mapStateToProps, { getLawyer, book })(LawyerPage);

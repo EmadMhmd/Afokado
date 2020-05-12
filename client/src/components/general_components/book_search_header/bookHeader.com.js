@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
-import {withRouter} from 'react-router-dom'
-import './bookHeader.com.css';
-import Background from './home3.jpg';
+import {withRouter} from 'react-router-dom';
+import Background from '../../../images/home3.jpg';
 import { FormGroup, Button, Input } from 'reactstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -56,10 +55,10 @@ class LawyerSearchHeader extends Component {
     render() {
         return (
             <div className='home'>
-                <div className='head' style={homeStyle}>
-                    <h1>Finding a Lawyer in Egypt has never been <br />
+                <div className='searchCom' style={homeStyle}>
+                    <h1 className='searchHeader'>Finding a Lawyer in Egypt has never been <br />
                        easier</h1>
-                    <p>Book Online Now</p>
+                    <p className='searchPara'>Book Online Now</p>
                     <Formik
                         className='form'
                         initialValues={{ userName: '', city: '', spec: '' }}

@@ -3,7 +3,6 @@ import React, { Component, Fragment } from 'react';
 import { Button, FormGroup, Label, Input, FormFeedback, Row, Col } from 'reactstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import './signup.com.css';
 import { connect } from 'react-redux';
 import { sign } from '../../../actions/auth.actions.js';
 import axios from 'axios';
@@ -62,22 +61,22 @@ class Signup_student extends Component {
         return (
             <div className='bg'>
                 <div className='container'>
-                    <div className='sign'>
-                        <h3>Sign Up</h3>
+                    <div className='formPage'>
+                        <h3 className='formHeader'>Sign Up</h3>
                         <Formik
-                            initialValues={{ userName: '', email: '', password: '', mobile: '', level: '', age: '', address: '', city: '', state: '', uni: '', zip: '', gender: '' }}
+                            initialValues={{ userName: '', email: '', password: '', mobile: '', level: '', age: '', address: '', city: '', state: '', uni: '', gender: '' }}
                             validationSchema={Yup.object().shape({
                                 userName: Yup.string().required(),
                                 email: Yup.string().email().required(),
                                 password: Yup.string().min(6).required(),
                                 mobile: Yup.number().min(11).required(),
-                                level: Yup.date(),
+                                level: Yup.date().required(),
                                 age: Yup.number(),
                                 address: Yup.string(),
                                 city: Yup.string(),
                                 state: Yup.string(),
                                 gender: Yup.string(),
-                                uni: Yup.string().required(),
+                                uni: Yup.string(),
 
                             })}
                             onSubmit={this._handleFormSubmit.bind(this)}
@@ -94,11 +93,10 @@ class Signup_student extends Component {
                                 handleSubmit,
                                 isSubmitting,
                                 isValid
-                                /* and other goodies */
                             }) => (
                                     <div>
                                         <FormGroup className='field'>
-                                            <Label>User Name</Label>
+                                            <Label>User Name <span className='star'>*</span></Label>
                                             <Input
                                                 placeholder="Enter Your user Name"
                                                 invalid={errors.userName && touched.userName && errors.userName}
@@ -112,7 +110,7 @@ class Signup_student extends Component {
                                             {errors.userName && touched.userName ? (<FormFeedback>{errors.userName}</FormFeedback>) : null}
                                         </FormGroup >
                                         <FormGroup className='field'>
-                                            <Label>Email</Label>
+                                            <Label>Email <span className='star'>*</span></Label>
                                             <Input
                                                 placeholder="Enter Your Email"
                                                 invalid={errors.email && touched.email && errors.email}
@@ -126,7 +124,7 @@ class Signup_student extends Component {
                                             {errors.email && touched.email ? (<FormFeedback>{errors.email}</FormFeedback>) : null}
                                         </FormGroup>
                                         <FormGroup className='field'>
-                                            <Label>Mobile Number</Label>
+                                            <Label>Mobile Number <span className='star'>*</span></Label>
                                             <Input
                                                 placeholder="Enter Your Number"
                                                 invalid={errors.mobile && touched.mobile && errors.mobile}
@@ -154,7 +152,7 @@ class Signup_student extends Component {
                                             {errors.age && touched.age ? (<FormFeedback>{errors.age}</FormFeedback>) : null}
                                         </FormGroup>
                                         <FormGroup className='field'>
-                                            <Label>Expected Graduation Year</Label>
+                                            <Label>Expected Graduation Year <span className='star'>*</span></Label>
                                             <Input
                                                 placeholder="Enter Your year"
                                                 invalid={errors.level && touched.level && errors.level}
@@ -168,7 +166,7 @@ class Signup_student extends Component {
                                             {errors.level && touched.level ? (<FormFeedback>{errors.level}</FormFeedback>) : null}
                                         </FormGroup>
 
-                                        <FormGroup>
+                                        <FormGroup className='field'>
                                             <Label>Uni</Label>
                                             <Input
                                                 type="select"
@@ -183,7 +181,7 @@ class Signup_student extends Component {
                                             </Input>
                                             {errors.uni && touched.uni ? (<FormFeedback>{errors.uni}</FormFeedback>) : null}
                                         </FormGroup>
-                                        <FormGroup>
+                                        <FormGroup className='field'>
                                             <Label>Gender</Label>
                                             <Input
                                                 type="select"
@@ -199,7 +197,7 @@ class Signup_student extends Component {
                                             </Input>
                                             {errors.gender && touched.gender ? (<FormFeedback>{errors.gender}</FormFeedback>) : null}
                                         </FormGroup>
-                                        <FormGroup>
+                                        <FormGroup className='field'>
                                             <Label >Addres</Label>
                                             <Input
                                                 type="text"
@@ -213,8 +211,8 @@ class Signup_student extends Component {
                                             {errors.address && touched.address ? (<FormFeedback>{errors.address}</FormFeedback>) : null}
                                         </FormGroup>
                                         <Row form>
-                                            <Col md={6}>
-                                                <FormGroup>
+                                            <Col md={7}>
+                                                <FormGroup className='field'>
                                                     <Label >City</Label>
                                                     <Input
                                                         type="select"
@@ -229,8 +227,8 @@ class Signup_student extends Component {
                                                     </Input>
                                                 </FormGroup>
                                             </Col>
-                                            <Col md={4}>
-                                                <FormGroup>
+                                            <Col md={5}>
+                                                <FormGroup className='field'>
                                                     <Label >State</Label>
                                                     <Input
                                                         type="text"
@@ -242,21 +240,10 @@ class Signup_student extends Component {
                                                     />
                                                 </FormGroup>
                                             </Col>
-                                            <Col md={2}>
-                                                <FormGroup>
-                                                    <Label >Zip</Label>
-                                                    <Input
-                                                        type="text"
-                                                        name="zip"
-                                                        onChange={handleChange}
-                                                        onBlur={handleBlur}
-                                                        value={values.zip} />
-                                                </FormGroup>
-                                            </Col>
                                         </Row>
 
                                         <FormGroup className='field'>
-                                            <Label>Password</Label>
+                                            <Label>Password <span className='star'>*</span></Label>
                                             <Input
                                                 placeholder="Enter Your password"
                                                 invalid={errors.password && touched.password && errors.password}
@@ -271,15 +258,15 @@ class Signup_student extends Component {
 
 
 
-                                        <Button type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
+                                        <Button className='formBtn' type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
                                             Sign Up
                                         </Button>
                                     </div>
                                 )}
 
                         </Formik>
-                        <div className='login'>
-                            <p>Already Registered in Afokado ?</p>
+                        <div >
+                            <p className='checkPara'>Already Registered in Afokado ?</p>
                             <NavLink to='/auth'>Login</NavLink>
                         </div>
                     </div>

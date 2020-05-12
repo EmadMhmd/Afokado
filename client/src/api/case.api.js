@@ -12,6 +12,10 @@ export const apiFetchCases=(query)=>{
     return axios.get(`http://localhost:5000/fetch_cases`);
 }
 
+export const apiGetCase= (id) => {
+    return axios.get(`http://localhost:5000/get_case/${id}`)
+}
+
 export const apiUpdateCase= one_case => {
     return axios.put(`http://localhost:5000/update_case/${one_case._id}`,one_case )
 }

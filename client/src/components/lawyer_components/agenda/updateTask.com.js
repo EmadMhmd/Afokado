@@ -4,7 +4,6 @@ import { Button, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import './addTask.style.css';
 import {updateTask} from '../../../actions/task.action.js';
 
 
@@ -20,7 +19,7 @@ class UpdateTaskPage extends Component{
     }
     _handleFormSubmit = (values, bag) => {
         if (values) {
-            values._id=this.props.id
+            values._id=this.props.task._id
             this.props.updateTask(values);
             this.toggle();
             this.bag=bag;
@@ -35,19 +34,20 @@ class UpdateTaskPage extends Component{
         })
     }
     render(){
+        //const {notes}=this.props.task
         return(
           <div>
-            <Button onClick={this.toggle}>Add Decision</Button>
+            <Button className='mainBtn btnN' onClick={this.toggle}>Add Decision</Button>
             <Modal isOpen={this.state.modal} toggle={this.toggle} >
               <ModalHeader toggle={this.toggle}>Add Decision</ModalHeader>
               <ModalBody>
-              <div className=''>
-                    <div className='case'>
-                        <h3>Add Decision</h3>
+                    <div>
+                        <h3 className='formHeader'>Add Decision</h3>
                         <Formik
-                            initialValues={{ decision: '' }}
+                            initialValues={{ decision: '', notes:''}}
                             validationSchema={Yup.object().shape({
-                                decision: Yup.string().required()
+                                decision: Yup.string().required(),
+                                descison:Yup.string()
                             })}
                             onSubmit={this._handleFormSubmit.bind(this)}
                         >
@@ -62,7 +62,7 @@ class UpdateTaskPage extends Component{
                                 isValid
                             }) => (
                                     <div>
-                                        <FormGroup className='field'>
+                                        <FormGroup>
                                             <Label>decision</Label>
                                             <Input
                                                 placeholder="Enter decision"
@@ -76,22 +76,32 @@ class UpdateTaskPage extends Component{
 
                                             {errors.decision && touched.decision ? (<FormFeedback>{errors.decision}</FormFeedback>) : null}
                                         </FormGroup >
+                                        <FormGroup>
+                                            <Label>notes</Label>
+                                            <Input
+                                                placeholder="Enter notes"
+                                                invalid={errors.notes && touched.notes && errors.notes}
+                                                type="text"
+                                                name="notes"
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                value={values.notes}
+                                            />
+
+                                            {errors.notes && touched.notes ? (<FormFeedback>{errors.notes}</FormFeedback>) : null}
+                                        </FormGroup >
                                         <ModalFooter>
-                                            <Button type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
+                                            <Button className='modelBtn' type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
                                                 Add
                                             </Button>
-                                            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                                            <Button className='modelBtn' color="secondary" onClick={this.toggle}>Cancel</Button>
                                         </ModalFooter>
                                     </div>
                                 )}
 
                         </Formik>
                     </div>
-
-
-                </div>
               </ModalBody>
-    
             </Modal>
           </div>
         )

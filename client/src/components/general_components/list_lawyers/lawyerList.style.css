@@ -1,11 +1,11 @@
 .list{
     background-color: #ddd;
-    
 }
 .conatiner{
     width: 60%;
     margin: auto;
 }
+/*start sort*/
 .list .sort{
     overflow: hidden;
     margin-top: 50px;
@@ -33,6 +33,7 @@
     width: 200px;
     border-radius: 10px;
 }
+/*end sort */
 .list .lawyers{
     overflow: hidden;
     margin-top: 30px;
@@ -49,6 +50,8 @@
     margin-bottom: 25px;
     margin-left: 25px;
 }
+
+/*start Content/sections */
 .list .lawyer .img{
     float: left;
     width: 25%;
@@ -103,3 +106,4 @@
     background-color: #fff;
     color: #0070cd;
 }
+/*end Content/sections */

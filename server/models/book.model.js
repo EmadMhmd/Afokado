@@ -17,11 +17,8 @@ const bookSchema = mongoose.Schema({
     },
     timeId:{
         type : mongoose.Schema.Types.ObjectId,
-        ref : 'Time'
-    },
-    timeStatus:{
-        type:String,
-        default:dvStatus
+        ref : 'Time',
+        required : true
     },
     created:{
         type:Date,
@@ -30,17 +27,16 @@ const bookSchema = mongoose.Schema({
     },
     lawyer:{
         type : mongoose.Schema.Types.ObjectId,
-        ref : 'User'
+        ref : 'User',
+        required : true
     },
-    no:{
-        type:Number
-    }, 
     booker:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'User',
+        required : true
     }
         
-})
+},{timestamps: true})
 
 
 

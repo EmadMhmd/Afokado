@@ -43,9 +43,6 @@ const user = mongoose.Schema({
     state :{
         type : String
     },
-    zip :{
-        type : Number
-    },
     uni:{
         type : String
     },
@@ -63,6 +60,12 @@ const user = mongoose.Schema({
     joined:{
         type:Date,
         default:new Date()
+    },
+    gpa:{
+        type:String,
+    },
+    bio:{
+        type:String
     }
 })
 

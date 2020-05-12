@@ -1,5 +1,6 @@
 const mongoose =require('mongoose');
 
+const init=0
 const timeSchema = mongoose.Schema({
     time:{
         type:Date,
@@ -12,7 +13,12 @@ const timeSchema = mongoose.Schema({
     },
     owner :{
         type : mongoose.Schema.Types.ObjectId,
-        ref : 'User'
+        ref : 'User',
+        required : true
+    },
+    count:{
+        type:Number,
+        default:init
     }
 })
 

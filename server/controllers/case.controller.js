@@ -60,24 +60,24 @@ caseController.fetchCases= async (req , res , next)=>{
     }
 }
 
-// caseController.fetchCases= async (req , res , next)=>{
-//     const {user} = req;
-//     const {archive}=req.params
-//     const query ={
-//         owner : user._id,
-//         archive
-//     };
-//     try{
-//         const cases = await Case.find(query).sort({created : 'desc'});
-//         return res.send({
-//             cases : cases
-//         });
-//     }catch(e){
-//         return res.status(401).send({
-//             error :'fetching failed , try again !!'
-//         });
-//     }
-// }
+ caseController.getCase= async (req , res , next)=>{
+    const {user} = req;
+   const {id}=req.params     
+   const query ={
+         owner : user._id,
+         _id:id
+     };
+    try{
+        const cases = await Case.findOne(query)
+        return res.send({
+            cases : cases
+        });
+     }catch(e){
+         return res.status(401).send({
+             error :'fetching failed , try again !!'
+         });
+     }
+ }
 
 caseController.deleteCase= async (req , res , next)=>{
     try{

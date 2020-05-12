@@ -3,7 +3,6 @@ import React, { Component,Fragment } from 'react';
 import { Button, FormGroup, Label, Input, FormFeedback ,Row ,Col} from 'reactstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import './signup.com.css';
 import { connect } from 'react-redux';
 import { sign } from '../../../actions/auth.actions.js';
 import axios from 'axios';
@@ -64,8 +63,8 @@ class Signup_lawyer extends Component {
         return (
             <div className='bg'>
                 <div className='container'>
-                    <div className='sign'>
-                        <h3>Sign Up</h3>
+                    <div className='formPage'>
+                        <h3 className='formHeader'>Sign Up</h3>
                         <Formik
                             enctype="multipart/form-data"
                             initialValues={{ userName: '', img: '', email: '', password: '', mobile: '', age: '', address: '', city: '', state: '', spec: '',sspec: '', zip: '' ,gender:''}}
@@ -76,9 +75,9 @@ class Signup_lawyer extends Component {
                                 mobile: Yup.number().min(11).required(),
                                 gender:Yup.string(),
                                 age: Yup.number(),
-                                address: Yup.string(),
-                                city: Yup.string(),
-                                state: Yup.string(),
+                                address: Yup.string().required(),
+                                city: Yup.string().required(),
+                                state: Yup.string().required(),
                                 spec: Yup.string().required(),
                                 sspec: Yup.string(),
                                 
@@ -102,8 +101,9 @@ class Signup_lawyer extends Component {
                             }) => (
                                     <div>
                                         <FormGroup  className='field'>
-                                            <Label>User Name</Label>
+                                            <Label >User Name <span className='star'>*</span></Label>
                                             <Input
+                                                className='input'
                                                 placeholder="Enter Your user Name"
                                                 invalid={errors.userName && touched.userName && errors.userName}
                                                 type="text"
@@ -116,7 +116,7 @@ class Signup_lawyer extends Component {
                                             {errors.userName && touched.userName ? (<FormFeedback>{errors.userName}</FormFeedback>) : null}
                                         </FormGroup >
                                             <FormGroup className='field'>
-                                            <Label>User Img</Label>
+                                            <Label >User Img</Label>
                                             <Input
                                                 placeholder="Enter Your user Img"
                                                 invalid={errors.img && touched.img && errors.img}
@@ -130,8 +130,9 @@ class Signup_lawyer extends Component {
                                             {errors.img && touched.img ? (<FormFeedback>{errors.img}</FormFeedback>) : null}
                                         </FormGroup >
                                         <FormGroup className='field'>
-                                            <Label>Email</Label>
+                                            <Label >Email<span className='star'>*</span></Label>
                                             <Input
+                                                className='input'
                                                 placeholder="Enter Your Email"
                                                 invalid={errors.email && touched.email && errors.email}
                                                 type="email"
@@ -144,8 +145,9 @@ class Signup_lawyer extends Component {
                                             {errors.email && touched.email ? (<FormFeedback>{errors.email}</FormFeedback>) : null}
                                         </FormGroup>
                                         <FormGroup className='field'>
-                                            <Label>Mobile Number</Label>
+                                            <Label className='label'>Mobile Number</Label>
                                             <Input
+                                                className='input'
                                                 placeholder="Enter Your Number"
                                                 invalid={errors.mobile && touched.mobile && errors.mobile}
                                                 type="tel"
@@ -160,6 +162,7 @@ class Signup_lawyer extends Component {
                                         <FormGroup className='field'>
                                             <Label>Age</Label>
                                             <Input
+                                                className='input'
                                                 placeholder="Enter Your age"
                                                 invalid={errors.age && touched.age && errors.age}
                                                 type="number"
@@ -172,9 +175,10 @@ class Signup_lawyer extends Component {
                                             {errors.age && touched.age ? (<FormFeedback>{errors.age}</FormFeedback>) : null}
                                         </FormGroup>
 
-                                        <FormGroup>
-                                            <Label>Major Spec</Label>
+                                        <FormGroup className='field'>
+                                            <Label >Major Spec <span className='star'>*</span></Label>
                                             <Input 
+                                                className='select'
                                                 type="select" 
                                                 name="spec"
                                                 placeholder="select Your spec"
@@ -188,8 +192,8 @@ class Signup_lawyer extends Component {
                                             </Input>
                                             {errors.spec && touched.spec ? (<FormFeedback>{errors.spec}</FormFeedback>) : null}
                                         </FormGroup>
-                                                                         <FormGroup>
-                                            <Label>secondary Spec</Label>
+                                         <FormGroup className='field'>
+                                            <Label >secondary Spec</Label>
                                             <Input 
                                                 type="select" 
                                                 name="sspec"
@@ -205,8 +209,8 @@ class Signup_lawyer extends Component {
                                             </Input>
                                             {errors.sspec && touched.sspec ? (<FormFeedback>{errors.sspec}</FormFeedback>) : null}
                                         </FormGroup>
-                                        <FormGroup>
-                                            <Label>Gender</Label>
+                                        <FormGroup className='field'>
+                                            <Label >Gender</Label>
                                             <Input 
                                                 type="select" 
                                                 name="gender"
@@ -223,8 +227,8 @@ class Signup_lawyer extends Component {
                                             </Input>
                                             {errors.gender && touched.gender ? (<FormFeedback>{errors.gender}</FormFeedback>) : null}
                                         </FormGroup>
-                                        <FormGroup>
-                                            <Label >Addres</Label>
+                                        <FormGroup className='field'>
+                                            <Label  >Addres <span className='star'>*</span></Label>
                                             <Input
                                                 type="text"
                                                 name="address"
@@ -237,9 +241,9 @@ class Signup_lawyer extends Component {
                                             {errors.address && touched.address ? (<FormFeedback>{errors.address}</FormFeedback>) : null}
                                         </FormGroup>
                                         <Row form>
-                                            <Col md={6}>
-                                                <FormGroup>
-                                                    <Label >City</Label>
+                                            <Col md={7}>
+                                                <FormGroup className='field'>
+                                                    <Label >City <span className='star'>*</span></Label>
                                                     <Input
                                                         type="select"
                                                         name="city"
@@ -254,9 +258,9 @@ class Signup_lawyer extends Component {
 
                                                 </FormGroup>
                                             </Col>
-                                            <Col md={4}>
-                                                <FormGroup>
-                                                    <Label >State</Label>
+                                            <Col md={5}>
+                                                <FormGroup className='field'>
+                                                    <Label >State <span className='star'>*</span></Label>
                                                     <Input
                                                         type="text"
                                                         name="state"
@@ -267,21 +271,11 @@ class Signup_lawyer extends Component {
                                                     />
                                                 </FormGroup>
                                             </Col>
-                                            <Col md={2}>
-                                                <FormGroup>
-                                                    <Label >Zip</Label>
-                                                    <Input
-                                                        type="text"
-                                                        name="zip"
-                                                        onChange={handleChange}
-                                                        onBlur={handleBlur}
-                                                        value={values.zip} />
-                                                </FormGroup>
-                                            </Col>
+                                
                                         </Row>
 
                                         <FormGroup className='field'>
-                                            <Label>Password</Label>
+                                            <Label >Password <span className='star'>*</span></Label>
                                             <Input
                                                 placeholder="Enter Your password"
                                                 invalid={errors.password && touched.password && errors.password}
@@ -296,15 +290,15 @@ class Signup_lawyer extends Component {
 
 
 
-                                        <Button type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
+                                        <Button className='formBtn' type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
                                             Sign Up
                                         </Button>
                                     </div>
                                 )}
 
                         </Formik>
-                        <div className='login'>
-                            <p>Already Registered in Afokado ?</p>
+                        <div >
+                            <p className='checkPara'>Already Registered in Afokado ?</p>
                             <NavLink to='/auth'>Login</NavLink>
                         </div>
                     </div>

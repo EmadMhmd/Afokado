@@ -4,7 +4,6 @@ import { Button, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import './addTask.style.css';
 import {addTask} from '../../../actions/task.action.js';
 
 
@@ -36,20 +35,20 @@ class AddTaskPage extends Component{
     render(){
         return(
           <div>
-            <Button onClick={this.toggle}>Add Task</Button>
+            <Button className='add' onClick={this.toggle}>Add Task</Button>
             <Modal isOpen={this.state.modal} toggle={this.toggle} >
               <ModalHeader toggle={this.toggle}>Add New Task</ModalHeader>
               <ModalBody>
-              <div className=''>
-                    <div className='case'>
-                        <h3>Add New Task</h3>
+                    <div>
+                        <h3 className='formHeader'>Add New Task</h3>
                         <Formik
-                            initialValues={{ description: '', notes: '', dateline: '' ,subLawyer:''}}
+                            initialValues={{ description: '', notes: '', dateline: '' ,subLawyer:'' , title:''}}
                             validationSchema={Yup.object().shape({
                                 description: Yup.string().required(),
                                 notes: Yup.string(),
                                 subLawyer: Yup.string(),
-                                dateline: Yup.date().required()
+                                dateline: Yup.date().required(),
+                                title:Yup.string()
                             })}
                             onSubmit={this._handleFormSubmit.bind(this)}
                         >
@@ -64,7 +63,19 @@ class AddTaskPage extends Component{
                                 isValid
                             }) => (
                                     <div>
-                                        <FormGroup className='field'>
+                                            <FormGroup>
+                                            <Label>Title</Label>
+                                            <Input
+                                                placeholder="Enter title"
+                                                invalid={errors.title && touched.title && errors.title}
+                                                type="text"
+                                                name="title"
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                value={values.title}
+                                            />
+                                        </FormGroup>
+                                        <FormGroup>
                                             <Label>description</Label>
                                             <Input
                                                 placeholder="Enter description"
@@ -77,8 +88,8 @@ class AddTaskPage extends Component{
                                             />
 
                                             {errors.description && touched.description ? (<FormFeedback>{errors.description}</FormFeedback>) : null}
-                                        </FormGroup >
-                                        <FormGroup className='field'>
+                                        </FormGroup>
+                                        <FormGroup>
                                             <Label>Dateline</Label>
                                             <Input
                                                 placeholder="Enter Dateline"
@@ -92,7 +103,7 @@ class AddTaskPage extends Component{
 
                                             {errors.dateline && touched.dateline ? (<FormFeedback>{errors.dateline}</FormFeedback>) : null}
                                         </FormGroup>
-                                        <FormGroup className='field'>
+                                        <FormGroup>
                                             <Label>Lawyer</Label>
                                             <Input
                                                 placeholder="Enter sub lawyer"
@@ -106,7 +117,7 @@ class AddTaskPage extends Component{
 
                                             {errors.subLawyer && touched.subLawyer ? (<FormFeedback>{errors.subLawyer}</FormFeedback>) : null}
                                         </FormGroup >
-                                        <FormGroup className='field'>
+                                        <FormGroup>
                                             <Label>Any Notes</Label>
                                             <Input
                                                 placeholder="Enter Notes"
@@ -122,19 +133,16 @@ class AddTaskPage extends Component{
                                        
 
                                         <ModalFooter>
-                                            <Button type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
+                                            <Button className='modelBtn' type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
                                                 Add New Task
                                             </Button>
-                                            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                                            <Button className='modelBtn' color="secondary" onClick={this.toggle}>Cancel</Button>
                                         </ModalFooter>
                                     </div>
                                 )}
 
                         </Formik>
                     </div>
-
-
-                </div>
               </ModalBody>
     
             </Modal>

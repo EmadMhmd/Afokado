@@ -1,91 +1,103 @@
-import React , {Component} from  'react';
-import {connect} from 'react-redux';
-import {fetchApplications ,deleteApplication ,updateApplication} from '../../../actions/apply.action.js';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchApplications, deleteApplication, updateApplication } from '../../../actions/apply.action.js';
 import { Button } from 'reactstrap';
 import EmptyMessage from '../../general_components/empty.com.js';
 import Spinner from '../../general_components/spinner_com/spinner.com.js';
+import moment from 'moment';
 
-class MyApp extends Component{
-    componentDidMount(){
-        const {fetchApplications } =this.props;
+class MyApp extends Component {
+    componentDidMount() {
+        const { fetchApplications } = this.props;
         fetchApplications()
     }
-    emptyCase(){
+    emptyCase() {
         const { applications } = this.props
-        const message=`oops! you still don't have any application !?`
-        if(applications.length===0){
+        const message = `oops! you still don't have any application !?`
+        if (applications.length === 0) {
             return (
                 <EmptyMessage message={message} />
             )
         }
-    } 
-    /*
-    chech(type,app){
-        if(app.lenght < 0){
-            return <h2>{type} Applicatons</h2>
-        }
     }
-    renderPendingApp(){
-        const {applications}=this.props;
-        let filterApp;
-        return(
-            <div>
-                {filterApp=applications.filter(app=>app.status==='accept')}
-                
-                {filterApp.map(app=>(
-                <div key={app._id}>
-                <p>no : {app.no}</p>
-                <p>status : {app.status}</p>
-                <Button onClick={()=>this.props.deleteApplication(app._id)}>Cancel</Button>
-                <Button onClick={()=>this.props.updateApplication(app._id)}>Confirm</Button>
-                </div>
-                ))}
-            </div>
-        )
-        
-    }
-    */
-    renderBtns(type , id){
-        if(type==='pending'){
+
+    renderBtns(app) {
+        if (app.status === 'pending') {
+            
+            if (app.confirmed === 0) {
+                return (
+                    <div>
+                        <hr />
+                        <Button className='mainBtn btnL' onClick={() => this.props.deleteApplication(app._id)}>Cancel</Button>
+                        <Button className='mainBtn btnR' onClick={() => this.props.updateApplication(app._id)}>Confirm</Button>
+                    </div>
+                )
+            } else {
+                return (
+                    <div>
+                        <hr />
+                        <Button className='mainBtn btnN' onClick={() => this.props.deleteApplication(app._id)}>Cancel</Button>
+                    </div>
+                )
+            }
+        } else if (app.status === 'accept') {
+            
             return(
-                <div>
-                    <Button onClick={()=>this.props.deleteApplication(id)}>Cancel</Button>
-                    <Button onClick={()=>this.props.updateApplication(id)}>Confirm</Button>
-                </div>
-            )
-        }else if(type === 'accept'){
-            return <Button onClick={()=>this.props.deleteApplication(id)}>Cancel</Button>
+            <div>
+                <hr />
+                <Button className='mainBtn btnN' onClick={() => this.props.deleteApplication(app._id)}>Cancel</Button>
+            </div>
+             )
         }
         return <></>
     }
-    render(){
-        const { fetching ,applications}=this.props;
+    render() {
+        const { fetching, applications } = this.props;
         if (fetching) {
             return <Spinner size={50} />
         }
-        
-        return(
+
+        return (
+
             <div>
-                <h3>My Applications</h3>
-                {this.emptyCase()}
-                <div>
-                    {applications.map(app=>(
-                    <div key={app._id}>
-                    <p>no : {app.no}</p>
-                    <p>status : {app.status}</p>
-                    {this.renderBtns(app.status , app._id)}
+                <div className='bg items'>
+                    <div className='listConatiner'>
+
+                        <div cleas='headBar'>
+                            <h3 className='header'>My App</h3>
+                            <Button className='add'>Apply Now</Button>
+                        </div>
+
+                        {applications.map((item) => (
+
+                            <div key={item._id} className='item'>
+                                <h3 className='itemHeader'>{item.internshipId.title}</h3>
+                                <div class='itemBody'>
+                                    <pre>Status             : {item.status}</pre>
+                                    <pre>Description        : {item.internshipId.description}</pre>
+                                    <pre>Duration           : {item.internshipId.duration}</pre>
+                                    <pre>Paid               : {item.internshipId.paid}</pre>
+                                    <pre>apply time         : {moment(item.created).format(' DD-MM-YYYY  dddd')}</pre>
+                                    <abbr title='Cancel the Application'><Button className='del' onClick={() => this.props.deleteApplication(item._id)}><i className='fa fa-trash fas' /></Button></abbr>
+                                </div>
+                                
+                                {this.renderBtns(item)}
+                            </div>
+                        ))}
+
                     </div>
-                    ))}
                 </div>
+                {this.emptyCase()}
             </div>
+
         )
     }
 }
-const mapStateToProps=({apply ,fetch})=>{
-    return{
-        applications:apply.applications,
-        fetching:fetch.fetching
+const mapStateToProps = ({ apply, fetch }) => {
+    return {
+        applications: apply.applications,
+        fetching: fetch.fetching
     }
 }
 
-export default connect(mapStateToProps,{fetchApplications,deleteApplication,updateApplication})(MyApp);
+export default connect(mapStateToProps, { fetchApplications, deleteApplication, updateApplication })(MyApp);

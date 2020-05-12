@@ -4,7 +4,6 @@ import { Button, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import './addReview.style.css';
 import { addRate} from '../../../actions/rate.action.js';
 
 class AddReview extends Component {
@@ -34,14 +33,12 @@ class AddReview extends Component {
     render() {
         return (
             <div>
-                <Button onClick={this.toggle} >Review</Button>
+                <abbr title='Add Review'><Button className='del' onClick={this.toggle}><i className='fa fa-plus fas' /></Button></abbr>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} >
                     <ModalHeader toggle={this.toggle}>Add New Review</ModalHeader>
                     <ModalBody>
-                        <div className=''>
-                            <div className='case'>
-                                <h3>Review</h3>
-                                <p> {this.props.id}</p>
+                            <div >
+                                <h3 className='formHeader'>Review</h3>
                                 <Formik
                                     initialValues={{ comment: '', stars: 3 }}
                                     validationSchema={Yup.object().shape({
@@ -61,7 +58,7 @@ class AddReview extends Component {
                                         isValid
                                     }) => (
                                             <div>
-                                                <FormGroup className='field'>
+                                                <FormGroup>
                                                     <Label>Review</Label>
                                                     <Input
                                                         placeholder="Enter Comment"
@@ -75,7 +72,7 @@ class AddReview extends Component {
 
                                                     {errors.comment && touched.comment ? (<FormFeedback>{errors.comment}</FormFeedback>) : null}
                                                 </FormGroup >
-                                                <FormGroup className='field'>
+                                                <FormGroup>
                                                     <Label>Rate</Label>
                                                     <Input
                                                         placeholder="Enter rate"
@@ -90,17 +87,16 @@ class AddReview extends Component {
                                                     {errors.stars && touched.stars ? (<FormFeedback>{errors.stars}</FormFeedback>) : null}
                                                 </FormGroup >
                                                 <ModalFooter>
-                                                    <Button type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
+                                                    <Button className='modelBtn' type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
                                                         Review
                                             </Button>
-                                                    <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                                                    <Button className='modelBtn' color="secondary" onClick={this.toggle}>Cancel</Button>
                                                 </ModalFooter>
                                             </div>
                                         )}
 
                                 </Formik>
                             </div>
-                        </div>
                     </ModalBody>
                 </Modal>
             </div>

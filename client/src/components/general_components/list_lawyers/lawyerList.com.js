@@ -5,7 +5,7 @@ import Spinner from '../spinner_com/spinner.com.js';
 import HeaderSearch from '../book_search_header/bookHeader.com';
 import { Link } from 'react-router-dom';
 import './lawyerList.style.css';
-import lm from './lawm.png';
+import lm from '../../../images/lawm.png';
 import EmptyMessage from '../../general_components/empty.com.js';
 
 class LawyerList extends Component {
@@ -26,23 +26,13 @@ class LawyerList extends Component {
         return (
             <div className="list">
                 <HeaderSearch />
-                <div className='conatiner'>
-                <div className='sort'>
-                        <p className='count'>
+                <div className='listConatiner'>
+                
+                        <h3 className='count'>
                             <span className='spec'> Matching </span>
                             <span> {lawyers.length} </span>
                             Lawyers
-                        </p>
-                        <div className='btn'>
-                            <label>Sorting :</label>
-                            <select name='sort'>
-                                <option selected>Best Match</option>
-                                <option>Top Rate</option>
-                                <option>Price (Low to High)</option>
-                                <option>Price (High To Low)</option>
-                            </select>
-                        </div>
-                 </div>
+                        </h3>
                  {this.emptyCase()}
                 <div className='lawyers'>
                     {lawyers.map((item) => (

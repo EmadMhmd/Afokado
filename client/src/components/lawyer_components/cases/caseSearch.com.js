@@ -19,8 +19,8 @@ class CaseSearch extends Component {
     }
     render() {
         return (
-            <div className='head' style={homeStyle}>
-                <p>Case Search</p>
+            <div className='searchCom' style={homeStyle}>
+                <p className='searchPara'>Case Search</p>
                 <Formik
                     initialValues={{ archive: '', type: ''}}
                     validationSchema={Yup.object().shape({
@@ -41,7 +41,7 @@ class CaseSearch extends Component {
                         /* and other goodies */
                     }) => (
                             <div>
-                                <FormGroup className='field'>
+                                <FormGroup >
                                     <Input
                                         className='firstSearchCell cellSizeThree'
                                         placeholder="Status"

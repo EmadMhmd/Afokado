@@ -4,13 +4,10 @@ import { Button, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import './addTime.style.css';
 import { addTime} from '../../../actions/time.action.js';
 
 
 class AddTimePage extends Component {
-
-
     constructor(props) {
         super(props);
         this.state = {
@@ -35,18 +32,15 @@ class AddTimePage extends Component {
             modal: !this.state.modal
         })
     }
-
-
     render() {
         return (
             <div>
-                <Button onClick={this.toggle} style={{ position: 'fixed', top: 100, right: 50 }} >Add New Time</Button>
+                <Button className='add' onClick={this.toggle}  >Add Time</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} >
                     <ModalHeader toggle={this.toggle}>Add New Case</ModalHeader>
                     <ModalBody>
-                        <div className=''>
-                            <div className='case'>
-                                <h3>Add New Case</h3>
+                            <div>
+                                <h3 className='formHeader'>Add New Case</h3>
                                 <Formik
                                     initialValues={{ time:'' }}
                                     validationSchema={Yup.object().shape({
@@ -54,10 +48,7 @@ class AddTimePage extends Component {
                                       
                                     })}
                                     onSubmit={this._handleFormSubmit.bind(this)}
-
                                 >
-
-
                                     {({
                                         values,
                                         errors,
@@ -67,10 +58,9 @@ class AddTimePage extends Component {
                                         handleSubmit,
                                         isSubmitting,
                                         isValid
-                                        /* and other goodies */
                                     }) => (
                                             <div>
-                                                <FormGroup className='field'>
+                                                <FormGroup>
                                                     <Label>Time</Label>
                                                     <Input
                                                         placeholder="Enter Time"
@@ -81,26 +71,19 @@ class AddTimePage extends Component {
                                                         onBlur={handleBlur}
                                                         value={values.time}
                                                     />
-
                                                     {errors.time && touched.time ? (<FormFeedback>{errors.time}</FormFeedback>) : null}
                                                 </FormGroup >
-                                                
-
-
                                                 <ModalFooter>
-                                                    <Button type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
+                                                    <Button className='modelBtn' type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
                                                         Add New time
                                             </Button>
-                                                    <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                                                    <Button className='modelBtn' color="secondary" onClick={this.toggle}>Cancel</Button>
                                                 </ModalFooter>
                                             </div>
                                         )}
 
                                 </Formik>
                             </div>
-
-
-                        </div>
                     </ModalBody>
 
                 </Modal>

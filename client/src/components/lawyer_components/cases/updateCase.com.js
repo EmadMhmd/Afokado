@@ -4,28 +4,16 @@ import { Button, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import './addCase.style.css';
 import { updateCase, fetchCases } from '../../../actions/case.action.js';
 
 
 class UpdateCasePage extends Component {
-
-
     constructor(props) {
         super(props);
         this.state = {
             modal: false
         }
         this.toggle = this.toggle.bind(this);
-    }
-    componentDidUpdate() {
-        /*const {updated} = this.props;
-        const {modal} =this.state;
-        //if saved id true and modal is open
-        if(updated && modal){
-            this.toggle();
-            this.bag.resetForm();
-        }*/
     }
     _handleFormSubmit = (values, bag) => {
         if (values) {
@@ -44,20 +32,17 @@ class UpdateCasePage extends Component {
             modal: !this.state.modal
         })
     }
-
-
     render() {
         const { claimant, defendant, court, type, number, title } = this.props.oneCase;
         return (
             <div>
-                <Button onClick={this.toggle}>Update</Button>
+                <Button className='mainBtn' onClick={this.toggle}>Update</Button>
 
                 <Modal isOpen={this.state.modal} toggle={this.toggle} >
                     <ModalHeader toggle={this.toggle}>Update Case</ModalHeader>
                     <ModalBody>
-                        <div className=''>
-                            <div className='case'>
-                                <h3>Update Case</h3>
+                            <div>
+                                <h3 className='formHeader'>Update Case</h3>
                                 <Formik
                                     initialValues={{ claimant, defendant, court, type, number, title }}
                                     validationSchema={Yup.object().shape({
@@ -69,10 +54,7 @@ class UpdateCasePage extends Component {
                                         title: Yup.string().required()
                                     })}
                                     onSubmit={this._handleFormSubmit.bind(this)}
-
                                 >
-
-
                                     {({
                                         values,
                                         errors,
@@ -82,10 +64,9 @@ class UpdateCasePage extends Component {
                                         handleSubmit,
                                         isSubmitting,
                                         isValid
-                                        /* and other goodies */
                                     }) => (
                                             <div>
-                                                <FormGroup className='field'>
+                                                <FormGroup>
                                                     <Label>Title</Label>
                                                     <Input
                                                         placeholder="Enter Title"
@@ -99,7 +80,7 @@ class UpdateCasePage extends Component {
 
                                                     {errors.title && touched.title ? (<FormFeedback>{errors.title}</FormFeedback>) : null}
                                                 </FormGroup >
-                                                <FormGroup className='field'>
+                                                <FormGroup>
                                                     <Label>Claimant</Label>
                                                     <Input
                                                         placeholder="Enter claimant"
@@ -113,7 +94,7 @@ class UpdateCasePage extends Component {
 
                                                     {errors.claimant && touched.claimant ? (<FormFeedback>{errors.claimant}</FormFeedback>) : null}
                                                 </FormGroup >
-                                                <FormGroup className='field'>
+                                                <FormGroup>
                                                     <Label>Defendant</Label>
                                                     <Input
                                                         placeholder="Enter Defendant"
@@ -128,7 +109,7 @@ class UpdateCasePage extends Component {
                                                     {errors.defendant && touched.defendant ? (<FormFeedback>{errors.defendant}</FormFeedback>) : null}
                                                 </FormGroup>
 
-                                                <FormGroup className='field'>
+                                                <FormGroup>
                                                     <Label>court</Label>
                                                     <Input
                                                         placeholder="Enter court"
@@ -141,7 +122,7 @@ class UpdateCasePage extends Component {
                                                     />
                                                     {errors.court && touched.court ? (<FormFeedback>{errors.court}</FormFeedback>) : null}
                                                 </FormGroup>
-                                                <FormGroup className="field">
+                                                <FormGroup>
                                                     <Label>Case No</Label>
                                                     <Input
                                                         placeholder="Enter Case No"
@@ -154,7 +135,7 @@ class UpdateCasePage extends Component {
                                                     />
                                                     {errors.number && touched.number ? (<FormFeedback>{errors.number}</FormFeedback>) : null}
                                                 </FormGroup>
-                                                <FormGroup className='field'>
+                                                <FormGroup>
                                                     <Label>Case Type</Label>
                                                     <Input
                                                         placeholder="Enter Case Type"
@@ -167,22 +148,17 @@ class UpdateCasePage extends Component {
                                                     />
                                                     {errors.type && touched.type ? (<FormFeedback>{errors.type}</FormFeedback>) : null}
                                                 </FormGroup>
-
-
                                                 <ModalFooter>
-                                                    <Button type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
+                                                    <Button className='modelBtn' type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
                                                         Update Case
-                                            </Button>{' '}
-                                                    <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                                            </Button>
+                                                    <Button className='modelBtn' color="secondary" onClick={this.toggle}>Cancel</Button>
                                                 </ModalFooter>
                                             </div>
                                         )}
 
                                 </Formik>
                             </div>
-
-
-                        </div>
                     </ModalBody>
 
                 </Modal>

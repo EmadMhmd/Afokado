@@ -2,16 +2,54 @@ import {BOOKED ,BOOKS_FETCHING_SUCCESS , BOOK_UPDATED ,BOOK_DELETED } from './ac
 import {addError ,clearError} from './error.action';
 import {addMessage ,clearMessage} from './message.action';
 import {fetchingFailed ,fetchingTime} from './fetch.action'
-import {apiFetchBooks ,apiDeleteBook ,apiFetchBookRequests,apiUpdateBook } from '../api/book.api.js';
-import {openBookNotifications} from './notify.action'
+import {apiFetchBooks ,apiDeleteBook ,apiFetchBookRequests,apiUpdateBook , apiBook} from '../api/book.api.js';
+import {openBookNotifications} from './notify.action';
+import {login ,sign} from './auth.actions';
 
+
+export const bookWithLogin=(user , id)=>{
+    return async dispatch =>{
+        try{
+            dispatch(clearError())
+            dispatch(clearMessage())
+         dispatch(login(user)).then(()=>dispatch(book(id)))
+        }catch(e){
+            dispatch(addError(e))
+        }
+    }
+}
+export const bookWithSign=(user , id)=>{
+    return async dispatch =>{
+        try{
+            dispatch(clearError())
+            dispatch(clearMessage())
+             dispatch(sign(user)).then(()=>dispatch(login(user)).then(()=>dispatch(book(id))))
+             
+        }catch(e){
+            dispatch(addError(e))
+        }
+    }
+}
+export const book=(id)=>{
+    return async dispatch =>{
+        try{
+            dispatch(clearError())
+            dispatch(clearMessage())
+            const {data:{message }}=await apiBook(id)
+            dispatch({type:BOOKED})
+            dispatch(addMessage(message))
+        }catch(e){
+            dispatch(addError(e))
+        }
+    }
+}
 export const fetchBooks=()=>{
     return async dispatch =>{
         try{
             dispatch(clearError())
             dispatch(clearMessage())
             dispatch(fetchingTime())
-            const {data:{books }}=await apiFetchBooks()
+            const {data:{books}}=await apiFetchBooks()
             dispatch({type:BOOKS_FETCHING_SUCCESS , payload:books})
             dispatch(fetchingFailed())
         }catch(e){
@@ -36,6 +74,7 @@ export const deleteBook=id=>{
         }
     }
 }
+
 
 export const updateBook=id=>{
     return async dispatch =>{
@@ -67,3 +106,6 @@ export const fetchBookRequests =()=>{
         }
     }
 }
+
+
+

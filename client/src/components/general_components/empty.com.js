@@ -5,8 +5,8 @@ class EmptyMessage extends Component {
     render() {
         const {message} =this.props
         return (
-            <div>
-                <Alert color='dark'>
+            <div >
+                <Alert style={{marginBottom:'0' }} color='dark'>
                      {message} 
                 </Alert>           
             </div>

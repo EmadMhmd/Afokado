@@ -20,8 +20,8 @@ class TaskSearch extends Component {
     }
     render() {
         return (
-            <div className='head' style={homeStyle}>
-                <p>Task Search</p>
+            <div className='searchCom' style={homeStyle}>
+                <p className='searchPara'>Task Search</p>
                 <Formik
                     className='form'
                     initialValues={{ dateline: '', subLawyer: ''}}
@@ -42,7 +42,7 @@ class TaskSearch extends Component {
                         handleSubmit
                     }) => (
                             <div>
-                                <FormGroup className='field'>
+                                <FormGroup>
                                     <Input
                                         className='firstSearchCell cellSizeThree'
                                         placeholder="select day"

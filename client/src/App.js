@@ -1,7 +1,7 @@
 import React , {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import {Route , BrowserRouter , Redirect } from 'react-router-dom';
+import {Route , BrowserRouter  } from 'react-router-dom';
 
 import NavBar from './components/general_components/nav/nav.com.js';
 import Auth from './components/general_components/auth/auth.com.js';
@@ -17,16 +17,15 @@ import Times from './components/lawyer_components/times/times.com.js';
 import Profile from './components/general_components/profile/profile.com';
 import LawyerList from './components/general_components/list_lawyers/lawyerList.com.js';
 import LawyerPage from './components/general_components/lawyer_page/lawyerPage.com.js';
+import DirectBookWithLogin from './components/general_components/lawyer_page/directBookWithLogin.com';
+import DirectBookWithSign from './components/general_components/lawyer_page/directBookWithSign.com';
 import MyBooks from './components/user_components/my_books/myBook.com.js';
 import BookRequests from './components/lawyer_components/requests/book_requests.com.js';
 import AppRequests from './components/lawyer_components/requests/app_requests.com.js';
-
-import LoginDirect from './components/general_components/auth/authDirect.com.js';
 import Agenda from './components/lawyer_components/agenda/agenda.com.js';
 import Message from './components/general_components/message_com/message.com';
 
 import Internships from './components/student_components/internships_list/internshipsList.com.js';
-import ApplyPage from './components/student_components/apply/applyPage.com.js';
 import MyApp from './components/student_components/my_applications/myApplications.com.js';
 import {connect} from 'react-redux';
 
@@ -71,7 +70,6 @@ class App extends Component {
             <div>
               <Route exact path='/profile' component={Profile} />
               <Route exact path='/' component={Internships} />
-              <Route exact path='/applypage/:id' component={ApplyPage} />
               <Route exact path='/my_app' component={MyApp} />
             </div>
           );
@@ -86,8 +84,8 @@ class App extends Component {
             <Route exact path='/student_signup' component={StudentSignUp} />
             <Route exact path='/list' component={LawyerList} />
             <Route exact path='/lawyerpage/:id' component={LawyerPage} />
-            <Route exact path='/login_book/:lawyer_id/:time_id' component={LoginDirect} />
-            <Route exact path='/login_book' component={LoginDirect} />
+            <Route exact path='/book_sign' component={DirectBookWithSign} />
+            <Route exact path='/book_login/:time_id' component={DirectBookWithLogin} />
            
         </div>
       )
@@ -97,7 +95,7 @@ class App extends Component {
   render(){
     return(
         <BrowserRouter>
-          <div className="App pos">
+          <div className="App">
             <NavBar />
             <Message />
             {this.renderLayout()}

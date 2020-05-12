@@ -4,11 +4,9 @@ import { fetchInternshipsForApply } from '../../../actions/internalship.action';
 import { apply } from '../../../actions/apply.action.js';
 import Spinner from '../../general_components/spinner_com/spinner.com.js';
 import HeaderSearch from '../apply_search_header/applyHeader.com.js';
-import { Link } from 'react-router-dom';
-import {Button} from 'reactstrap';
-import './lawyerList.style.css';
+import {Button, Badge} from 'reactstrap';
 import EmptyMessage from '../../general_components/empty.com.js';
-//import lm from './lawm.png';
+import moment from 'moment';
 
 class Internships extends Component {
   componentDidMount(){
@@ -34,8 +32,10 @@ class Internships extends Component {
     } 
     applied=(id)=>{
         const {apply}=this.props
-        apply(id)
-        this.props.history.push('/my_app')
+        apply(id).then(()=>{
+            this.props.history.push('/my_app')
+        })
+        
     }
     render() {
         const { fetching, internships } = this.props
@@ -43,44 +43,45 @@ class Internships extends Component {
             return <Spinner size={50} />
         }
         return (
-            <div className="list">
+            <div>
+            <div className="bg items">
                 <HeaderSearch />
-                <div className='conatiner'>
-                <div className='sort'>
-                        <p className='count'>
+                <div className='listConatiner'>
+         
+                <h3 className='secondHeader'> 
                             <span className='spec'> Matching </span>
                             <span> {internships.length} </span>
                             Internships
-                        </p>
-                        <div className='btn'>
-                            <label>Sorting :</label>
-                            <select name='sort'>
-                                <option selected>Best Match</option>
-                                <option>Top Rate</option>
-                                <option>Price (Low to High)</option>
-                                <option>Price (High To Low)</option>
-                            </select>
-                        </div>
-                 </div>
-                 {this.emptyCase()}
-                <div className='lawyers'>
+               </h3>
+                
                     {internships.map((item) => (
-                        <div className='lawyer' key={item._id}>
-                            <div style={{ overflow: 'hidden' }}>
-                                <div className='mainInfo' >
-                                    <Link className='degName' to={'/lawyerpage/' + item._id}>{item.description}</Link>
-                                    <p>{item.count}</p>
-                                    <p>{item.paid}</p>
-                                    <Button onClick={()=>this.applied(item._id)} >Apply Direct</Button>
-                                    <Button><Link to={'/applypage/' + item._id}>Details First</Link></Button>
+                        <div className='item' key={item._id}>
+                            <div>
+                                <h3 className='itemHeaderWithSub'>{item.title} <p className='itemSubHeader'>{moment(item.created).fromNow()}</p></h3>
+                                
+                                <div className='itemBody' >
+                                    <pre className='desc'>Description :</pre>
+                                    <p className='txt'>{item.description}</p>
+                                    <pre className='bodyPara'>Start Date     :{moment(item.startDate).format(' DD-MM-YYYY  dddd')}</pre>
+                                    <pre className='bodyPara'>Duration       : {item.duration}</pre>
+                                    <pre className='bodyPara'>count          : {item.count}</pre>
+                                    <pre className='bodyPara'>paid           : {item.paid}</pre>
+                                    <p className="delN bodyPara" style={{borderRadius:'0' , border:'none'}} to='/book_requests'>
+                                    Requests <Badge color="secondary"> {item.appCount} </Badge>
+                                    </p>
                                 </div>
+                                <hr />
+                                <Button className='mainBtn btnN' onClick={()=>this.applied(item._id)} >Apply Now</Button>
+
                             </div>
                         </div>
                     ))}
-                </div>
+              
                 </div>
                
             </div>
+            {this.emptyCase()}
+         </div>
         )
     }
 }

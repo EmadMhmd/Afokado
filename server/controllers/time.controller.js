@@ -48,7 +48,7 @@ timeController.fetchTimes= async (req , res , next)=>{
         query={owner:user._id,time:{$gte: date}} 
     }
     try{
-        const times = await Time.find(query).sort({created : 'desc'});
+        const times = await Time.find(query).sort({time : 'desc'});
         return res.send({
             times 
         });

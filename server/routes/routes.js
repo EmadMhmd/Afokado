@@ -50,6 +50,7 @@ router.all('*',(req ,res , next )=>{
 
   router.post('/add_case', caseController.addCase);
   router.get('/fetch_cases/:archive?/:type?', caseController.fetchCases);
+    router.get('/get_case/:id', caseController.getCase);
   router.delete('/delete_case/:_id', caseController.deleteCase);
   router.put('/archive_case/:_id', caseController.archiveCase);
   router.put('/update_case/:_id', caseController.updateCase);

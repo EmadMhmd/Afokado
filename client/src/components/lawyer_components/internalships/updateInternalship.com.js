@@ -4,7 +4,6 @@ import { Button, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import './addInternalship.style.css';
 import {updateInternship } from '../../../actions/internalship.action.js';
 
 class UpdateInternshipPage extends Component{
@@ -36,13 +35,12 @@ class UpdateInternshipPage extends Component{
         const {count, description, paid } =this.props.internship;
         return(
           <div>
-            <Button onClick={this.toggle}>Update</Button>
+            <Button className='mainBtn btnN'  onClick={this.toggle}>Update</Button>
             <Modal isOpen={this.state.modal} toggle={this.toggle} >
               <ModalHeader toggle={this.toggle}>Update Internship</ModalHeader>
               <ModalBody>
-              <div className=''>
-                    <div className='addinternalship'>
-                        <h3>Update Internalship</h3>
+                    <div>
+                        <h3 className='formHeader'>Update Internalship</h3>
                         <Formik
                             initialValues={{count, description, paid}}
                             validationSchema={Yup.object().shape({
@@ -64,7 +62,7 @@ class UpdateInternshipPage extends Component{
                                 isValid
                             }) => (
                                     <div>
-                                        <FormGroup className='field'>
+                                        <FormGroup>
                                             <Label>description</Label>
                                             <Input
                                                 placeholder="Enter description"
@@ -77,7 +75,7 @@ class UpdateInternshipPage extends Component{
                                             />
                                             {errors.description && touched.description ? (<FormFeedback>{errors.description}</FormFeedback>) : null}
                                         </FormGroup >
-                                        <FormGroup className='field'>
+                                        <FormGroup>
                                             <Label>paid</Label>
                                             <Input
                                                 placeholder="Enter paid"
@@ -91,7 +89,7 @@ class UpdateInternshipPage extends Component{
                                             {errors.paid && touched.paid ? (<FormFeedback>{errors.paid}</FormFeedback>) : null}
                                         </FormGroup>
 
-                                        <FormGroup className='field'>
+                                        <FormGroup>
                                             <Label>count</Label>
                                             <Input
                                                 placeholder="Enter count"
@@ -108,19 +106,16 @@ class UpdateInternshipPage extends Component{
 
 
                                         <ModalFooter>
-                                            <Button type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
+                                            <Button className='modelBtn' type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
                                                 Update Internship
                                             </Button>
-                                            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                                            <Button className='modelBtn' color="secondary" onClick={this.toggle}>Cancel</Button>
                                         </ModalFooter>
                                     </div>
                                 )}
 
                         </Formik>
                     </div>
-
-
-                </div>
               </ModalBody>
     
             </Modal>

@@ -24,13 +24,10 @@ const applySchema = mongoose.Schema({
         type:String,
         default:status
     },
-    timeStatus:{
-        type:String,
-        default:dvStatus
-    },
     internshipId:{
         type : mongoose.Schema.Types.ObjectId,
-        ref : 'Time'
+        ref : 'Internship',
+        required : true
     },
     created:{
         type:Date,
@@ -39,14 +36,13 @@ const applySchema = mongoose.Schema({
     },
     lawyer:{
         type : mongoose.Schema.Types.ObjectId,
-        ref : 'User'
+        ref : 'User',
+        required : true
     },
-    no:{
-        type:Number
-    }, 
     trainee:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'User',
+        required : true
     }
         
 })

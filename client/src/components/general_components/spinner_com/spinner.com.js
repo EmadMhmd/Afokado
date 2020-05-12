@@ -1,13 +1,13 @@
 import React from 'react';
+import {Spinner} from 'reactstrap';
 
 
-const spinner=({size})=>{
-    let spinnerSize = size ? size : 30 ;
-    return(
-        <div   style={{display:'flex',flex:1,justifyContent:'center',alignItems:'center',marginTop:30
+const spinner=()=>{
     
-    }} >
-            <i className='fas fa-spinner fa-spin'  style={{fontSize:spinnerSize}} />
+    return(
+        <div   style={{display:'flex',flex:1,justifyContent:'center',alignItems:'center',marginTop:40 , marginBottom:40 }} >
+            {/* <i className='fas fa-spinner fa-spin'  style={{fontSize:spinnerSize}} /> */}
+            <Spinner  style={{ width: '3rem', height: '3rem' , color:'#0070cd'}}/>
         </div>
     )
 }

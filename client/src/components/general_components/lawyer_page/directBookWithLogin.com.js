@@ -1,50 +1,38 @@
-import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import { Button, FormGroup, Label, Input, FormFeedback} from 'reactstrap';
+import { Button, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
+import {NavLink} from 'react-router-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { connect } from 'react-redux';
-import { sign } from '../../../actions/auth.actions.js';
+import {bookWithLogin } from '../../../actions/book.action.js';
 
-
-
-
-class Signup_user extends Component {
+class DirectBookWithLogin extends Component {
     _handleFormSubmit = (values, bag) => {
         if (values) {
-            const { sign } = this.props;
-            values.type = 1;
-            sign(values);
-            this.props.history.push('/auth')
+            const {bookWithLogin} =this.props;
+            const id=this.props.match.params.time_id 
+            bookWithLogin(values , id).then(()=>this.props.history.push('/my_books'))
+            
         }
         else {
             bag.isSubmitting(false)
-
         }
     }
-
-
     render() {
         return (
             <div className='bg'>
                 <div className='container'>
                     <div className='formPage'>
-                        <h3 className='formHeader'>Sign Up</h3>
+                        <h3 className='formHeader'>Direct Book with SignUp</h3>
                         <Formik
-                            initialValues={{ userName: '', email: '', password: '', mobile: '' }}
+                            initialValues={{ email: '', password: '' }}
                             validationSchema={Yup.object().shape({
-                                userName: Yup.string().required(),
                                 email: Yup.string().email().required(),
-                                password: Yup.string().min(6),
-                                mobile: Yup.number().min(11).required(),
-                             
-
+                                password: Yup.string().min(6).required()
+                            
                             })}
                             onSubmit={this._handleFormSubmit.bind(this)}
-
                         >
-
-
                             {({
                                 values,
                                 errors,
@@ -54,23 +42,8 @@ class Signup_user extends Component {
                                 handleSubmit,
                                 isSubmitting,
                                 isValid
-                                /* and other goodies */
                             }) => (
                                     <div>
-                                        <FormGroup className='field'>
-                                            <Label>User Name <span className='star'>*</span></Label>
-                                            <Input
-                                                placeholder="Enter Your user Name"
-                                                invalid={errors.userName && touched.userName && errors.userName}
-                                                type="text"
-                                                name="userName"
-                                                onChange={handleChange}
-                                                onBlur={handleBlur}
-                                                value={values.userName}
-                                            />
-
-                                            {errors.userName && touched.userName ? (<FormFeedback>{errors.userName}</FormFeedback>) : null}
-                                        </FormGroup >
                                         <FormGroup className='field'>
                                             <Label>Email</Label>
                                             <Input
@@ -82,26 +55,10 @@ class Signup_user extends Component {
                                                 onBlur={handleBlur}
                                                 value={values.email}
                                             />
-
                                             {errors.email && touched.email ? (<FormFeedback>{errors.email}</FormFeedback>) : null}
                                         </FormGroup>
                                         <FormGroup className='field'>
-                                            <Label>Mobile Number <span className='star'>*</span></Label>
-                                            <Input
-                                                placeholder="Enter Your Number"
-                                                invalid={errors.mobile && touched.mobile && errors.mobile}
-                                                type="tel"
-                                                name="mobile"
-                                                onChange={handleChange}
-                                                onBlur={handleBlur}
-                                                value={values.mobile}
-                                            />
-
-                                            {errors.mobile && touched.mobile ? (<FormFeedback>{errors.mobile}</FormFeedback>) : null}
-                                        </FormGroup>
-
-                                        <FormGroup className='field'>
-                                            <Label>Password <span className='star'>*</span></Label>
+                                            <Label>Password</Label>
                                             <Input
                                                 placeholder="Enter Your password"
                                                 invalid={errors.password && touched.password && errors.password}
@@ -114,18 +71,16 @@ class Signup_user extends Component {
                                             {errors.password && touched.password ? (<FormFeedback>{errors.password}</FormFeedback>) : null}
                                         </FormGroup>
 
-
-
                                         <Button className='formBtn' type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
-                                            Sign Up 
+                                            Book
                                         </Button>
                                     </div>
                                 )}
 
                         </Formik>
                         <div >
-                            <p className='checkPara'>Already Registered in Afokado ?</p>
-                            <NavLink to='/auth'>Login</NavLink>
+                            <p className='checkPara'>Don't have account in afokado ?</p>
+                            <NavLink to='/'>Direct Book with SignUp</NavLink>
                         </div>
                     </div>
 
@@ -135,10 +90,5 @@ class Signup_user extends Component {
         )
     }
 }
-const mapStateToProps = ({ auth ,error }) => {
-    return {
-        added: auth.added,
-        error:error.err
-    }
-}
-export default connect(mapStateToProps, { sign })(Signup_user);
+
+export default connect(null, { bookWithLogin})(DirectBookWithLogin);

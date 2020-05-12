@@ -69,7 +69,7 @@ applyController.fetchApplications = async (req, res, next) => {
         deleted:0,
         }
     try {
-        const applications = await Apply.find(query);
+        const applications = await Apply.find(query).populate('internshipId');
         return res.send({
             applications
         });
@@ -83,7 +83,7 @@ applyController.fetchApplications = async (req, res, next) => {
 applyController.fetchApplicationRequests = async (req, res, next) => {
     const { user } = req;
     try {
-        const applications = await Apply.find({ lawyer: user._id , deleted:0 , confirmed :1 , status :'pending'});
+        const applications = await Apply.find({ lawyer: user._id , deleted:0 , confirmed :1 }).populate("trainee internshipId");
         return res.send({
             applications
         });
@@ -97,9 +97,13 @@ applyController.fetchApplicationRequests = async (req, res, next) => {
 applyController.deleteApplication = async (req, res, next) => {
     try {
         const app=await Apply.findOne({ _id: req.params._id })
+        const internCount=await Internship.findOne({ _id: app.internshipId})
+        const count=internCount.appCount - 1
+        await Internship.updateOne({_id: app.internshipId} , {appCount : count})
+        
         if(app.notify===0){
             await Apply.deleteOne({ _id: req.params._id })
-            return res.send({
+        return res.send({
                 message: 'your application Deleted successfully'
             })
         }
@@ -116,6 +120,11 @@ applyController.deleteApplication = async (req, res, next) => {
 applyController.confiremApplication = async (req, res, next) => {
     try {
         await Apply.updateOne({ _id: req.params._id } ,{confirmed:1})
+        const internId=await Apply.findOne({ _id: req.params._id })
+        const internCount=await Internship.findOne({ _id: internId.internshipId})
+        const count=internCount.appCount  + 1
+        await Internship.updateOne({_id:internId.internshipId} , {appCount : count})
+
         return res.send({
             message: 'you confirmed your application successfull application',
         })

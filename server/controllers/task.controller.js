@@ -4,12 +4,12 @@ const Moment = require('moment');
 
 taskController.addTask= async (req ,res ,next)=>{
     const {user}=req;
-    const {description , caseId , dateline ,notes ,subLawyer}=req.body;
+    const {description , caseId , dateline ,notes ,subLawyer , title}=req.body;
     
     try{
         if(Moment() < Moment(dateline)){
             const newTask=new Task({
-            description , caseId , dateline ,notes,subLawyer,
+            description , caseId , dateline ,notes,subLawyer,title,
             owner:user._id
             })
             await newTask.save()
@@ -99,12 +99,12 @@ taskController.fetchTasksForCase=async (req ,res,next)=>{
 }
 
 taskController.updateTask=async (req ,res , next)=>{
-    const {decision}=req.body;
+    const {decision , notes}=req.body;
     const {_id}=req.params;
     try{
         await Task.updateOne(
             {_id},
-            {decision }
+            {decision,notes}
         )
         return res.send({
             message:'the task updated successfully'

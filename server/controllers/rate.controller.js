@@ -38,7 +38,7 @@ rateController.addRate= async(req ,res ,next)=>{
 rateController.fetchRates= async(req ,res ,next)=>{
     const {_id}=req.params;
     try{
-        const rates=await Rate.find({ratee:_id})
+        const rates=await Rate.find({ratee:_id}).populate("rater")
         return res.send({
             rates
         })

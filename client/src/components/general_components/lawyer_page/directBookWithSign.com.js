@@ -1,34 +1,20 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { Button, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
+import { NavLink } from 'react-router-dom';
 import { Formik } from 'formik';
-import './auth.com.css';
-
 import * as Yup from 'yup';
-import {login ,Sign } from '../../../actions/auth.actions.js';
-import { apiBook } from '../../../api/book.api.js';
-import { apiSignForBook} from '../../../api/auth.api.js';
+import { bookWithSign } from '../../../actions/book.action.js';
 
-class LoginDirect extends Component {
+class DirectBookWithSign extends Component {
     _handleFormSubmit = (values, bag) => {
         if (values) {
             const user={...values ,type:1}
-            apiSignForBook(user);
-            setTimeout(
-                ()=>{
-                    this.props.login(values);
-                },1000
-            )
-            setTimeout(
-                ()=>{
-                   
-                },1500
-            )       
-            setTimeout(
-                ()=>{
-                    apiBook(this.props.location.state.detail.time_id);
-                    this.props.history.push('/')
-                },2000) 
+            const { bookWithSign } = this.props;
+            const id = this.props.location.state.detail.time_id
+            bookWithSign(user, id).then(()=>this.props.history.push('/my_books'))
+            
+            
         }
         else {
             bag.isSubmitting(false)
@@ -38,9 +24,8 @@ class LoginDirect extends Component {
         return (
             <div className='bg'>
                 <div className='container'>
-                    <div className='sicasegn'>
-                        <h3>Book</h3>
-                         <p>{this.props.location.state.detail.time_id}</p>
+                    <div className='formPage'>
+                        <h3 className='formHeader'>Direct Book with SignUp</h3>
                         <Formik
                             initialValues={{ userName: '', email: '', password: '', mobile: '' }}
                             validationSchema={Yup.object().shape({
@@ -48,7 +33,7 @@ class LoginDirect extends Component {
                                 email: Yup.string().email().required(),
                                 password: Yup.string().min(6).required(),
                                 mobile: Yup.number().min(11).required(),
-                            
+
                             })}
                             onSubmit={this._handleFormSubmit.bind(this)}
                         >
@@ -117,16 +102,17 @@ class LoginDirect extends Component {
                                             {errors.password && touched.password ? (<FormFeedback>{errors.password}</FormFeedback>) : null}
                                         </FormGroup>
 
-
-
-                                        <Button type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
+                                        <Button className='formBtn' type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
                                             Book
                                         </Button>
                                     </div>
                                 )}
 
                         </Formik>
-                
+                        <div >
+                            <p className='checkPara'>Already have account in Afokado ?</p>
+                            <NavLink to={'/book_login/' + this.props.location.state.detail.time_id}>Direct Book with Login</NavLink>
+                        </div>
                     </div>
 
 
@@ -136,4 +122,4 @@ class LoginDirect extends Component {
     }
 }
 
-export default connect(null, { login})(LoginDirect);
+export default connect(null, { bookWithSign })(DirectBookWithSign);

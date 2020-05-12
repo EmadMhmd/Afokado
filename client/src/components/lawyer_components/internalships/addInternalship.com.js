@@ -4,7 +4,6 @@ import { Button, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import './addInternalship.style.css';
 import {addInternship} from '../../../actions/internalship.action.js';
 
 class AddInternshipPage extends Component{
@@ -33,20 +32,23 @@ class AddInternshipPage extends Component{
     render(){
         return(
           <div>
-            <Button onClick={this.toggle} style={{position:'fixed' , top:100,right:50 }}>Add New Internalship</Button>
+            <Button className='add' onClick={this.toggle}>Add Internship</Button>
             <Modal isOpen={this.state.modal} toggle={this.toggle} >
               <ModalHeader toggle={this.toggle}>Add New Internalship</ModalHeader>
               <ModalBody>
-              <div className=''>
-                    <div className='addinternalship'>
-                        <h3>Add New Internalship</h3>
+                    <div>
+                        <h3 className='formHeader'>Add New Internalship</h3>
                         <Formik
-                            initialValues={{ count: '', paid: '', description: ''}}
+                            initialValues={{ count: '', paid: '', description: '' , title :'' , startDate:'' , duration:''}}
                             validationSchema={Yup.object().shape({
                                 paid: Yup.number().required(),
                                 description: Yup.string().required(),
+                                title: Yup.string().required(),
                                 count: Yup.number().required(),
+                                duration: Yup.number(),
+                            
                             })}
+                            
                             onSubmit={this._handleFormSubmit.bind(this)}
 
                         >
@@ -61,12 +63,26 @@ class AddInternshipPage extends Component{
                                 isValid
                             }) => (
                                     <div>
-                                        <FormGroup className='field'>
+                                        <FormGroup>
+                                            <Label>Title</Label>
+                                            <Input
+                                                placeholder="Enter title"
+                                                invalid={errors.title && touched.title && errors.title}
+                                                type="text"
+                                                name="title"
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                value={values.title}
+                                            />
+
+                                            {errors.title && touched.title ? (<FormFeedback>{errors.title}</FormFeedback>) : null}
+                                        </FormGroup >
+                                        <FormGroup>
                                             <Label>description</Label>
                                             <Input
                                                 placeholder="Enter description"
                                                 invalid={errors.description && touched.description && errors.description}
-                                                type="text"
+                                                type="textarea"
                                                 name="description"
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
@@ -75,7 +91,35 @@ class AddInternshipPage extends Component{
 
                                             {errors.description && touched.description ? (<FormFeedback>{errors.description}</FormFeedback>) : null}
                                         </FormGroup >
-                                        <FormGroup className='field'>
+                                        <FormGroup>
+                                            <Label>Start Date</Label>
+                                            <Input
+                                                placeholder="Enter Start Date"
+                                                invalid={errors.startDate && touched.startDate && errors.startDate}
+                                                type="date"
+                                                name="startDate"
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                value={values.startDate}
+                                            />
+
+                                            {errors.startDate && touched.startDate ? (<FormFeedback>{errors.startDate}</FormFeedback>) : null}
+                                        </FormGroup >
+                                        <FormGroup>
+                                            <Label>Duration in Days</Label>
+                                            <Input
+                                                placeholder="Enter Duration in days"
+                                                invalid={errors.duration && touched.duration && errors.duration}
+                                                type="number"
+                                                name="duration"
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                value={values.duration}
+                                            />
+
+                                            {errors.duration && touched.duration ? (<FormFeedback>{errors.duration}</FormFeedback>) : null}
+                                        </FormGroup >
+                                        <FormGroup>
                                             <Label>paid</Label>
                                             <Input
                                                 placeholder="Enter paid"
@@ -90,7 +134,7 @@ class AddInternshipPage extends Component{
                                             {errors.paid && touched.paid ? (<FormFeedback>{errors.paid}</FormFeedback>) : null}
                                         </FormGroup>
 
-                                        <FormGroup className='field'>
+                                        <FormGroup>
                                             <Label>count</Label>
                                             <Input
                                                 placeholder="Enter count"
@@ -105,19 +149,16 @@ class AddInternshipPage extends Component{
                                         </FormGroup>
                                         
                                         <ModalFooter>
-                                            <Button type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
+                                            <Button className='modelBtn' type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
                                                 Add New Internship
                                             </Button>
-                                            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                                            <Button className='modelBtn' color="secondary" onClick={this.toggle}>Cancel</Button>
                                         </ModalFooter>
                                     </div>
                                 )}
 
                         </Formik>
                     </div>
-
-
-                </div>
               </ModalBody>
     
             </Modal>
