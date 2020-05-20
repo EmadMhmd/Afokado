@@ -80,7 +80,7 @@ class AddTaskPage extends Component{
                                             <Input
                                                 placeholder="Enter description"
                                                 invalid={errors.description && touched.description && errors.description}
-                                                type="text"
+                                                type="textarea"
                                                 name="description"
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}

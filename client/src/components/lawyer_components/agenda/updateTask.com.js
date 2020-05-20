@@ -67,7 +67,7 @@ class UpdateTaskPage extends Component{
                                             <Input
                                                 placeholder="Enter decision"
                                                 invalid={errors.decision && touched.decision && errors.decision}
-                                                type="text"
+                                                type="textarea"
                                                 name="decision"
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}

@@ -1,7 +1,7 @@
 import {AUTH_ATTEMPING ,  AUTH_SUCCESS , UESR_LOGOUT , PROFILE_GETTING ,USER_ADDED ,ADD_ERROR } from './actionTypes';
 import {addError ,clearError} from './error.action';
 import {addMessage ,clearMessage } from './message.action';
-import { apiLogin , apiSign  ,apiGetProfile } from "../api/auth.api.js";
+import { apiLogin , apiSign  ,apiGetProfile, apiUpdateUser ,apiUpgradeUser } from "../api/auth.api.js";
 import setAuthHeadre from '../api/setAuthHeader.js';
 import {fetchLawyerNotifications , fetchStudentNotifications} from './notify.action';
 
@@ -77,6 +77,39 @@ export const sign=(user)=>{
         }
     }
 }
+
+
+export const updateUser =(user)=>{
+    return async dispatch=>{
+        try{
+            dispatch(clearError())
+            dispatch(clearMessage())
+            const {data:{message}}=await apiUpdateUser(user)
+            dispatch(addMessage(message))
+            dispatch(getProfile())
+        }catch(e){
+            dispatch(addError(e))
+        }
+        
+        
+    }
+}
+
+export const upgradeUser =()=>{
+    return async dispatch=>{
+        try{
+            dispatch(clearError())
+            dispatch(clearMessage())
+            const {data:{message}}=await apiUpgradeUser()
+            dispatch(addMessage(message))
+            dispatch(onLoadingSignIn())
+        }catch(e){
+            dispatch(addError(e))
+        }
+    }
+}
+
+
 
 export const logUserOut =()=>{
     return async dispatch=>{

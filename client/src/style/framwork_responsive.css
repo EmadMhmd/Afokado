@@ -1,0 +1,129 @@
+/*********************** {general} ***************************/
+@media  (min-width : 1008px) and (max-width : 1200px){  
+  .container{
+      width: 75%;
+    }
+  }
+@media  (min-width:641px) and (max-width : 1007px){ 
+  .container{
+    width: 85%;
+  }
+ }
+@media  (max-width : 640px){ 
+  .container{
+    width: 95%;
+  }
+ }
+/******************************  { search header } **************************************/
+@media  (max-width : 1200px){  
+
+.highOne{
+  height: 350px;
+}
+.highTwo{
+  height: 600px;
+}
+.cell {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  text-align: left;
+ }
+ .cellSizeThree{
+  width: 50%;
+  margin-left: 25%;
+ }
+ .cellSizeFour{
+   width: 50%;
+   margin-left: 25%;
+  }
+ .firstSearchCell {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 20px;
+  text-align: left;
+ }
+ .searchBtn{
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  color: #fff;
+  background-color: rgb(228, 227, 227);
+  color: #0070cd;
+  text-align: center;
+ }
+ }
+
+/******************************  { form and model } **************************************/
+@media  (max-width:600px){ 
+.formPage{
+  background-color: #fff;
+  border: 1px soild #fff;
+  border-radius: 20px;;
+  color: rgb(22, 22, 22);
+  padding: 3%;
+  padding-bottom: 30pxs;
+  padding-left: 3%;
+}
+.fullForm{
+  overflow: hidden;
+  text-align: center;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 25px;
+}
+.formHeader{
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #0070cd;
+  padding: 10px;
+  border-radius: 10px;
+  color: #fff;
+  text-align: center;
+}
+.star{
+  color: red;
+  font-size:18px
+}
+.checkPara{
+  margin-top: 10px;
+  font-size: 20px;
+}
+.field{
+  float: left;
+  width: 100%;
+  margin: auto;
+  margin-top:20px;
+}
+}
+/******************************  { page header } **************************************/
+@media  (max-width:1200px){ 
+.headBar{
+  /* conatin header and  add Btn */
+  width: 100%;
+}
+.header{
+  margin-left: 0;
+}
+.listConatiner{
+  width: 95%;
+}
+}
+/******************************  { list } **************************************/
+@media  (max-width:1500px){ 
+.item{
+  width: 100%;
+  margin-left: 0;
+  margin-right: 20px;
+}
+
+.bodyImgSec{
+  /*body sec 1 , for img */
+  width:50%;
+  margin-left: 18%;
+  margin-bottom: 10px;
+}
+
+.bodyImg{
+  width: 250px;
+  height: 250px;
+}
+}

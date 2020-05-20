@@ -44,11 +44,11 @@ class InternalshipsList extends Component {
                                 <h3 className='itemHeader'>{item.title}</h3>
                                 <div className='itemBody'>
                                     <p className="desc">Description :</p>
-                                    <p className='txt'> {item.description}</p>
-                                    <pre>Start Date         : {moment(item.startDate).format(' DD-MM-YYYY  dddd')}</pre>
-                                    <pre>count              : {item.count}</pre>
-                                    <pre>paid               : {item.paid}</pre>
-                                    <pre>created time       : {moment(item.created).format('LL')}</pre>
+                                    <p className='txt bodyPara'> {item.description}</p>
+                                    <pre className='bodyPara'>Start Date     :{moment(item.startDate).format(' DD-MM-YYYY  dddd')}</pre>
+                                    <pre className='bodyPara'>count          : {item.count}</pre>
+                                    <pre className='bodyPara'>paid           : {item.paid}</pre>
+                                    <pre className='bodyPara'>created time   : {moment(item.created).format('LL')}</pre>
                                     <abbr title='Delete the Case'><Button className='del' onClick={() => this.props.deleteInternship(item._id)}><i className='fa fa-trash fas' /></Button></abbr>
                                 </div>
                                 <hr />

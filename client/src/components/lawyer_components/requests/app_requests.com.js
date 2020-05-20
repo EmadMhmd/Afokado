@@ -53,11 +53,11 @@ class AppRequests extends Component {
                             <div key={app._id} className='item'>
                                 <h4 className='itemHeader'>{app.internshipId.title}</h4>
                                 <div className='itemBody'>
-                                    <pre>Name            : {app.trainee.userName}</pre>
-                                    <pre>gender          : {app.trainee.gender}</pre>
-                                    <pre>age             : {app.trainee.age}</pre>
-                                    <pre>uni             : {app.trainee.uni}</pre>
-                                    <pre>Graduation Year : {moment(app.trainee.level).format('MM-YYYY')}</pre>
+                                    <pre className='bodyPara'>Name            : {app.trainee.userName}</pre>
+                                    <pre className='bodyPara'>gender          : {app.trainee.gender}</pre>
+                                    <pre className='bodyPara'>age             : {app.trainee.age}</pre>
+                                    <pre className='bodyPara'>uni             : {app.trainee.uni}</pre>
+                                    <pre className='bodyPara'>Graduation Year : {moment(app.trainee.level).format('MM-YYYY')}</pre>
                                     <abbr title='Cancel the Application'><Button className='del' ><i className='fa fa-trash fas' /></Button></abbr>
                                 </div>
                                 {this.renderBtn(app)}

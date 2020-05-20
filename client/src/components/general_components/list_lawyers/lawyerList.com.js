@@ -4,15 +4,15 @@ import { fetchLawyers } from '../../../actions/lawyer.action';
 import Spinner from '../spinner_com/spinner.com.js';
 import HeaderSearch from '../book_search_header/bookHeader.com';
 import { Link } from 'react-router-dom';
-import './lawyerList.style.css';
 import lm from '../../../images/lawm.png';
 import EmptyMessage from '../../general_components/empty.com.js';
+import { Button } from 'reactstrap';
 
 class LawyerList extends Component {
-    emptyCase(){
+    emptyCase() {
         const { lawyers } = this.props
-        const message=`oops!! your search don't match any lawyer , please search again `
-        if(lawyers.length===0){
+        const message = `oops!! your search don't match any lawyer , please search again `
+        if (lawyers.length === 0) {
             return (
                 <EmptyMessage message={message} />
             )
@@ -24,53 +24,51 @@ class LawyerList extends Component {
             return <Spinner size={50} />
         }
         return (
-            <div className="list">
-                <HeaderSearch />
-                <div className='listConatiner'>
-                
-                        <h3 className='count'>
-                            <span className='spec'> Matching </span>
+            <div>
+                <div className="items bg">
+                    <HeaderSearch />
+                    <div className='listConatiner'>
+
+                        <h3 className='header' style={{width:'320px'}}>
+                            <span className=''> Matching </span>
                             <span> {lawyers.length} </span>
                             Lawyers
                         </h3>
-                 {this.emptyCase()}
-                <div className='lawyers'>
-                    {lawyers.map((item) => (
-                        <div className='lawyer' key={item._id}>
-                            <div style={{ overflow: 'hidden' }}>
 
-                                <div className='img'>
-                                    <img src={lm} alt='lawyer-img'/>
+
+                        {lawyers.map((item) => (
+                            <div className='item' key={item._id}>
+                                <h3 className='itemHeader'>{item.userName}</h3>
+                                <div className='bodyImgSec'>
+                                    <img src={lm} className='bodyImg' alt='lawyer-img' />
+                                </div>
+                                <div className='itemBody bodyInfoSec' >
+                                    <pre className='desc'><i className="fa fa-map-marker-alt" />  :</pre>
+                                    <p className='bodyPara txt'>{item.address} , {item.city} ,{item.state}</p>
+                                    <pre className='desc'><i className="fa fa-gavel" />  :<span className='bodyPara'>{item.spec}</span></pre>
+                                    <pre className='bodyPara'>Gender : {item.gender} , Age  : {item.age}</pre>
+                                    <pre className='bodyPara'></pre>
+                                    <hr />
+                                    <Button className='mainBtn btnN btnT'><Link to={'/lawyerpage/' + item._id}>Book</Link></Button>
+
                                 </div>
 
-                                <div className='mainInfo' >
-                                    <Link className='degName' to={'/lawyerpage/' + item._id}>{item.gender} <span className='name'>{item.userName}</span></Link>
-                                    <p>{item.address} , {item.city} ,{item.state}</p>
-                                     <p>Speciality in:{item.spec}</p>
-                                    <p><Link to={'/lawyerpage/' + item._id}>Book Now</Link></p>
-                                </div>
-                                <div className='secInfo' >
-                                    
-                                        <p>Ovarall Rating : 4.5/5</p>
-                                        <p>Rating</p>
-                                        <p>Rating of : 100 Booker</p>
-                                        <Link className='bookBtn' to={'/lawyerpage/' + item._id}>Book</Link>
-                                 
-                                </div>
                             </div>
-                        </div>
 
-                    ))}
+                        ))}
+
+                    </div>
+
                 </div>
-                </div>
-               
+                {this.emptyCase()}
             </div>
         )
     }
 }
 
-const mapStateToProps = ({ lawyer ,fetch}) => {
+const mapStateToProps = ({ lawyer, fetch }) => {
     return {
+        
         lawyers: lawyer.lawyers,
         fetching: fetch.fetching
     }

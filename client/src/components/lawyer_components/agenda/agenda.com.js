@@ -45,12 +45,13 @@ class Agenda extends Component {
                             <div key={item._id} className='item'>
                                 <h3 className='itemHeader'>{item.title}</h3>
                                 <div className='itemBody'>
-                                    <p>description :{item.description}</p>
-                                    <p>Notes :{item.notes}</p>
-                                    <p>subLawyer :{item.subLawyer}</p>
-                                    <p >{moment(item.dateline).format('LL')}</p>
-                                    <p>decision : {item.decision}</p>
-                                    <p>Created :{item.created} </p>
+                                    <pre className='desc'>description : {item.description}</pre>
+                                    <pre className='bodyPara txt'>{item.description}</pre>
+                                    <pre className='bodyPara'>Notes     : {item.notes}</pre>
+                                    <pre className='bodyPara'>subLawyer : {item.subLawyer}</pre>
+                                    <pre className='bodyPara'>DateLine  : {moment(item.dateline).format('LL')}</pre>
+                                    <pre className='bodyPara'>decision  : {item.decision}</pre>
+                                    <pre className='bodyPara'>Created   : {item.created} </pre>
                                     <abbr title='Delete the task'><Button className='del' onClick={() => this.props.deleteTask(item._id)}><i className='fa fa-trash fas' /></Button></abbr>
                                 </div>
                                 <hr />

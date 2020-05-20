@@ -1,9 +1,13 @@
 import React , {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import './style/framwork_defauit.css';
+import './style/framwork_responsive.css';
+import './style/framework_rtl.css';
 import {Route , BrowserRouter  } from 'react-router-dom';
 
-import NavBar from './components/general_components/nav/nav.com.js';
+//import NavBar from './components/general_components/nav/nav.com.js';
+import NavBar from './components/general_components/nav/navBar.FnCom.js';
+
 import Auth from './components/general_components/auth/auth.com.js';
 import UserSignUp from './components/general_components/signup/signup.user.com.js';
 import LawyerSignUp from './components/general_components/signup/signup.lawyer.com.js';
@@ -16,7 +20,9 @@ import Internalships from './components/lawyer_components/internalships/internal
 import Times from './components/lawyer_components/times/times.com.js';
 import Profile from './components/general_components/profile/profile.com';
 import LawyerList from './components/general_components/list_lawyers/lawyerList.com.js';
-import LawyerPage from './components/general_components/lawyer_page/lawyerPage.com.js';
+//import LawyerPage from './components/general_components/lawyer_page/lawyerPage.com.js';
+import LawyerPage from './components/general_components/lawyer_page/lawyerPage.funCom.js';
+
 import DirectBookWithLogin from './components/general_components/lawyer_page/directBookWithLogin.com';
 import DirectBookWithSign from './components/general_components/lawyer_page/directBookWithSign.com';
 import MyBooks from './components/user_components/my_books/myBook.com.js';

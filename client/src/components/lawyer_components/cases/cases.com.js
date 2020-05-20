@@ -67,10 +67,13 @@ class CasesList extends Component {
                             <div key={item._id} className='item'>
                                 <h3 className='itemHeader'>{item.title}</h3>
                                 <div class='itemBody'>
-                                    <p>description :{item.description}</p>
-                                    <p>Claimant :{item.claimant}, Defendant :{item.defendant} </p>
-                                    <p>Type :{item.type}, Court :{item.court},  Number :{item.number}</p>
-                                    <span >{moment(item.created).format('LL')}</span>
+                                    <pre className='desc'>description :</pre>
+                                    <pre className='bodyPara txt'>{item.description}</pre>
+                                    <pre className='bodyPara'>Claimant  : {item.claimant}</pre>
+                                    <pre className='bodyPara'>Defendant : {item.defendant} </pre>
+                                    <pre className='bodyPara'>Court     : {item.court}</pre>
+                                    <pre className='bodyPara'>Type      : {item.type}, Court :{item.court}</pre>
+                                    <pre className='bodyPara'>Created   : {moment(item.created).format('LL')}</pre>
                                     <abbr title='Delete the Case'><Button className='del' onClick={() => this.props.deleteCase(item._id)}><i className='fa fa-trash fas' /></Button></abbr>
 
                                 </div>

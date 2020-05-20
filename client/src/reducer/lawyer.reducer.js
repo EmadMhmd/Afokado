@@ -1,4 +1,4 @@
-import {LAWYERS_FETCHING_SUCCESS , LAWYER_GETTING_SUCCESS } from '../actions/actionTypes';
+import {LAWYERS_FETCHING_SUCCESS , LAWYER_GETTING_SUCCESS , INIT_LAWYER} from '../actions/actionTypes';
 
 const initState ={
     lawyers:[],
@@ -11,6 +11,8 @@ switch(action.type){
         return{...state , lawyers:action.payload}
     case LAWYER_GETTING_SUCCESS:
         return{...state , lawyer:action.payload}
+    case INIT_LAWYER:
+        return initState
     default:
         return state
 }

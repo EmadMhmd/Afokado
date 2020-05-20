@@ -73,11 +73,12 @@ class MyApp extends Component {
                             <div key={item._id} className='item'>
                                 <h3 className='itemHeader'>{item.internshipId.title}</h3>
                                 <div class='itemBody'>
-                                    <pre>Status             : {item.status}</pre>
-                                    <pre>Description        : {item.internshipId.description}</pre>
-                                    <pre>Duration           : {item.internshipId.duration}</pre>
-                                    <pre>Paid               : {item.internshipId.paid}</pre>
-                                    <pre>apply time         : {moment(item.created).format(' DD-MM-YYYY  dddd')}</pre>
+                                    <pre className='bodyPara'>Status             : {item.status}</pre>
+                                    <pre className='bodyPara'>Description        :</pre>
+                                    <pre className='bodyPara txt'>{item.internshipId.description}</pre>
+                                    <pre className='bodyPara'>Duration           : {item.internshipId.duration}</pre>
+                                    <pre className='bodyPara'>Paid               : {item.internshipId.paid}</pre>
+                                    <pre className='bodyPara'>apply time         : {moment(item.created).format(' DD-MM-YYYY  dddd')}</pre>
                                     <abbr title='Cancel the Application'><Button className='del' onClick={() => this.props.deleteApplication(item._id)}><i className='fa fa-trash fas' /></Button></abbr>
                                 </div>
                                 

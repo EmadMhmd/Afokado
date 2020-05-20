@@ -64,19 +64,19 @@ class Signup_student extends Component {
                     <div className='formPage'>
                         <h3 className='formHeader'>Sign Up</h3>
                         <Formik
-                            initialValues={{ userName: '', email: '', password: '', mobile: '', level: '', age: '', address: '', city: '', state: '', uni: '', gender: '' }}
+                            initialValues={{ userName: '', email: '', password: '', mobile: '', level: '', age: '', address: '', city: '', state: '', uni: '', gender: '' ,gpa:''}}
                             validationSchema={Yup.object().shape({
                                 userName: Yup.string().required(),
                                 email: Yup.string().email().required(),
                                 password: Yup.string().min(6).required(),
                                 mobile: Yup.number().min(11).required(),
-                                level: Yup.date().required(),
+                                uni: Yup.string(),
                                 age: Yup.number(),
                                 address: Yup.string(),
                                 city: Yup.string(),
                                 state: Yup.string(),
                                 gender: Yup.string(),
-                                uni: Yup.string(),
+                                
 
                             })}
                             onSubmit={this._handleFormSubmit.bind(this)}
@@ -96,9 +96,9 @@ class Signup_student extends Component {
                             }) => (
                                     <div>
                                         <FormGroup className='field'>
-                                            <Label>User Name <span className='star'>*</span></Label>
+                                            <Label>Name <span className='star'>*</span></Label>
                                             <Input
-                                                placeholder="Enter Your user Name"
+                                                placeholder="Enter Your Name"
                                                 invalid={errors.userName && touched.userName && errors.userName}
                                                 type="text"
                                                 name="userName"
@@ -165,7 +165,24 @@ class Signup_student extends Component {
 
                                             {errors.level && touched.level ? (<FormFeedback>{errors.level}</FormFeedback>) : null}
                                         </FormGroup>
-
+                                        <FormGroup className='field'>
+                                            <Label>GPA</Label>
+                                            <Input
+                                                type="select"
+                                                name="gpa"
+                                                placeholder="select Your Gpa"
+                                                invalid={errors.gpa && touched.gpa && errors.gpa}
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                value={values.gpa} >
+                                                <option>Select appr</option>
+                                                <option value='accept'>Accept</option>
+                                                <option value='good'>good</option>
+                                                <option value='verygood'>very good</option>
+                                                <option value='excellent'>excellent</option>
+                                            </Input>
+                                            {errors.gender && touched.gender ? (<FormFeedback>{errors.gender}</FormFeedback>) : null}
+                                        </FormGroup>
                                         <FormGroup className='field'>
                                             <Label>Uni</Label>
                                             <Input

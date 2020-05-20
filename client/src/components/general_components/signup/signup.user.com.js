@@ -22,8 +22,6 @@ class Signup_user extends Component {
 
         }
     }
-
-
     render() {
         return (
             <div className='bg'>
@@ -41,10 +39,7 @@ class Signup_user extends Component {
 
                             })}
                             onSubmit={this._handleFormSubmit.bind(this)}
-
                         >
-
-
                             {({
                                 values,
                                 errors,
@@ -58,9 +53,9 @@ class Signup_user extends Component {
                             }) => (
                                     <div>
                                         <FormGroup className='field'>
-                                            <Label>User Name <span className='star'>*</span></Label>
+                                            <Label>Name <span className='star'>*</span></Label>
                                             <Input
-                                                placeholder="Enter Your user Name"
+                                                placeholder="Enter Your  Name"
                                                 invalid={errors.userName && touched.userName && errors.userName}
                                                 type="text"
                                                 name="userName"

@@ -83,6 +83,7 @@ export const updateBook=id=>{
             dispatch(clearMessage())
            const {data:{message}}=await apiUpdateBook(id)
            dispatch({type:BOOK_UPDATED})
+           dispatch(fetchBooks())
            dispatch(addMessage(message))
         }catch(e){
             dispatch(addError(e))

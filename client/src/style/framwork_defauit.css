@@ -1,0 +1,429 @@
+/******************************  { general } **************************************/
+.App {
+  text-align: center;
+}
+.container{
+  width: 40%;
+  margin: auto;
+  padding-bottom: 100px;
+}
+.bg{
+  background-color: rgb(228, 227, 227);
+  padding-bottom: 100px;
+}
+/******************************  { start Btns } **************************************/
+.mainBtn{   
+  /*normal without radius*/
+  font-size: 20px;
+  text-align: center;
+  background-color: #fff;
+  color: #0070cd;
+  transition: all .5s ease-in-out;
+  border: 1px solid #0070cd;
+  margin-top: 15px;
+  border-radius: 0;
+}
+.mainBtn:hover{
+    background-color: #0070cd;
+    color: #fff;
+}
+.btnL{
+  /*add left radius to mainBt*/
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+.btnR{
+  /*add right radius to mainBt*/
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.btnN{
+  /*add  radius to mainBt*/
+  border-radius: 10px;
+}
+.btnT{
+  /*add float right to mainBtn*/
+  margin: 0;
+  float: right;
+}
+.floatBtn{
+  /*delete it***************/
+  border-radius: 50%;
+}
+
+ .searchBtn:hover{
+   background-color:#0070cd ;
+   border: 1px solid #0070cd;
+ }
+ .formBtn{
+   /*for normal form*/
+  width:150px;
+  font-size: 20px;
+  text-align: center;
+  border-radius: 10px;
+  background-color: #fff;
+  color: #0070cd;
+  transition: all .5s ease-in-out;
+  border: 1px solid #0070cd;
+  margin-top: 15px;
+}
+.modelBtn{
+  /*for form model*/
+  border: 1px solid #0070cd;
+  color: #0070cd;
+  text-align: center;
+  border-radius: 10px;
+  border: 1px solid #0070cd;
+  background-color: #fff;
+}
+.formBtn:hover , .modelBtn:hover{
+  background-color: #0070cd;
+  color:#fff ;
+}
+.add{
+  /*add btn in page header*/
+  font-size: 24px;
+  margin-top:40px;
+  margin-right: 8%;
+  color: #fff;
+  float: right;
+  background-color: #0070cd;
+}
+.add:hover{
+  color: #0070cd;
+  background-color: #fff;
+  border-color: #0070cd;
+}
+
+.delN{
+  /*delete it ***************************/
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #0070cd;
+  font-size: 18px;
+}
+.del{
+  /*float btn icon in item header*/
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  color: #0070cd;
+  border:1px solid #0070cd;
+  border-radius: 50%;
+  font-size: 18px;
+}
+.del:hover{
+  background-color: #0070cd;
+  color: #fff;
+}
+
+/******************************  { search header } **************************************/
+.searchCom{
+  margin-top: 0;
+  background-size: cover;
+  padding: 55px;
+  padding-left: 100px;
+}
+.highOne{
+  height: 250px;
+}
+.highTwo{
+  height: 400px;
+}
+.searchHeader{
+  color: #fff;
+  margin-top: 0;
+  font-weight: normal;
+  text-align: left;
+}
+.searchPara{
+  color: #ddd;
+  margin-top: 0;
+  text-align: center;
+  font-weight: normal;
+  font-size: 22px;
+  margin-bottom: 50px;
+}
+
+
+.cell {
+  padding: 15px;
+  text-align: center;
+  background: transparent;
+  color: rgb(255, 255, 255);
+  font-size: 18px;
+  font-weight: bold;
+  border:1px solid #fff;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  height: 60px;
+  float: left;
+ }
+ .cellSizeThree{
+  width: 32%;
+ }
+ .cellSizeFour{
+   width: 24%;
+  }
+ .searchOption{
+   color: rgb(0, 0, 0);
+   border-radius: 50px;
+   background: #ddd;
+   padding: 5px;
+ }
+ .cell::placeholder , .firstSearchCell::placeholder{
+   color: #fff;
+ }
+ .firstSearchCell {
+  padding: 15px;
+  text-align: center;
+  float: left;
+  background: transparent;
+  color: rgb(255, 255, 255);
+  font-size: 18px;
+  font-weight: bold;
+  border:1px solid #fff;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  height: 60px;
+ }
+ .searchBtn{
+  /*for search header*/
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  color: #fff;
+  background-color: rgb(228, 227, 227);
+  color: #0070cd;
+ }
+/******************************  { form and model } **************************************/
+.formPage{
+  background-color: #fff;
+  border: 1px soild #fff;
+  border-radius: 20px;;
+  color: rgb(22, 22, 22);
+  padding: 3%;
+  padding-bottom: 30pxs;
+  padding-left: 3%;
+}
+.fullForm{
+  overflow: hidden;
+  text-align: center;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 25px;
+}
+.formHeader{
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #0070cd;
+  padding: 10px;
+  border-radius: 10px;
+  color: #fff;
+  text-align: center;
+}
+.star{
+  color: red;
+  font-size:18px
+}
+.checkPara{
+  margin-top: 10px;
+  font-size: 20px;
+}
+.field{
+  float: left;
+  width: 100%;
+  margin: auto;
+  margin-top:20px;
+}
+
+/******************************  { page header } **************************************/
+
+.headBar{
+  /* conatin header and  add Btn */
+  overflow: hidden;
+  width: 80%;
+}
+.header{
+  font-size: 30px;
+  text-align: left;
+  margin:25px;
+  width: 250px;
+  border-bottom: 3px solid #0070cd;
+  padding: 20px;
+  color: #0070cd;
+  float:left;
+  border-bottom-left-radius: 15px;
+}
+
+/******************************  { list } **************************************/
+.items{
+  overflow: hidden;
+}
+.listConatiner{
+  width: 60%;
+  margin: auto;
+}
+.item{
+  float: left;
+  width: 90%;
+  border:1px solid #fff;
+  border-radius: 20px;
+  background-color: rgba(255,255,255,.8);
+  padding: 10px;
+  margin-top:30px;
+  margin-bottom: 25px;
+  margin-left: 25px;
+  position: relative;
+}
+.itemHeader{
+  /* header 1 , no sub header*/
+  font-size: 25px;
+  font-weight: bold;
+  border-bottom:4px solid #0070cd;
+  color: #0070cd;
+  text-align: center;
+  margin-left: 25px;
+  margin-bottom: 25px;
+  padding: 10px;
+  position: relative;
+}
+.itemHeaderWithSub{
+  /*header 2 , with sub header*/
+  font-size: 28px;
+  font-weight: bold;
+  border-bottom:4px solid #0070cd;
+  color: #0070cd;
+  text-align: left;
+  margin-left: 25px;
+  margin-bottom: 25px;
+  padding: 10px;
+}
+.itemSubHeader{
+  /* sub header */
+  font-size: 13px;
+  font-weight: normal;
+  color: #0070cd;
+  margin-left: 10px;
+  margin-top: 5px;
+}
+
+.itemBody{
+  /* body 1 , witj header*/
+  padding-left: 10%;
+  text-align: left;
+}
+.itemBodyNoHeader{
+  /* body 2 , no header*/
+  padding-left: 10%;
+  text-align: left;
+  padding-top: 20px;
+}
+.bodyImgSec{
+  /*body sec 1 , for img */
+  width:20%;
+  float: left;
+}
+.bodyImg{
+  border-radius: 50%;
+  border:1px solid #ddd;
+  margin-left: 25%;
+  width: 90%;
+  height: 180px;
+}
+.bodyInfoSec{
+  /*body sec 2 , for info */
+  margin-top: 20px;
+  width:75%;
+  float: left;
+  margin-left: 50px;
+}
+
+.bodyPara{
+  overflow: auto;
+  text-transform: capitalize;
+  line-height: 1.8;
+  word-spacing: 1.3;
+  
+  font-size: 18px;
+}
+.txt{
+  margin-right: 30%;
+  color: #0070cd;
+  margin-left: 5%;
+}
+.desc{
+  font-size: 22px;
+  text-transform: capitalize;
+  overflow: visible;
+  white-space: wrap;
+}
+
+/***************************** {Review} *****************************/
+.review{
+  background-color: #fff;
+  margin-top: 10px;
+  text-align:left;
+  padding:10px;
+  padding-left: 40px;
+  border-radius: 10px;
+}
+.rater{
+  font-size: 20px;
+  font-weight:bold;
+  margin: 0;
+}
+.comment{
+  margin: 0;
+  margin-left: 20px;
+  font-size:16px
+
+}
+.checked {
+  color: orange;
+}
+.unchecked {
+  color: #ddd;
+}
+
+/***************************** {NavBar} *****************************/
+.active{
+  color:red
+}
+.nav{
+  background-color: #0070cd;
+ 
+  
+}
+.navLink{
+  text-align: left;
+  margin-right: 20px;
+  font-size: 22px;
+  text-decoration: none;
+  color: #fff;
+}
+.navLink:hover {
+  text-decoration: none;
+  color: red;
+  cursor: pointer;
+}
+.logo{
+  float: left;
+  width: 40%;
+  
+}
+.title{
+  text-decoration: none;
+  font-size: 34px;
+  font-weight: bold;
+  color: white;
+}
+ .title:hover{
+  text-decoration: none;
+  color: white;
+}
+.title span{
+  border-bottom: 2px solid red;
+  margin-bottom: 30px;
+}

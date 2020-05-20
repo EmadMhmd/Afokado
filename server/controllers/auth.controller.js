@@ -38,9 +38,9 @@ var storage = multer.diskStorage({
     });
     */
    //console.log('req file' ,req)
-    const { userName ,mobile , email ,gender , age , spec , sspec , tspec , level , address , city , state , zip ,uni , password, type , joined}= req.body; 
+    const { userName ,mobile , email ,gender , age , spec , sspec , tspec , level , address , city , state  ,uni , password, type , gpa}= req.body; 
     const newUser =new User({                                    
-        userName ,mobile , email ,gender , age , spec , sspec , tspec , level , address , city , state , zip ,uni , password, type , joined
+        userName ,mobile , email ,gender , age , spec , sspec , tspec , level , address , city , state  ,uni , password, type , gpa
     })     
 
      try{
@@ -141,6 +141,47 @@ var storage = multer.diskStorage({
         });
     }
 }
+
+
+authController.updateUser=async (req , res , next)=>{
+   const { userName ,mobile , email ,gender , age , spec , sspec , tspec , level , address , city , state  ,uni , password, type , gpa}= req.body; 
+   const {user}=req
+   const updatedUser = {                                    
+       userName ,mobile , email ,gender , age , spec , sspec , tspec , level , address , city , state  ,uni , password, type , gpa
+   }     
+
+    try{
+           
+        await User.updateOne({_id:user._id},updatedUser )      
+        return res.send({
+            message:'The profile updated successfully'
+           });
+        
+    }catch(e){
+            return res.status(401).send({
+               error :`Fail to update the profile , please try again`
+           });
+      
+        
+    }
+};
+authController.upgradeUser=async (req , res , next)=>{
+    const {user}=req
+     try{
+            
+         await User.updateOne({_id:user._id} , {type:2} )      
+         return res.send({
+             message:'The profile upgraded successfully'
+            });
+         
+     }catch(e){
+             return res.status(401).send({
+                error :`Fail to upgrade the profile , please try again`
+            });
+       
+         
+     }
+ };
 
 authController.me = (req,res,next)=>{
     const {user} = req;

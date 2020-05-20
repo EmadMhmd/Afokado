@@ -54,9 +54,9 @@ export const deleteApplication=id=>{
 export const rejectApplication=id=>{
     return async dispatch =>{
         try{
-            dispatch(clearError())
-            dispatch(clearMessage())
-           const {data:message}=await apiRejectApplication(id)
+           dispatch(clearError())
+           dispatch(clearMessage())
+           const {data:{message}}=await apiRejectApplication(id)
            dispatch({type:APPLICATION_REJECTED})
            dispatch(fetchApplicationRequests())
            dispatch(addMessage(message))
@@ -83,10 +83,11 @@ export const acceptApplication=id=>{
 export const updateApplication=id=>{
     return async dispatch =>{
         try{
-            dispatch(clearError())
-            dispatch(clearMessage())
+           dispatch(clearError())
+           dispatch(clearMessage())
            const {data:{message}}=await apiUpdateApplication(id)
            dispatch({type:APPLICATION_UPDATED})
+           dispatch(fetchApplications())
            dispatch(addMessage(message))
         }catch(e){
             dispatch(addError(e))

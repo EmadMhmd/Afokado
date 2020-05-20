@@ -99,7 +99,7 @@ class UpdateCasePage extends Component {
                                                     <Input
                                                         placeholder="Enter Defendant"
                                                         invalid={errors.defendant && touched.defendant && errors.defendant}
-                                                        type="text"
+                                                        type="textarea"
                                                         name="defendant"
                                                         onChange={handleChange}
                                                         onBlur={handleBlur}

@@ -48,5 +48,53 @@ rateController.fetchRates= async(req ,res ,next)=>{
         });
     }
 }
+rateController.getRate = async (req ,res ,next) => {
+    const {_id}=req.params
+    const rates=await Rate.find({ratee : _id})
+    var one, two, three, four, five, overall = 0
+    five = await rates.reduce((total, rate, i, a) => {
+        if (rate.stars === 5) {
+            total += 1
+        }
 
+        return total
+
+    }, 0);
+    four = await rates.reduce((total, rate, i, a) => {
+        if (rate.stars === 4) {
+            total += 1
+        }
+
+        return total
+
+    }, 0);
+    three = await rates.reduce((total, rate, i, a) => {
+        if (rate.stars === 3) {
+            total += 1
+        }
+
+        return total
+
+    }, 0);
+    two = await rates.reduce((total, rate, i, a) => {
+        if (rate.stars === 2) {
+            total += 1
+        }
+
+        return total
+
+    }, 0)
+    one = await rates.reduce((total, rate, i, a) => {
+        if (rate.stars === 1) {
+            total += 1
+        }
+
+        return total
+
+    }, 0);
+
+    overall = await (one + 2 * two + 3 * three + 4 * four + 5 * five) / (one + two + three + four + five)
+    const stars={one , two , three , four , five , overall}
+    return overall
+}
 module.exports =rateController;

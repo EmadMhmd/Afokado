@@ -14,6 +14,7 @@ class Signup_lawyer extends Component {
         spec: [],
         city: []
     }
+    
     componentDidMount() {
         axios.get('./data/spec.json ').then(res => {
             this.setState({
@@ -100,11 +101,11 @@ class Signup_lawyer extends Component {
                                 /* and other goodies */
                             }) => (
                                     <div>
-                                        <FormGroup  className='field'>
-                                            <Label >User Name <span className='star'>*</span></Label>
+                                        <FormGroup >
+                                            <Label >Name <span className='star'>*</span></Label>
                                             <Input
                                                 className='input'
-                                                placeholder="Enter Your user Name"
+                                                placeholder="Enter Your name"
                                                 invalid={errors.userName && touched.userName && errors.userName}
                                                 type="text"
                                                 name="userName"
@@ -115,7 +116,7 @@ class Signup_lawyer extends Component {
 
                                             {errors.userName && touched.userName ? (<FormFeedback>{errors.userName}</FormFeedback>) : null}
                                         </FormGroup >
-                                            <FormGroup className='field'>
+                                            <FormGroup>
                                             <Label >User Img</Label>
                                             <Input
                                                 placeholder="Enter Your user Img"
@@ -126,10 +127,9 @@ class Signup_lawyer extends Component {
                                                 onBlur={handleBlur}
                                                 value={values.img}
                                             />
-
                                             {errors.img && touched.img ? (<FormFeedback>{errors.img}</FormFeedback>) : null}
                                         </FormGroup >
-                                        <FormGroup className='field'>
+                                        <FormGroup >
                                             <Label >Email<span className='star'>*</span></Label>
                                             <Input
                                                 className='input'
@@ -144,7 +144,7 @@ class Signup_lawyer extends Component {
 
                                             {errors.email && touched.email ? (<FormFeedback>{errors.email}</FormFeedback>) : null}
                                         </FormGroup>
-                                        <FormGroup className='field'>
+                                        <FormGroup>
                                             <Label className='label'>Mobile Number</Label>
                                             <Input
                                                 className='input'
@@ -156,10 +156,9 @@ class Signup_lawyer extends Component {
                                                 onBlur={handleBlur}
                                                 value={values.mobile}
                                             />
-
                                             {errors.mobile && touched.mobile ? (<FormFeedback>{errors.mobile}</FormFeedback>) : null}
                                         </FormGroup>
-                                        <FormGroup className='field'>
+                                        <FormGroup >
                                             <Label>Age</Label>
                                             <Input
                                                 className='input'
@@ -171,11 +170,9 @@ class Signup_lawyer extends Component {
                                                 onBlur={handleBlur}
                                                 value={values.age}
                                             />
-
                                             {errors.age && touched.age ? (<FormFeedback>{errors.age}</FormFeedback>) : null}
                                         </FormGroup>
-
-                                        <FormGroup className='field'>
+                                        <FormGroup >
                                             <Label >Major Spec <span className='star'>*</span></Label>
                                             <Input 
                                                 className='select'
@@ -192,7 +189,7 @@ class Signup_lawyer extends Component {
                                             </Input>
                                             {errors.spec && touched.spec ? (<FormFeedback>{errors.spec}</FormFeedback>) : null}
                                         </FormGroup>
-                                         <FormGroup className='field'>
+                                         <FormGroup>
                                             <Label >secondary Spec</Label>
                                             <Input 
                                                 type="select" 
@@ -209,7 +206,7 @@ class Signup_lawyer extends Component {
                                             </Input>
                                             {errors.sspec && touched.sspec ? (<FormFeedback>{errors.sspec}</FormFeedback>) : null}
                                         </FormGroup>
-                                        <FormGroup className='field'>
+                                        <FormGroup >
                                             <Label >Gender</Label>
                                             <Input 
                                                 type="select" 
@@ -223,11 +220,10 @@ class Signup_lawyer extends Component {
                                                 <option>Select geneder</option>
                                                 <option>Male</option>
                                                 <option>Femal</option>
-                                                
                                             </Input>
                                             {errors.gender && touched.gender ? (<FormFeedback>{errors.gender}</FormFeedback>) : null}
                                         </FormGroup>
-                                        <FormGroup className='field'>
+                                        <FormGroup >
                                             <Label  >Addres <span className='star'>*</span></Label>
                                             <Input
                                                 type="text"
@@ -242,7 +238,7 @@ class Signup_lawyer extends Component {
                                         </FormGroup>
                                         <Row form>
                                             <Col md={7}>
-                                                <FormGroup className='field'>
+                                                <FormGroup >
                                                     <Label >City <span className='star'>*</span></Label>
                                                     <Input
                                                         type="select"
@@ -259,7 +255,7 @@ class Signup_lawyer extends Component {
                                                 </FormGroup>
                                             </Col>
                                             <Col md={5}>
-                                                <FormGroup className='field'>
+                                                <FormGroup>
                                                     <Label >State <span className='star'>*</span></Label>
                                                     <Input
                                                         type="text"
@@ -274,7 +270,7 @@ class Signup_lawyer extends Component {
                                 
                                         </Row>
 
-                                        <FormGroup className='field'>
+                                        <FormGroup>
                                             <Label >Password <span className='star'>*</span></Label>
                                             <Input
                                                 placeholder="Enter Your password"

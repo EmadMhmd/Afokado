@@ -7,3 +7,8 @@ export const apiFetchRates=(id)=>{
 export const apiAddRate=(rate)=>{
     return axios.post(`http://localhost:5000/add_rate`,rate)
 }
+
+
+export const apiGetRate=(id)=>{
+    return axios.get(`http://localhost:5000/get_rate/${id}`)
+}

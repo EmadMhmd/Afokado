@@ -8,8 +8,7 @@ import { fetchInternshipsForApply } from '../../../actions/internalship.action.j
 import axios from 'axios';
 
 var homeStyle = {
-    backgroundImage: "url(" + Background + ")",
-    height: "300px"
+    backgroundImage: "url(" + Background + ")"
 };
 class Header extends Component {
     _handleFormSubmit = (values, bag) => {
@@ -53,7 +52,7 @@ class Header extends Component {
     }
     render() {
         return (
-            <div className='searchCom' style={homeStyle}>
+            <div className='searchCom highTwo' style={homeStyle}>
 
                 <p className='searchPara'>Best Lawyers in Egypt</p>
                 <Formik

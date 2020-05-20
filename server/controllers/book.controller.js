@@ -104,7 +104,6 @@ bookController.fetchBooks = async (req, res, next) => {
         deleted:0,
         }
     try {
-        
         const books =await Book.find(query).populate('lawyer timeId')
         return res.send({
             books
@@ -113,7 +112,6 @@ bookController.fetchBooks = async (req, res, next) => {
         return res.status(401).send({
             error :'fetching falied , try again !!'
         });
-
     }
 }
 /*

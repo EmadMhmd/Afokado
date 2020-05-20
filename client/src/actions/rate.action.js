@@ -1,8 +1,8 @@
-import { RATE_ADDED ,RATES_FETCHING_SUCCESS } from './actionTypes.js';
+import { RATE_ADDED ,RATES_FETCHING_SUCCESS ,RATEING_GETTING_SUCCESS} from './actionTypes.js';
 import {addError ,clearError} from './error.action';
 import {addMessage ,clearMessage} from './message.action';
 import {fetchingTime , fetchingFailed} from './fetch.action';
-import {apiAddRate ,apiFetchRates} from '../api/rate.api.js';
+import {apiAddRate ,apiFetchRates ,apiGetRate} from '../api/rate.api.js';
 
 
 export const addRate=(rate)=>{
@@ -34,4 +34,20 @@ export const fetchRates=(id)=>{
         }
     }
 }
+
+export const getRate=(id)=>{
+    return async dispatch=>{
+        try{
+            dispatch(clearError())
+            dispatch(fetchingTime())
+            const {data : {overall}}=await apiGetRate(id)
+            dispatch({type:RATEING_GETTING_SUCCESS , payload:overall})
+            dispatch(fetchingFailed())
+        }catch(e){
+            dispatch(fetchingFailed());
+            dispatch(addError(e))
+        }
+    }
+}
+
 

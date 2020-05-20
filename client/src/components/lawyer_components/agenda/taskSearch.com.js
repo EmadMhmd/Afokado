@@ -8,8 +8,7 @@ import Background from '../../../images/home3.jpg';
 
 
 const homeStyle = {
-    backgroundImage: "url(" + Background + ")",
-    height:"250px"
+    backgroundImage: "url(" + Background + ")"
 };
 
 
@@ -20,7 +19,7 @@ class TaskSearch extends Component {
     }
     render() {
         return (
-            <div className='searchCom' style={homeStyle}>
+            <div className='searchCom highOne' style={homeStyle}>
                 <p className='searchPara'>Task Search</p>
                 <Formik
                     className='form'

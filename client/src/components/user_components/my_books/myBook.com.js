@@ -92,12 +92,13 @@ class MyBook extends Component {
                             <div key={item._id} className='item'>
 
                                 <div class='itemBodyNoHeader'>
-                                    <pre>book Time          : {moment(item.timeId.time).format(' DD-MM-YYYY  dddd')}</pre>
-                                    <pre>lawyer Name        : {item.lawyer.userName}</pre>
-                                    <pre>lawyer Mobile      : 0{item.lawyer.mobile}</pre>
-                                    <pre>address            : {item.lawyer.address}</pre>
-                                    <pre>city               : {item.lawyer.city}</pre>
-                                    <pre>state              :{item.lawyer.state}</pre>
+                                    <pre className='bodyPara'>book Time          : {moment(item.timeId.time).format(' DD-MM-YYYY  dddd')}</pre>
+                                    <pre className='bodyPara'>lawyer Name        : {item.lawyer.userName}</pre>
+                                    <pre className='bodyPara'>lawyer Mobile      : 0{item.lawyer.mobile}</pre>
+                                    <pre className='bodyPara'>address            :</pre>
+                                    <pre className='bodyPara txt'>{item.lawyer.address}</pre>
+                                    <pre className='bodyPara'>city               : {item.lawyer.city}</pre>
+                                    <pre className='bodyPara'>state              :{item.lawyer.state}</pre>
                                     <abbr title='Delete the Book'><Button className='del' onClick={() => this.props.deleteBook(item._id)}><i className='fa fa-trash fas' /></Button></abbr>
                                 </div>
                                 {this.renderBtn(item)}

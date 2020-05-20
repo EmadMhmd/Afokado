@@ -30,6 +30,7 @@ router.get('/fetch_lawyers/:spec?/:city?/:userName?',lawyerController.fetchLawye
 router.get('/get_lawyer/:_id',lawyerController.getLawyer);
 router.get('/fetch_times/:_id?',timeController.fetchTimes);
 router.get('/fetch_rates/:_id', rateController.fetchRates);
+router.get('/get_rate/:_id', rateController.getRate);
 
 
 
@@ -47,6 +48,8 @@ router.all('*',(req ,res , next )=>{
   
   /////////////////////////////////////// {Protected Routes} /////////////////////////
   router.get('/me',authController.me)
+  router.put('/update_user',authController.updateUser)
+  router.put('/upgrade_user',authController.upgradeUser)
 
   router.post('/add_case', caseController.addCase);
   router.get('/fetch_cases/:archive?/:type?', caseController.fetchCases);

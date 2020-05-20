@@ -48,7 +48,7 @@ class Internships extends Component {
                 <HeaderSearch />
                 <div className='listConatiner'>
          
-                <h3 className='secondHeader'> 
+                <h3 className='header' style={{width:'360px'}}> 
                             <span className='spec'> Matching </span>
                             <span> {internships.length} </span>
                             Internships
@@ -61,7 +61,7 @@ class Internships extends Component {
                                 
                                 <div className='itemBody' >
                                     <pre className='desc'>Description :</pre>
-                                    <p className='txt'>{item.description}</p>
+                                    <p className='bodyPara txt'>{item.description}</p>
                                     <pre className='bodyPara'>Start Date     :{moment(item.startDate).format(' DD-MM-YYYY  dddd')}</pre>
                                     <pre className='bodyPara'>Duration       : {item.duration}</pre>
                                     <pre className='bodyPara'>count          : {item.count}</pre>

@@ -14,6 +14,7 @@ import error from './error.reducer';
 import fetch from './fetch.reducer';
 import notify from './notify.reducer';
 import message from './message.reducer';
+import star from './star.reducer';
 
 export default combineReducers({
     auth,
@@ -28,5 +29,6 @@ export default combineReducers({
     fetch,
     notify,
     message,
-    apply
+    apply,
+    star
 })

@@ -9,7 +9,7 @@ import { fetchLawyers } from '../../../actions/lawyer.action.js';
 import axios from 'axios';
 var homeStyle = {
     backgroundImage: "url(" + Background + ")",
-    height:"400px"
+    
 };
 
 class LawyerSearchHeader extends Component {
@@ -54,13 +54,12 @@ class LawyerSearchHeader extends Component {
     }
     render() {
         return (
-            <div className='home'>
-                <div className='searchCom' style={homeStyle}>
+           
+                <div className='searchCom highTwo' style={homeStyle}>
                     <h1 className='searchHeader'>Finding a Lawyer in Egypt has never been <br />
                        easier</h1>
                     <p className='searchPara'>Book Online Now</p>
                     <Formik
-                        className='form'
                         initialValues={{ userName: '', city: '', spec: '' }}
                         validationSchema={Yup.object().shape({
                             userName: Yup.string(),
@@ -126,7 +125,6 @@ class LawyerSearchHeader extends Component {
                             )}
                     </Formik>
                 </div>
-            </div>
         )
     }
 }

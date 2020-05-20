@@ -28,3 +28,11 @@
     background-color: #0070cd;
     margin-right: 10px;
 }
+
+@media  (max-width:900px){ 
+    .steps .step{
+        width: 60%;
+        margin-left: 20%;
+        margin-bottom: 50px;
+    }    
+}

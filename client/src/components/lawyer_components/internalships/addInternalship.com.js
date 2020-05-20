@@ -122,7 +122,7 @@ class AddInternshipPage extends Component{
                                         <FormGroup>
                                             <Label>paid</Label>
                                             <Input
-                                                placeholder="Enter paid"
+                                                placeholder="Enter paid ex: 0 / 500 LE"
                                                 invalid={errors.paid && touched.paid && errors.paid}
                                                 type="number"
                                                 name="paid"
