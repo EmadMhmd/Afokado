@@ -1,6 +1,7 @@
 const mongoose =require('mongoose');
 const bcryptjs =require('bcryptjs');
 
+
 const type=1;
 const user = mongoose.Schema({
     userName : {
@@ -66,6 +67,11 @@ const user = mongoose.Schema({
     },
     bio:{
         type:String
+    },
+    img:{
+    },
+    rate:{
+        type:Number
     }
 })
 
@@ -89,7 +95,6 @@ const user = mongoose.Schema({
     }
     
 })*/
-
 
 
 //for compare hashed password with sended password

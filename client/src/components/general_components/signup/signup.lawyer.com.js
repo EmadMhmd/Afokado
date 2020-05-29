@@ -62,13 +62,13 @@ class Signup_lawyer extends Component {
 
     render() {
         return (
-            <div className='bg'>
+            <div className='bg mt'>
                 <div className='container'>
                     <div className='formPage'>
                         <h3 className='formHeader'>Sign Up</h3>
                         <Formik
                             enctype="multipart/form-data"
-                            initialValues={{ userName: '', img: '', email: '', password: '', mobile: '', age: '', address: '', city: '', state: '', spec: '',sspec: '', zip: '' ,gender:''}}
+                            initialValues={{ userName: '',  email: '', password: '', mobile: '', age: '', address: '', city: '', state: '', spec: '',sspec: '', zip: '' ,gender:''}}
                             validationSchema={Yup.object().shape({
                                 userName: Yup.string().required(),
                                 email: Yup.string().email().required(),
@@ -98,7 +98,7 @@ class Signup_lawyer extends Component {
                                 handleSubmit,
                                 isSubmitting,
                                 isValid
-                                /* and other goodies */
+                                
                             }) => (
                                     <div>
                                         <FormGroup >
@@ -115,19 +115,6 @@ class Signup_lawyer extends Component {
                                             />
 
                                             {errors.userName && touched.userName ? (<FormFeedback>{errors.userName}</FormFeedback>) : null}
-                                        </FormGroup >
-                                            <FormGroup>
-                                            <Label >User Img</Label>
-                                            <Input
-                                                placeholder="Enter Your user Img"
-                                                invalid={errors.img && touched.img && errors.img}
-                                                type="file"
-                                                name="img"
-                                                onChange={handleChange}
-                                                onBlur={handleBlur}
-                                                value={values.img}
-                                            />
-                                            {errors.img && touched.img ? (<FormFeedback>{errors.img}</FormFeedback>) : null}
                                         </FormGroup >
                                         <FormGroup >
                                             <Label >Email<span className='star'>*</span></Label>

@@ -1,3 +1,4 @@
+ /*colors  => 4e342e , 3e2723, 000  , 3b3f65 , 3e2723*/
 /******************************  { general } **************************************/
 .App {
   text-align: center;
@@ -11,6 +12,10 @@
   background-color: rgb(228, 227, 227);
   padding-bottom: 100px;
 }
+.mt{
+padding-top:25px
+}
+
 /******************************  { start Btns } **************************************/
 .mainBtn{   
   /*normal without radius*/
@@ -208,12 +213,14 @@
   padding-bottom: 30pxs;
   padding-left: 3%;
 }
+/*
 .fullForm{
   overflow: hidden;
   text-align: center;
   border-bottom: 2px solid #ddd;
   padding-bottom: 25px;
 }
+*/
 .formHeader{
   font-size: 20px;
   font-weight: bold;
@@ -231,13 +238,14 @@
   margin-top: 10px;
   font-size: 20px;
 }
+/*
 .field{
   float: left;
   width: 100%;
   margin: auto;
   margin-top:20px;
 }
-
+*/
 /******************************  { page header } **************************************/
 
 .headBar{
@@ -345,7 +353,6 @@
   text-transform: capitalize;
   line-height: 1.8;
   word-spacing: 1.3;
-  
   font-size: 18px;
 }
 .txt{
@@ -392,9 +399,8 @@
   color:red
 }
 .nav{
-  background-color: #0070cd;
- 
-  
+   /*colors  => 4e342e , 3e2723, 000  , 3b3f65 , 3e2723*/
+  background-color: #0070cd  ;
 }
 .navLink{
   text-align: left;

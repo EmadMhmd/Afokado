@@ -75,7 +75,7 @@ class MyApp extends Component {
                                 <div class='itemBody'>
                                     <pre className='bodyPara'>Status             : {item.status}</pre>
                                     <pre className='bodyPara'>Description        :</pre>
-                                    <pre className='bodyPara txt'>{item.internshipId.description}</pre>
+                                    <p className='bodyPara txt'>{item.internshipId.description}</p>
                                     <pre className='bodyPara'>Duration           : {item.internshipId.duration}</pre>
                                     <pre className='bodyPara'>Paid               : {item.internshipId.paid}</pre>
                                     <pre className='bodyPara'>apply time         : {moment(item.created).format(' DD-MM-YYYY  dddd')}</pre>

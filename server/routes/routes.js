@@ -9,6 +9,7 @@ const taskController=require('../controllers/task.controller');
 const lawyerController=require('../controllers/lawyer.controller');
 const notifyController=require('../controllers/notify.controller');
 const applyController=require('../controllers/apply.controller');
+const imgController=require('../controllers/img.controller');
 const passport = require('passport');
 
 
@@ -34,6 +35,7 @@ router.get('/get_rate/:_id', rateController.getRate);
 
 
 
+
 router.all('*',(req ,res , next )=>{
     passport.authenticate('jwt' , {session : false}, (err , user)=>{
       if(err || !user){
@@ -50,6 +52,7 @@ router.all('*',(req ,res , next )=>{
   router.get('/me',authController.me)
   router.put('/update_user',authController.updateUser)
   router.put('/upgrade_user',authController.upgradeUser)
+  router.put('/img_upload',imgController.uploadProfileImg)
 
   router.post('/add_case', caseController.addCase);
   router.get('/fetch_cases/:archive?/:type?', caseController.fetchCases);

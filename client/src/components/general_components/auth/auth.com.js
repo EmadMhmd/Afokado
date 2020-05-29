@@ -26,7 +26,7 @@ class LoginPage extends Component {
     }
     render() {
         return (
-            <div className='bg'>
+            <div className='bg mt'>
                 <div className='container'>
                     <div className='formPage'>
                         <h3 className='formHeader'>Login IN</h3>

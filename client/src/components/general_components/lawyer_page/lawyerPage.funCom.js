@@ -1,30 +1,38 @@
-import React, { useEffect, useState, useRef, useLayoutEffect ,useCallback} from 'react';
-import { getLawyer } from '../../../actions/lawyer.action.js';
+import React, { useEffect, useState } from 'react';
 import { Button, FormGroup, Input, Row, Col } from 'reactstrap'
 import { connect } from 'react-redux';
 import { book } from '../../../actions/book.action';
 import AddReview from '../rate/addReview.com.js';
 import HeaderSearch from '../book_search_header/bookHeader.com.js';
 import moment from 'moment';
-import lm from '../../../images/lawm.png';
 import StarCom from '../stars/star.com.js';
+import { apiGetLawyer } from '../../../api/lawyer.api';
+import { apiFetchRates } from '../../../api/rate.api';
+import { apiFetchTimes } from '../../../api/times.api';
+import lm from '../../../images/lawm.png';
+
 
 const LawyerPage = (props) => {
     const [rateing, setRateing] = useState(0)
     const [time, setTime] = useState('')
-    //const rateRef=useRef()
-    //
-    useEffect(() => {
-        const { getLawyer } = props;
+    const [times, setTimes] = useState([])
+    const [lawyer, setLawyer] = useState({})
+    const [rates, setRates] = useState([])
+
+    useEffect( async () => {
         const { id } = props.match.params;
-        getLawyer(id)
-        setRateing(0)
+        const { data: { lawyers } } = await apiGetLawyer(id)
+        const { data: { rates } } = await apiFetchRates(id)
+        const { data: { times } } = await apiFetchTimes(id)
+        setLawyer(lawyers)
+        setTimes(times)
+        setRates(rates)
+       
     }, [])
 
-    
 
     const rateCal = () => {
-        const { rates } = props;
+        
         var one, two, three, four, five, total = 0
         five = rates.reduce((total, rate, i, a) => {
             if (rate.stars === 5) {
@@ -98,6 +106,23 @@ const LawyerPage = (props) => {
             <></>
         )
     }
+        const renderImg=()=>{
+        const { img } = lawyer
+        if(img){
+            return (
+                <div className='bodyImgSec'>
+                    <img src={require(`../../../images/${img.filename}`)} className='bodyImg' alt='lawyer-img' />
+                </div>
+            )
+        }else{
+            return (
+                <div className='bodyImgSec'>
+                    <img src={lm} className='bodyImg' alt='lawyer-img' />
+                </div>
+            )
+        }
+        
+    }
     const renderBio = (bio) => {
         if (bio) {
             return (
@@ -110,8 +135,8 @@ const LawyerPage = (props) => {
         return <></>
     }
 
-    const { lawyer, times, rates, star } = props;
-    
+
+
     return (
         <div className='bg items'>
             <HeaderSearch />
@@ -123,7 +148,7 @@ const LawyerPage = (props) => {
                     <Row >
                         <Col md={8}>
                             <FormGroup>
-                                <Input  style={{ marginLeft: '10px' }}  type="select" name="select" onChange={handleChange} >
+                                <Input style={{ marginLeft: '10px' }} type="select" name="select" onChange={handleChange} >
                                     <option>Select Time</option>
                                     {times.map(onetime => (
                                         <option key={onetime._id} value={onetime._id}> {moment(onetime.time).format(' DD-MM-YYYY  dddd')}</option>
@@ -141,11 +166,9 @@ const LawyerPage = (props) => {
 
                 <div className='item'>
                     <h3 className='itemHeader'>{lawyer.userName}</h3>
-                    <div className='bodyImgSec'>
-                        <img src={lm} className='bodyImg' alt='lawyer-img' />
-                    </div>
+                    {renderImg()}
                     <div className='itemBody bodyInfoSec' >
-                        {/* <pre className='bodyStar'><StarCom stars={rateing} /></pre> */}
+                        {/* <pre className='bodyStar'><StarCom stars={rateing} /></pre>  */}
                         <pre className='desc'><i className="fa fa-map-marker-alt" />  :</pre>
                         <p className='bodyPara txt'>{lawyer.address} , {lawyer.city} ,{lawyer.state}</p>
                         <pre className='desc'><i className="fa fa-gavel" />  :<span className='txt'>{lawyer.spec}</span></pre>
@@ -175,15 +198,12 @@ const LawyerPage = (props) => {
     )
 
 }
-const mapStateToProps = ({ lawyer, auth, fetch, time, rate, star }) => {
+const mapStateToProps = ({ auth, fetch }) => {
     return {
         fetching: fetch.fetching,
-        lawyer: lawyer.lawyer,
-        times: time.times,
-        rates: rate.rates,
         isAuth: auth.isAuth,
-        star: star.stars
+
     }
 }
 
-export default connect(mapStateToProps, { getLawyer, book })(LawyerPage);
+export default connect(mapStateToProps, { book })(LawyerPage);

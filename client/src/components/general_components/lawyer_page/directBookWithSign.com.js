@@ -22,7 +22,7 @@ class DirectBookWithSign extends Component {
     }
     render() {
         return (
-            <div className='bg'>
+            <div className='bg mt'>
                 <div className='container'>
                     <div className='formPage'>
                         <h3 className='formHeader'>Direct Book with SignUp</h3>

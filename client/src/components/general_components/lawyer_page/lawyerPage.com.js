@@ -10,7 +10,7 @@ import lm from '../../../images/lawm.png';
 import StarCom from '../stars/star.com.js';
 
 class LawyerPage extends Component {
-    
+
 
     componentDidMount() {
         const { getLawyer } = this.props;
@@ -24,7 +24,7 @@ class LawyerPage extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleChange(event) {
-        this.setState({ value: event.target.value });  
+        this.setState({ value: event.target.value });
     }
     handleSubmit() {
         const { isAuth, book } = this.props;
@@ -62,6 +62,23 @@ class LawyerPage extends Component {
         }
         return <></>
     }
+    renderImg() {
+        const { lawyer: { img } } = this.props;
+        if(img){
+            return (
+                <div className='bodyImgSec'>
+                    <img src={require(`../../../images/${img.filename}`)} className='bodyImg' alt='lawyer-img' />
+                </div>
+            )
+        }else{
+            return (
+                <div className='bodyImgSec'>
+                    <img src={lm} className='bodyImg' alt='lawyer-img' />
+                </div>
+            )
+        }
+        
+    }
     render() {
         const { lawyer, times, rates, star } = this.props;
         return (
@@ -80,7 +97,7 @@ class LawyerPage extends Component {
                                         {times.map(onetime => (
                                             <option key={onetime._id} value={onetime._id}> {moment(onetime.time).format(' DD-MM-YYYY  dddd')}</option>
                                         ))}
-                                        
+
                                     </Input>
                                 </FormGroup>
                             </Col>
@@ -93,17 +110,15 @@ class LawyerPage extends Component {
 
                     <div className='item'>
                         <h3 className='itemHeader'>{lawyer.userName}</h3>
-                        <div className='bodyImgSec'>
-                            <img src={lm} className='bodyImg' alt='lawyer-img' />
-                        </div>
+                        {this.renderImg()}
                         <div className='itemBody bodyInfoSec' >
-                            <pre className='bodyStar'><StarCom stars={lawyer.overall} /></pre> 
-                            <pre className='desc'><i className="fa fa-map-marker-alt"/>  :<span className='txt'>{lawyer.address} , {lawyer.city} ,{lawyer.state}</span></pre>
-                            <pre className='desc'><i className="fa fa-gavel"/>  :<span className='txt'>{lawyer.spec}</span></pre>
+                            <pre className='bodyStar'><StarCom stars={lawyer.overall} /></pre>
+                            <pre className='desc'><i className="fa fa-map-marker-alt" />  :<span className='txt'>{lawyer.address} , {lawyer.city} ,{lawyer.state}</span></pre>
+                            <pre className='desc'><i className="fa fa-gavel" />  :<span className='txt'>{lawyer.spec}</span></pre>
                             <pre className='bodyPara'>Gender :{lawyer.gender} , Age  :{lawyer.age}</pre>
                             <pre className='bodyPara'></pre>
                         </div>
-                        
+
                     </div>
 
 
@@ -126,14 +141,14 @@ class LawyerPage extends Component {
         )
     }
 }
-const mapStateToProps = ({ lawyer, auth, fetch, time, rate,star }) => {
+const mapStateToProps = ({ lawyer, auth, fetch, time, rate, star }) => {
     return {
         fetching: fetch.fetching,
         lawyer: lawyer.lawyer,
         times: time.times,
         rates: rate.rates,
         isAuth: auth.isAuth,
-        star:star.stars
+        star: star.stars
     }
 }
 

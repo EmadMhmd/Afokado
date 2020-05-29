@@ -19,9 +19,10 @@ import CasePage from './components/lawyer_components/cases/casePage.com.js';
 import Internalships from './components/lawyer_components/internalships/internalships.com.js';
 import Times from './components/lawyer_components/times/times.com.js';
 import Profile from './components/general_components/profile/profile.com';
+import ImgUpload from './components/general_components/profile/imgUpload.fnCom';
 import LawyerList from './components/general_components/list_lawyers/lawyerList.com.js';
-//import LawyerPage from './components/general_components/lawyer_page/lawyerPage.com.js';
-import LawyerPage from './components/general_components/lawyer_page/lawyerPage.funCom.js';
+import LawyerPage from './components/general_components/lawyer_page/lawyerPage.com.js';
+//import LawyerPage from './components/general_components/lawyer_page/lawyerPage.funCom.js';
 
 import DirectBookWithLogin from './components/general_components/lawyer_page/directBookWithLogin.com';
 import DirectBookWithSign from './components/general_components/lawyer_page/directBookWithSign.com';
@@ -64,6 +65,7 @@ class App extends Component {
               <Route exact path='/internalships' component={Internalships} />
               <Route exact path='/times' component={Times} />
               <Route exact path='/profile' component={Profile} />
+              <Route exact path='/img' component={ImgUpload} />
               <Route exact path='/book_requests' component={BookRequests} />
               <Route exact path='/app_requests' component={AppRequests} />
               <Route exact path='/internship_requests' component={BookRequests} />

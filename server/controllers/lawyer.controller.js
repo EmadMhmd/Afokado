@@ -60,9 +60,6 @@ lawyerController.getLawyer = async (req, res, next) => {
     }
     try {
         const lawyer = await User.findOne(query)
-        /*const rates=await Rate.find({ratee : req.params._id})
-        var rateing=await rateingCal(rates)
-        const lawyers =await {lawyer , ...rateing}*/
         return res.send({
             lawyers :lawyer
         });

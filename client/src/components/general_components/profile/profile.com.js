@@ -1,20 +1,21 @@
-import React, { Component ,Fragment} from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Button } from 'reactstrap';
+import { Button, ButtonGroup } from 'reactstrap';
 import moment from 'moment';
 import lm from '../../../images/lawm.png';
 import StarCom from '../stars/star.com.js';
-import {getRate} from '../../../actions/rate.action.js';
-import {upgradeUser} from '../../../actions/auth.actions.js';
+import { getRate } from '../../../actions/rate.action.js';
+import { upgradeUser } from '../../../actions/auth.actions.js';
 import UpdateLawyer from './updateLawyer.com';
+import UploadImg from './uploadImg.com';
 import UpdateStudent from './updateStudent.com';
 import UpdateUser from './updateUser.com';
 import Upgrade from './checkUpgrade.com';
 
 
 class Profile extends Component {
-    componentDidMount(){
-        const {getRate , profile} =this.props
+    componentDidMount() {
+        const { getRate, profile } = this.props
         getRate(profile._id)
     }
 
@@ -24,7 +25,7 @@ class Profile extends Component {
             return (
                 <Fragment>
                     <UpdateUser />
-    
+
                     <div className='item'>
                         <h3 className='itemHeader'>Main Info</h3>
                         <div className='itemBody'>
@@ -32,34 +33,41 @@ class Profile extends Component {
                             <pre className='bodyPara'>email     : {profile.email}</pre>
                             <pre className='bodyPara'>mobile    : 0{profile.mobile}</pre>
                         </div>
-    
+
                     </div>
                 </Fragment>
             )
-        }else if(profile.type ===2){
-            const {stars} =this.props
+        } else if (profile.type === 2) {
+            const { stars } = this.props
             return (
                 <Fragment>
-                   <UpdateLawyer />
-    
 
                     <div className='item'>
                         <h3 className='itemHeader'>Personal Info</h3>
                         <div className='bodyImgSec'>
-                            <img src={lm} className='bodyImg' alt='lawyer-img' />
+                            <img src={profile.img ? require(`../../../images/${profile.img.filename}`) : lm} className='bodyImg' alt='lawyer-img' />
+
                         </div>
                         <div className='itemBody bodyInfoSec' >
                             <pre className='desc'>Name :{profile.userName}</pre>
                             {/* <pre className='bodyStar'><StarCom stars={stars} /></pre>  */}
-                            <pre className='desc'><i className="fa fa-map-marker-alt"/>  :</pre>
+                            <pre className='desc'><i className="fa fa-map-marker-alt" />  :</pre>
                             <span className='bodyPara txt'>{profile.address} , {profile.city} ,{profile.state}</span>
-                            <pre className='desc'><i className="fa fa-gavel"/>  :<span className='bodyPara'>{profile.spec}</span></pre>
+                            <pre className='desc'><i className="fa fa-gavel" />  :<span className='bodyPara'>{profile.spec}</span></pre>
                             <pre className='bodyPara'>Gender :{profile.gender} , Age  :{profile.age}</pre>
+                            <hr/>
+                            <ButtonGroup>
+                                <UploadImg />
+                                <UpdateLawyer />
+                            </ButtonGroup>
                         </div>
+
+
+
                     </div>
 
                     <div className='item'>
-                    <h3 className='itemHeader'>Main Info</h3>
+                        <h3 className='itemHeader'>Main Info</h3>
                         <div className='itemBody'>
                             <pre className='bodyPara'>email     : {profile.email}</pre>
                             <pre className='bodyPara'>mobile    : 0{profile.mobile}</pre>
@@ -73,15 +81,15 @@ class Profile extends Component {
                             <pre className='bodyPara'>degree    : Lawyer</pre>
                             <pre className='bodyPara'>joined    :{moment(profile.joined).format(' DD-MM-YYYY  dddd')}</pre>
                         </div>
-    
+
                     </div>
                 </Fragment>
             )
-        }else if(profile.type === 3){
+        } else if (profile.type === 3) {
             return (
                 <Fragment>
                     <UpdateStudent />
-    
+
                     <div className='item'>
                         <h3 className='itemHeader'>{profile.userName}</h3>
                         <div className='itemBody'>
@@ -113,19 +121,19 @@ class Profile extends Component {
 
                     <h3 className='header'>My Profile</h3>
 
-                     {this.renderInfo()}
+                    {this.renderInfo()}
 
-                    
+
 
                 </div>
             </div>
         )
     }
 }
-const mapStateTpProps = ({ auth , star }) => {
+const mapStateTpProps = ({ auth, star }) => {
     return {
         profile: auth.profile,
-        stars:star.stars
+        stars: star.stars
     }
 }
-export default connect(mapStateTpProps , {getRate ,upgradeUser})(Profile);
+export default connect(mapStateTpProps, { getRate, upgradeUser })(Profile);

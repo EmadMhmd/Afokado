@@ -4,9 +4,9 @@ import { fetchLawyers } from '../../../actions/lawyer.action';
 import Spinner from '../spinner_com/spinner.com.js';
 import HeaderSearch from '../book_search_header/bookHeader.com';
 import { Link } from 'react-router-dom';
-import lm from '../../../images/lawm.png';
 import EmptyMessage from '../../general_components/empty.com.js';
 import { Button } from 'reactstrap';
+import lm from '../../../images/lawm.png';
 
 class LawyerList extends Component {
     emptyCase() {
@@ -29,7 +29,7 @@ class LawyerList extends Component {
                     <HeaderSearch />
                     <div className='listConatiner'>
 
-                        <h3 className='header' style={{width:'320px'}}>
+                        <h3 className='header' style={{ width: '320px' }}>
                             <span className=''> Matching </span>
                             <span> {lawyers.length} </span>
                             Lawyers
@@ -40,7 +40,7 @@ class LawyerList extends Component {
                             <div className='item' key={item._id}>
                                 <h3 className='itemHeader'>{item.userName}</h3>
                                 <div className='bodyImgSec'>
-                                    <img src={lm} className='bodyImg' alt='lawyer-img' />
+                                    <img src={ item.img  ? require(`../../../images/${item.img.filename}`) : lm} className='bodyImg' alt='lawyer-img' />
                                 </div>
                                 <div className='itemBody bodyInfoSec' >
                                     <pre className='desc'><i className="fa fa-map-marker-alt" />  :</pre>
@@ -68,7 +68,7 @@ class LawyerList extends Component {
 
 const mapStateToProps = ({ lawyer, fetch }) => {
     return {
-        
+
         lawyers: lawyer.lawyers,
         fetching: fetch.fetching
     }

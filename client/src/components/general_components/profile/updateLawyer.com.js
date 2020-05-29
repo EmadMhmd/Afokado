@@ -72,7 +72,7 @@ class UpdateLawyer extends Component {
         const { userName, mobile, email, gender, age, spec, sspec, tspec, address, city, state, password} = this.props.profile;
         return (
             <div>
-                <Button className='add' onClick={this.toggle}>Update Lawyer</Button>
+                <Button className='mainBtn btnR' onClick={this.toggle}>Update Info</Button>
 
                 <Modal isOpen={this.state.modal} toggle={this.toggle} >
                     <ModalHeader toggle={this.toggle}>Update User</ModalHeader>
@@ -123,19 +123,7 @@ class UpdateLawyer extends Component {
 
                                                 {errors.userName && touched.userName ? (<FormFeedback>{errors.userName}</FormFeedback>) : null}
                                             </FormGroup >
-                                            <FormGroup>
-                                                <Label >User Img</Label>
-                                                <Input
-                                                    placeholder="Enter Your user Img"
-                                                    invalid={errors.img && touched.img && errors.img}
-                                                    type="file"
-                                                    name="img"
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                    value={values.img}
-                                                />
-                                                {errors.img && touched.img ? (<FormFeedback>{errors.img}</FormFeedback>) : null}
-                                            </FormGroup >
+                                          
                                             <FormGroup >
                                                 <Label >Email<span className='star'>*</span></Label>
                                                 <Input
