@@ -13,8 +13,7 @@ const taskSchema = mongoose.Schema({
     },
     caseId :{
         type : mongoose.Schema.Types.ObjectId,
-        ref : 'Case',
-        required : true
+        ref : 'Case'
     },
     owner :{
         type : mongoose.Schema.Types.ObjectId,
@@ -28,7 +27,8 @@ const taskSchema = mongoose.Schema({
         type:String
     },
     subLawyer:{
-        type:String
+        type:mongoose.Schema.Types.ObjectId,
+        ref : 'User',
     },
     notes:{
         type:String

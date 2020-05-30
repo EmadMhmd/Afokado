@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import React, { Component } from 'react';
+import React, { Component ,Fragment} from 'react';
 import { Button, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Formik } from 'formik';
@@ -15,6 +15,7 @@ class AddTaskPage extends Component{
         }
         this.toggle=this.toggle.bind(this);
     }
+    
     _handleFormSubmit = (values, bag) => {
         if (values) {
             values.caseId=this.props.caseId
@@ -31,6 +32,16 @@ class AddTaskPage extends Component{
         this.setState({
             modal:!this.state.modal
         })
+    }
+    renderOffice() {
+        const {office}=this.props
+        return (
+            <Fragment>
+                {office.filter(item =>item.status ==="accept").map(sub=>(
+                    <option key={sub._id} value={sub.subLawyer._id} className='searchoOption'>{sub.subLawyer.userName}</option>
+                ))}
+            </Fragment>
+        )
     }
     render(){
         return(
@@ -108,12 +119,15 @@ class AddTaskPage extends Component{
                                             <Input
                                                 placeholder="Enter sub lawyer"
                                                 invalid={errors.subLawyer && touched.subLawyer && errors.subLawyer}
-                                                type="text"
+                                                type="select"
                                                 name="subLawyer"
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                                 value={values.subLawyer}
-                                            />
+                                            >
+                                                <option>Select Lawyer</option>
+                                                {this.renderOffice()}
+                                            </Input>
 
                                             {errors.subLawyer && touched.subLawyer ? (<FormFeedback>{errors.subLawyer}</FormFeedback>) : null}
                                         </FormGroup >
@@ -150,5 +164,9 @@ class AddTaskPage extends Component{
         )
     }
 }
-
-export default connect(null,{addTask})(AddTaskPage);
+const mapStateToProps=({office})=>{
+return{
+    office:office.office
+}
+}
+export default connect(mapStateToProps,{addTask })(AddTaskPage);

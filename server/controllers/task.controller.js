@@ -5,7 +5,6 @@ const Moment = require('moment');
 taskController.addTask= async (req ,res ,next)=>{
     const {user}=req;
     const {description , caseId , dateline ,notes ,subLawyer , title}=req.body;
-    
     try{
         if(Moment() < Moment(dateline)){
             const newTask=new Task({
@@ -72,7 +71,7 @@ taskController.fetchTasks=async (req ,res,next)=>{
         }
     }
     try{
-        const tasks = await Task.find(query);
+        const tasks = await Task.find(query).populate("subLawyer");
         return res.send({
             tasks
         })
@@ -88,6 +87,19 @@ taskController.fetchTasksForCase=async (req ,res,next)=>{
     const {_id}=req.params;
     try{
         const tasks = await Task.find({owner:user._id , caseId:_id });
+        return res.send({
+            tasks
+        })
+    }catch(e){
+        return res.status(401).send({
+            error :'fetching failed'
+        });
+    }
+}
+taskController.fetchTaskRequests=async (req ,res,next)=>{
+    const {user}=req;
+    try{
+        const tasks = await Task.find({subLawyer:user._id});
         return res.send({
             tasks
         })

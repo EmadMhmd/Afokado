@@ -34,7 +34,7 @@ class UpdateTaskPage extends Component{
         })
     }
     render(){
-        //const {notes}=this.props.task
+        const {notes}=this.props.task
         return(
           <div>
             <Button className='mainBtn btnN' onClick={this.toggle}>Add Decision</Button>
@@ -44,7 +44,7 @@ class UpdateTaskPage extends Component{
                     <div>
                         <h3 className='formHeader'>Add Decision</h3>
                         <Formik
-                            initialValues={{ decision: '', notes:''}}
+                            initialValues={{ decision: '', notes}}
                             validationSchema={Yup.object().shape({
                                 decision: Yup.string().required(),
                                 descison:Yup.string()

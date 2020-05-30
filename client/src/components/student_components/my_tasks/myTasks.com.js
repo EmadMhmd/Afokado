@@ -1,22 +1,16 @@
 import React, { Component } from 'react';
-import AddTask from './addTask.com.js';
 import { connect } from 'react-redux';
 import { Button, ButtonGroup } from 'reactstrap';
 import moment from 'moment';
 import Spinner from '../../general_components/spinner_com/spinner.com.js';
-import TaskSearch from './taskSearch.com'
-import UpdateTask from './updateTask.com.js';
-import { fetchTasks, deleteTask } from '../../../actions/task.action';
+import UpdateTask from '../../lawyer_components/agenda/updateTask.com.js';
+import { fetchTaskRequsts } from '../../../actions/task.action';
 import EmptyMessage from '../../general_components/empty.com';
-import {getOffice} from '../../../actions/office.action.js';
 
-class Agenda extends Component {
+class MyTasks extends Component {
     componentDidMount() {
-        this.props.getOffice()
-        const { fetchTasks, tasks } = this.props;
-        if (tasks.length === 0) {
-            fetchTasks({ dateline: 'em', subLawyer: 'em' })
-        }
+        const { fetchTaskRequsts } = this.props;
+        fetchTaskRequsts()
     }
     emptyCase() {
         const { tasks } = this.props
@@ -35,12 +29,10 @@ class Agenda extends Component {
         return (
             <div>
                 <div className='bg items'>
-                    <TaskSearch />
                     <div className='listConatiner'>
 
                         <div cleas='headBar'>
-                            <h3 className='header'>Agenda</h3>
-                            <AddTask />
+                            <h3 className='header'>My Tasks</h3>
                         </div>
 
                         {tasks.map((item) => (
@@ -50,13 +42,11 @@ class Agenda extends Component {
                                 <div className='itemBody'>
                                     <pre className='desc'>description : {item.description}</pre>
                                     <pre className='bodyPara txt'>{item.description}</pre>
-                                    <pre className='bodyPara'>Notes     : {item.notes}</pre>
-                                    <pre className='bodyPara'>subLawyer : {item.subLawyer.userName}</pre>
+                                    {item.notes ? <pre className='bodyPara'>Notes  : {item.notes}</pre> : <></>}
                                     <pre className='bodyPara'>DateLine  : {moment(item.dateline).format('LL')}</pre>
-                                    <pre className='bodyPara'>decision  : {item.decision}</pre>
-                                    <pre className='bodyPara'>Created   : {item.created} </pre>
-                                    <abbr title='Delete the task'><Button className='del' onClick={() => this.props.deleteTask(item._id)}><i className='fa fa-trash fas' /></Button></abbr>
-                                </div>
+                                    {item.decision ? <pre className='bodyPara'>decision  : {item.decision}</pre> : <></>}
+                                    <pre className='bodyPara'>Created   : {moment(item.created).format('LL')} </pre>
+                                 </div>
                                 <hr />
                                 <div>
 
@@ -83,4 +73,4 @@ const mapStateToProps = ({ task, fetch }) => {
     }
 }
 
-export default connect(mapStateToProps, { fetchTasks, deleteTask,getOffice })(Agenda);
+export default connect(mapStateToProps, { fetchTaskRequsts  })(MyTasks);

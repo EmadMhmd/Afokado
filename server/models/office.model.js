@@ -13,7 +13,7 @@ const officeSchema =mongoose.Schema({
     },
     status:{
         type:String,
-        defauit:'pending'
+        default:'pending'
     }
 })
 

@@ -2,7 +2,7 @@ import { TASK_DELETED, TASK_UPDATED, TASKS_FETCHING_SUCCESS, TASK_ADDED } from '
 import {addError ,clearError} from './error.action';
 import {addMessage ,clearMessage} from './message.action';
 import {fetchingTime , fetchingFailed} from './fetch.action';
-import {apiAddTask ,apiDeleteTask ,apiUpdateTask ,apiFetchTasks , apiFetchTasksForCase} from '../api/task.api.js';
+import {apiAddTask ,apiDeleteTask ,apiUpdateTask ,apiFetchTasks , apiFetchTasksForCase , apiFetchTaskRequests} from '../api/task.api.js';
 
 
 export const addTask=(task)=>{
@@ -53,6 +53,20 @@ export const fetchTasks=(query)=>{
             dispatch(clearError())
             dispatch(fetchingTime())
             const {data:{tasks}}= await apiFetchTasks(query);
+            dispatch({type:TASKS_FETCHING_SUCCESS ,payload:tasks})
+            dispatch(fetchingFailed())
+        }catch(e){
+            dispatch(fetchingFailed(e))
+            dispatch(addError(e))
+        }
+    }
+}
+export const fetchTaskRequsts=()=>{
+    return async dispatch=>{
+        try{
+            dispatch(clearError())
+            dispatch(fetchingTime())
+            const {data:{tasks}}= await apiFetchTaskRequests();
             dispatch({type:TASKS_FETCHING_SUCCESS ,payload:tasks})
             dispatch(fetchingFailed())
         }catch(e){

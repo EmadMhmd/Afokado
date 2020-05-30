@@ -14,13 +14,14 @@ class LoginPage extends Component {
         }   
     }
     _handleFormSubmit = (values, bag) => {
-        this.props.login(values).then(({auth}=this.props)=>{
+        /*this.props.login(values).then(({auth}=this.props)=>{
             if(auth){
                 this.props.history.push('/') 
             }else{
                 this.props.history.push('/auth')   
             }
-        })
+        })*/
+        this.props.login(values).then(()=>{ this.props.history.push('/') })
         this.bag = bag; 
         
     }

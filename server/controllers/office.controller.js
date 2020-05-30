@@ -1,161 +1,179 @@
-const applyController = {};
-const Internship = require('../models/internship.model.js');
-const Apply = require('../models/apply.model.js');
+const officeController = {};
+const User = require('../models/user.model.js');
+const Office = require('../models/office.model');
 const nodemailer = require('nodemailer');
 
 
-applyController.apply = async (req, res, next) => {
-    const {user}=req
-    const transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-            user: "afokadolawyer@gmail.com",
-            pass: "emad1998"
-        },
-        tls:{
-            rejectUnauthorized : false
-        }
-    });
-    const mailOption = {
-        from:'afokadolawyer@gmail.com',
-        to : 'emadcuster@gmail.com',
-        subject :'Apply Confirmation Email',
-        text :`Confrim your application please  http://localhost:3000/my_app `   
+officeController.addToOffice = async (req, res, next) => {
+    const { user } = req
+    const queryCheckExisting = {
+        mainLawyer: user._id,
+        subLawyer: req.params.id,
+        status: { $in: ['pending', 'accept'] }
     }
+
     try {
-        const internship = await Internship.findOne({ _id: req.params._id })
-        const queryCheckExisting={
-                trainee: user._id,
-                lawyer:internship.owner,
-                internshipId:req.params._id
-        }
-        const existOrNot = await Apply.find(queryCheckExisting)
-        if (existOrNot.length===0) {
-            const Applications = await Apply.find()
-            const app = new Apply({
-                trainee: user._id,
-                no: Applications.length + 1,
-                lawyer:internship.owner,
-                internshipId:req.params._id
+        const existOrNot = await Office.find(queryCheckExisting)
+        if (existOrNot.length === 0) {
+
+            const transporter = nodemailer.createTransport({
+                service: "gmail",
+                auth: {
+                    user: "afokadolawyer@gmail.com",
+                    pass: "emad1998"
+                },
+                tls: {
+                    rejectUnauthorized: false
+                }
+            });
+            const subLawyer = await User.findOne({ _id: req.params.id })
+            const mailOption = {
+                from: 'afokadolawyer@gmail.com',
+                to: subLawyer.email,
+                subject: 'Apply Confirmation Email',
+                text: `Confrim your application please  http://localhost:3000/my_app `
+            }
+            const newOffice = new Office({
+                mainLawyer: user._id,
+                subLawyer: req.params.id,
             })
-            await app.save();
-            transporter.sendMail(mailOption , (err , info )=>{
-                if(err){
+
+            await newOffice.save();
+            transporter.sendMail(mailOption, (err, info) => {
+                if (err) {
                     return res.status(401).send({
-                        error :'email sended failed !!'
+                        error: 'email sended failed !!'
                     });
                 }
-                else{
+                else {
                     return res.send({
-                        message: 'applied successfully , please confirm your application Now to alert the lawyer',          
+                        message: 'add successfully',
                     })
                 }
             })
-        }else
+        } else {
             return res.status(401).send({
-                error :'Already Applied !!'
+                error: 'Already added !!'
             });
-    } catch (e) {
-        return res.status(401).send({
-            error :'Please try again to Apply !!'
-        });
-    }
-}
-
-applyController.fetchApplications = async (req, res, next) => {
-    const { user } = req;
-    const query={
-        trainee: user._id ,
-        deleted:0,
         }
-    try {
-        const applications = await Apply.find(query).populate('internshipId');
-        return res.send({
-            applications
-        });
+
     } catch (e) {
         return res.status(401).send({
-            error :'fetching falied , try again !!'
+            error: 'Please try again to Apply !!'
         });
-
     }
 }
-applyController.fetchApplicationRequests = async (req, res, next) => {
+
+officeController.getOffice = async (req, res, next) => {
     const { user } = req;
-    try {
-        const applications = await Apply.find({ lawyer: user._id , deleted:0 , confirmed :1 }).populate("trainee internshipId");
-        return res.send({
-            applications
-        });
-    } catch (e) {
-        return res.status(401).send({
-            error :'fetching failed , try again !!'
-        });
-
-    }
-}
-applyController.deleteApplication = async (req, res, next) => {
-    try {
-        const app=await Apply.findOne({ _id: req.params._id })
-        const internCount=await Internship.findOne({ _id: app.internshipId})
-        const count=internCount.appCount - 1
-        await Internship.updateOne({_id: app.internshipId} , {appCount : count})
+    const query = {
+        mainLawyer: user._id,
+        status: { $in: ['pending', 'accept'] },
         
-        if(app.notify===0){
-            await Apply.deleteOne({ _id: req.params._id })
+    }
+    try {
+        const office = await Office.find(query).populate('subLawyer');
         return res.send({
-                message: 'your application Deleted successfully'
-            })
-        }
-        await Apply.updateOne({ _id: req.params._id } ,{deleted:1})
-        return res.send({
-            message: 'your application Deleted successfully'
-        })
+            office
+        });
     } catch (e) {
         return res.status(401).send({
-            error :'please try again to cancel application !!'
+            error: 'fetching falied , try again !!'
         });
-    }
-}
-applyController.confiremApplication = async (req, res, next) => {
-    try {
-        await Apply.updateOne({ _id: req.params._id } ,{confirmed:1})
-        const internId=await Apply.findOne({ _id: req.params._id })
-        const internCount=await Internship.findOne({ _id: internId.internshipId})
-        const count=internCount.appCount  + 1
-        await Internship.updateOne({_id:internId.internshipId} , {appCount : count})
 
-        return res.send({
-            message: 'you confirmed your application successfull application',
-        })
-    } catch (e) {
-        return res.status(401).send({
-            error :'please try again to confirm your application !!'
-        });
     }
 }
-applyController.rejectApplication = async (req, res, next) => {
+officeController.getMyOffice = async (req, res, next) => {
+    const { user } = req;
+    const query = {
+        subLawyer: user._id,
+        status: { $in: ['pending', 'accept'] }
+    }
     try {
-        await Apply.updateOne({ _id: req.params._id } ,{status:'reject'})
+        const office = await Office.find(query).populate('mainLawyer');
         return res.send({
-            message: 'the app rejected  successfully',
-        })
+            office
+        });
     } catch (e) {
         return res.status(401).send({
-            error :'please try again to confirm your application !!'
+            error: 'fetching falied , try again !!'
         });
+
     }
 }
-applyController.acceptApplication = async (req, res, next) => {
+officeController.getNewOffice = async (req, res, next) => {
+    const { email, mobile } = req.params
+    var query
+    if (email !== 'em' && mobile === 'em') {
+        query = { email, type: { $in: [2, 3] } }
+    } else if (email === 'em' && mobile !== 'em') {
+        query = { mobile, type: { $in: [2, 3] } }
+    } else {
+        query = { email, mobile, type: { $in: [2, 3] } }
+    }
     try {
-        await Apply.updateOne({ _id: req.params._id } ,{status:'accept'})
+        const newOffice = await User.find(query)
         return res.send({
-            message: 'the app accepted  successfully',
+            newOffice
+        });
+    } catch (e) {
+        return res.status(401).send({
+            error: 'fetching failed , try again !!'
+        });
+
+    }
+}
+officeController.deleteFromOffice = async (req, res, next) => {
+    const { user } = req
+    try {
+        await Office.updateOne({ _id: req.params.id, mainLawyer: user.id }, { status: 'delete' })
+        return res.send({
+            message: 'you delete employee from office successfully ',
         })
     } catch (e) {
         return res.status(401).send({
-            error :'please try again to confirm your application !!'
+            error: 'please try again to delete the employee from office !!'
         });
     }
 }
-module.exports = applyController;
+officeController.outFromOffice = async (req, res, next) => {
+    const { user } = req
+    try {
+        await Office.updateOne({ subLawyer: user._id, _id: req.params.id }, { status: 'out' })
+        return res.send({
+            message: 'you now is out from office',
+        })
+    } catch (e) {
+        return res.status(401).send({
+            error: 'please try again to Exist from office !!'
+        });
+    }
+}
+
+officeController.rejectOffice = async (req, res, next) => {
+    const { user } = req
+    try {
+        await Office.updateOne({ subLawyer: user._id, _id: req.params.id }, { status: 'reject' })
+        return res.send({
+            message: 'you rejected the office successfully',
+        })
+    } catch (e) {
+        return res.status(401).send({
+            error: 'please try again to reject the office !!'
+        });
+    }
+}
+officeController.acceptOffice = async (req, res, next) => {
+    const { user } = req
+    try {
+        await Office.updateOne({ subLawyer: user._id, _id: req.params.id }, { status: 'accept' })
+        return res.send({
+            message: 'you accpted the office successfully',
+        })
+    } catch (e) {
+        return res.status(401).send({
+            error: 'please try again to accept the office !!'
+        });
+    }
+}
+module.exports = officeController;

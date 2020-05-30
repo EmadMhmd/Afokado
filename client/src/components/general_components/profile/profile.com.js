@@ -14,10 +14,10 @@ import Upgrade from './checkUpgrade.com';
 
 
 class Profile extends Component {
-    componentDidMount() {
+    /*componentDidMount() {
         const { getRate, profile } = this.props
         getRate(profile._id)
-    }
+    }*/
 
     renderInfo = () => {
         const { profile } = this.props

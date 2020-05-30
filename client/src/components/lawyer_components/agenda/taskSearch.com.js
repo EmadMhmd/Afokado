@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component,Fragment } from 'react';
 import { FormGroup, Button, Input } from 'reactstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -16,6 +16,16 @@ class TaskSearch extends Component {
     _handleFormSubmit = (values, bag) => {
         const {fetchTasks}=this.props
         fetchTasks(values)
+    }
+    renderOffice() {
+        const {office}=this.props
+        return (
+            <Fragment>
+                {office.filter(item =>item.status ==="accept").map(sub=>(
+                    <option key={sub._id} value={sub.subLawyer._id} className='searchoOption'>{sub.subLawyer.userName}</option>
+                ))}
+            </Fragment>
+        )
     }
     render() {
         return (
@@ -55,13 +65,17 @@ class TaskSearch extends Component {
                                 <FormGroup>
                                     <Input
                                         className='cell cellSizeThree'
-                                        type="text"
+                                        type="select"
                                         name="subLawyer"
                                         placeholder="Worker"
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         value={values.subLawyer}
-                                    />
+                                        >
+                                         <option>Select Lawyer</option>
+                                        {this.renderOffice()}
+                                    </Input> 
+
                                 </FormGroup>
                                 
                                 <Button type="submit" onClick={handleSubmit} className='cell searchBtn cellSizeThree'>
@@ -77,6 +91,10 @@ class TaskSearch extends Component {
         )
     }
 }
+const mapStateToProps=({office})=>{
+    return{
+        office:office.office
+    }
+}
 
-
-export default connect(null, {fetchTasks})(TaskSearch);
+export default connect(mapStateToProps, {fetchTasks})(TaskSearch);

@@ -18,3 +18,6 @@ export const apiFetchTasks=(query)=>{
 export const apiFetchTasksForCase=(id)=>{
     return axios.get(`http://localhost:5000/fetch_tasks_for_case/${id}`)
 }
+export const apiFetchTaskRequests=()=>{
+    return axios.get(`http://localhost:5000/fetch_task_requests`)
+}

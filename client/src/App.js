@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './style/framwork_defauit.css';
 import './style/framwork_responsive.css';
 import './style/framework_rtl.css';
-import {Route , BrowserRouter  } from 'react-router-dom';
+import {Route , BrowserRouter ,Redirect } from 'react-router-dom';
 
 //import NavBar from './components/general_components/nav/nav.com.js';
 import NavBar from './components/general_components/nav/navBar.FnCom.js';
@@ -18,6 +18,7 @@ import CasesList from './components/lawyer_components/cases/cases.com.js';
 import CasePage from './components/lawyer_components/cases/casePage.com.js';
 import Internalships from './components/lawyer_components/internalships/internalships.com.js';
 import Times from './components/lawyer_components/times/times.com.js';
+import Office from './components/lawyer_components/office/office.com';
 import Profile from './components/general_components/profile/profile.com';
 import ImgUpload from './components/general_components/profile/imgUpload.fnCom';
 import LawyerList from './components/general_components/list_lawyers/lawyerList.com.js';
@@ -34,6 +35,8 @@ import Message from './components/general_components/message_com/message.com';
 
 import Internships from './components/student_components/internships_list/internshipsList.com.js';
 import MyApp from './components/student_components/my_applications/myApplications.com.js';
+import MyOffice from './components/student_components/my_office/myOffice.com.js';
+import MyTasks from './components/student_components/my_tasks/myTasks.com';
 import {connect} from 'react-redux';
 
 class App extends Component {
@@ -63,6 +66,7 @@ class App extends Component {
               
               <Route exact path='/' component={CasesList} />
               <Route exact path='/internalships' component={Internalships} />
+              <Route exact path='/office' component={Office} />
               <Route exact path='/times' component={Times} />
               <Route exact path='/profile' component={Profile} />
               <Route exact path='/img' component={ImgUpload} />
@@ -79,6 +83,8 @@ class App extends Component {
               <Route exact path='/profile' component={Profile} />
               <Route exact path='/' component={Internships} />
               <Route exact path='/my_app' component={MyApp} />
+              <Route exact path='/my_office' component={MyOffice} />
+              <Route exact path='/my_tasks' component={MyTasks} />
             </div>
           );
         }
@@ -94,7 +100,7 @@ class App extends Component {
             <Route exact path='/lawyerpage/:id' component={LawyerPage} />
             <Route exact path='/book_sign' component={DirectBookWithSign} />
             <Route exact path='/book_login/:time_id' component={DirectBookWithLogin} />
-           
+           <Redirect />
         </div>
       )
     }

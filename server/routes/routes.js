@@ -10,6 +10,7 @@ const lawyerController=require('../controllers/lawyer.controller');
 const notifyController=require('../controllers/notify.controller');
 const applyController=require('../controllers/apply.controller');
 const imgController=require('../controllers/img.controller');
+const officeController=require('../controllers/office.controller');
 const passport = require('passport');
 
 
@@ -97,6 +98,8 @@ router.all('*',(req ,res , next )=>{
   router.put('/update_task/:_id',taskController.updateTask);
   router.get('/fetch_tasks/:dateline?/:subLawyer?',taskController.fetchTasks);
   router.get('/fetch_tasks_for_case/:_id',taskController.fetchTasksForCase);
+  router.get('/fetch_task_requests',taskController.fetchTaskRequests);
+
 
   router.get('/fetch_lawyer_notifications',notifyController.lawyerNotificationsCount);
   router.get('/fetch_student_notifications',notifyController.studentNotificationsCount);
@@ -105,7 +108,16 @@ router.all('*',(req ,res , next )=>{
   router.put('/open_student_notifications' , notifyController.openStudentNotifications);
 
   
+  router.post('/add_to_office/:id', officeController.addToOffice);
+  router.put('/delete_from_office/:id', officeController.deleteFromOffice);
+  router.get('/get_office', officeController.getOffice);
+  router.get('/get_new_office/:email?/:mobile?', officeController.getNewOffice);
+  router.put('/out_from_office/:id', officeController.outFromOffice);
+  router.put('/reject_office/:id', officeController.rejectOffice);
+  router.put('/accept_office/:id', officeController.acceptOffice);
+  router.get('/get_my_office', officeController.getMyOffice);
 
+  
   
 
 module.exports = router;

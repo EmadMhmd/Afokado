@@ -15,6 +15,7 @@ import fetch from './fetch.reducer';
 import notify from './notify.reducer';
 import message from './message.reducer';
 import star from './star.reducer';
+import office from './office.reducer';
 
 export default combineReducers({
     auth,
@@ -30,5 +31,6 @@ export default combineReducers({
     notify,
     message,
     apply,
-    star
+    star,
+    office
 })

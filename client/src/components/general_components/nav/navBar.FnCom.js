@@ -25,8 +25,10 @@ const NavBar = (props) => {
 
     const toggle = () => setIsOpen(!isOpen);
     const out = () => {
-        this.props.logUserOut()
-        this.props.history.push('/')
+        this.props.logUserOut().then(() => {
+            this.props.history.push('/')
+        })
+
     }
 
     const renderLinks = () => {
@@ -64,6 +66,9 @@ const NavBar = (props) => {
                                         <NavLink className='navLink' to="/">My Cases</NavLink>
                                     </NavItem>
                                     <NavItem>
+                                        <NavLink className='navLink' to="/office">Office</NavLink>
+                                    </NavItem>
+                                    <NavItem>
                                         <NavLink className='navLink' to="/internalships">My Internships</NavLink>
                                     </NavItem>
                                     <NavItem>
@@ -73,9 +78,9 @@ const NavBar = (props) => {
                                         <NavLink className='navLink' to="/agenda">Agenda</NavLink>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink className='navLink' to="/book_requests">Books 
+                                        <NavLink className='navLink' to="/book_requests">Books
                                         <Badge color="danger"> {BookDeletesCount} </Badge>
-                                        <Badge color="secondary"> {booksCount} </Badge>
+                                            <Badge color="secondary"> {booksCount} </Badge>
                                         </NavLink>
                                     </NavItem>
                                     <NavItem>
@@ -84,6 +89,7 @@ const NavBar = (props) => {
                                             <Badge color="danger"> {AppDeletesCount} </Badge>
                                             <Badge color="secondary"> {applicationsCount} </Badge>
                                         </NavLink>
+
                                     </NavItem>
                                     <NavItem><NavLink className='navLink' to="/profile">profile</NavLink></NavItem>
                                 </Nav>
@@ -111,6 +117,12 @@ const NavBar = (props) => {
                                             <Badge color="danger"> {rejectsCount} </Badge>
                                             <Badge color="secondary"> {acceptsCount} </Badge>
                                         </NavLink>
+                                    </NavItem>
+                                    <NavItem>
+                                        <NavLink className='navLink' to="/my_office">Office</NavLink>
+                                    </NavItem>
+                                    <NavItem>
+                                        <NavLink className='navLink' to="/my_tasks">My Tasks</NavLink>
                                     </NavItem>
                                     <NavItem><NavLink className='navLink' to="/profile">profile</NavLink></NavItem>
                                 </Nav>
