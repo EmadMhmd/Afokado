@@ -5,6 +5,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { connect } from 'react-redux';
 import { login } from '../../../actions/auth.actions.js';
+import ForgetPassword from './forgetPassword.com';
 
 class LoginPage extends Component {
     componentDidUpdate() {
@@ -84,6 +85,7 @@ class LoginPage extends Component {
                                 )}
                         </Formik>
                         <div>
+                            <ForgetPassword />
                             <p className='checkPara'>Create New Account  in Afokado ?</p>
                             <NavLink to='/user_signup'>SignUp</NavLink>  
                             <br/>

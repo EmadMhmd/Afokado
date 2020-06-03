@@ -1,5 +1,7 @@
-import { LAWYER_NOTIFICATIONS_FETCHING_SUCCESS, BOOK_NOTIFICATIONS_OPNED,APP_NOTIFICATIONS_OPNED,STUDENT_NOTIFICATIONS_FETCHING_SUCCESS ,STUDENT_NOTIFICATIONS_OPNED } from './actionTypes';
-import { apiFetchLawyerNotifications, apiFetchStudentNotifications, apiOpenBookNotifications,apiOpenAppNotifications ,apiOpenStudentNotifications} from '../api/notify.api';
+import { LAWYER_NOTIFICATIONS_FETCHING_SUCCESS, BOOK_NOTIFICATIONS_OPNED,APP_NOTIFICATIONS_OPNED,
+         STUDENT_NOTIFICATIONS_FETCHING_SUCCESS ,STUDENT_TASK_NOTIFICATIONS_OPNED ,STUDENT_APP_NOTIFICATIONS_OPNED
+        } from './actionTypes';
+import { apiFetchLawyerNotifications, apiFetchStudentNotifications, apiOpenBookNotifications,apiOpenAppNotifications ,apiOpenStudentAppNotifications , apiOpenStudentTaskNotifications} from '../api/notify.api';
 import {fetchingTime ,fetchingFailed} from './fetch.action';
 import { addError, clearError } from './error.action';
 
@@ -22,8 +24,8 @@ export const fetchStudentNotifications = () => {
         try {
             dispatch(fetchingTime())
             dispatch(clearError());
-            const {data:{acceptsCount , rejectsCount}}=await apiFetchStudentNotifications()
-            dispatch({type:STUDENT_NOTIFICATIONS_FETCHING_SUCCESS , acceptsCount , rejectsCount})
+            const {data:{acceptsCount , rejectsCount , tasksCount}}=await apiFetchStudentNotifications()
+            dispatch({type:STUDENT_NOTIFICATIONS_FETCHING_SUCCESS , acceptsCount , rejectsCount , tasksCount})
             dispatch(fetchingFailed())
         } catch (e) {
             dispatch(fetchingFailed())
@@ -53,12 +55,23 @@ export const openAppNotifications = () => {
         }
     }
 }
-export const openStudentNotifications = () => {
+export const openStudentTaskNotifications = () => {
     return async dispatch => {
         try {
             dispatch(clearError());
-            await apiOpenStudentNotifications()
-            dispatch({type:STUDENT_NOTIFICATIONS_OPNED})
+            await apiOpenStudentTaskNotifications()
+            dispatch({type:STUDENT_TASK_NOTIFICATIONS_OPNED})
+        } catch (e) {
+            dispatch(addError(e))
+        }
+    }
+}
+export const openStudentAppNotifications = () => {
+    return async dispatch => {
+        try {
+            dispatch(clearError());
+            await apiOpenStudentAppNotifications()
+            dispatch({type:STUDENT_APP_NOTIFICATIONS_OPNED})
         } catch (e) {
             dispatch(addError(e))
         }

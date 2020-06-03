@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+
+//delete it
 class ImgUpload extends Component {
 
     constructor(props) {

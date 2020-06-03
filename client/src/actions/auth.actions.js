@@ -112,12 +112,11 @@ export const upgradeUser =()=>{
 
 
 export const logUserOut =()=>{
-    return async dispatch=>{
+    return dispatch=>{
         dispatch(clearError())
         dispatch(clearMessage())
         localStorage.clear();
         dispatch({ type : UESR_LOGOUT})
-        
     }
 }
 

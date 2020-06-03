@@ -2,8 +2,10 @@ const authController = {};
 const User = require('../models/user.model.js');
 const jwt = require('jsonwebtoken');
 const bcryptjs = require('bcryptjs');
-const multer = require('multer');
-const uuidv4 = require('uuid');
+//const multer = require('multer');
+const emailController = require('./email.controller')
+const loadsh=require('loadsh');
+
 /*
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -16,14 +18,14 @@ var storage = multer.diskStorage({
       //cb(null, date + file.originalname);
     }
   })*/
-
+/*
 const storage = multer.diskStorage({
     destination: "./public/",
     filename: function (req, file, cb) {
         cb(null,  file.fieldnam +'_' + Date.now() + path.extname(file.originalname));
     }
 });
-
+*/
 /*
  const DIR = './public/';
  const storage = multer.diskStorage({
@@ -36,35 +38,27 @@ const storage = multer.diskStorage({
          cb(null, uuidv4() +'-' + fileName)
      }
  });
-*/
+
 
 const upload = multer({
     storage: storage,
      limits:{fileSize: 1000000},
-    /*fileFilter: (req, file, cb) => {
+    fileFilter: (req, file, cb) => {
         if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
             cb(null, true);
         } else {
             cb(null, false);
             return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
         }
-    }*/
+    }
 }).single('profileImg');
-
+*/
 
 authController.imgUpload = async (req, res, next) => {
     
-        /*upload(req, res, () => {
-            //console.log("Request ---", req.body);
-            //console.log("Request file ---", req.file);//Here you get file.
-            const { user } = req
-            const img=req.file
-            User.updateOne({_id:user._id} , {img}).then(()=>{
-                res.send({doen:'done'})
-            })
-        });*/
+        
 
-        upload(req, res, function (err) {
+        /*upload(req, res, function (err) {
             if (err instanceof multer.MulterError) {
                 console.log("Request file ---", req.file);
                 const { user } = req
@@ -75,7 +69,7 @@ authController.imgUpload = async (req, res, next) => {
             } else if (err) {
                 res.send({doen:'nnn done'})
             }
-            });
+            });*/
 
     /*
         upload(req ,res , function (err){
@@ -200,13 +194,11 @@ authController.auth = async (req, res, next) => {
             return res.status(401).send({
                 error: `The Email ${email} Is Not Found`
             });
-
         } else {
             user.isPasswordMatched(password, user.password, (err, match) => {
                 if (match) {
                     const scret = process.env.JWT_SECRET;
                     const expir = process.env.JWT_EXPIRATION;
-                    //jwt.sign(payload , secret , ...)
                     const token = jwt.sign({ _id: user._id }, scret, { expiresIn: expir });
                     return res.send({
                         token,
@@ -217,12 +209,7 @@ authController.auth = async (req, res, next) => {
                 return res.status(401).send({
                     error: 'Invaild UserName/Password Combination'
                 });
-
-
-
             })
-
-
         }
     } catch (e) {
         return res.status(401).send({
@@ -238,39 +225,82 @@ authController.updateUser = async (req, res, next) => {
     const updatedUser = {
         userName, mobile, email, gender, age, spec, sspec, tspec, level, address, city, state, uni, password, type, gpa
     }
-
     try {
-
         await User.updateOne({ _id: user._id }, updatedUser)
         return res.send({
             message: 'The profile updated successfully'
         });
-
     } catch (e) {
         return res.status(401).send({
             error: `Fail to update the profile , please try again`
         });
-
-
     }
 };
 authController.upgradeUser = async (req, res, next) => {
     const { user } = req
     try {
-
         await User.updateOne({ _id: user._id }, { type: 2 })
         return res.send({
             message: 'The profile upgraded successfully'
         });
-
     } catch (e) {
         return res.status(401).send({
             error: `Fail to upgrade the profile , please try again`
         });
-
-
     }
 };
+
+authController.forgetPassword = async (req , res , next) =>{
+    const {email} = req.body;
+    User.findOne({email}, (err , user)=>{
+        if(err || !user){
+            return res.status(400).json({error : "this email is not exist"})
+        }
+        const token =jwt.sign({_id : user._id } , process.env.RESET_PASSWORD_KEY , {expiresIn : "10m"}) 
+        return user.updateOne({resetLink : token } , (err , success)=>{
+            if(err){
+                return res.status(400).json({error : "Please try again to send reset email"})
+            }
+            else{
+                emailController.sendNewMail(email, `Reset Your Password please  http://localhost:3000/reset_password/${token}` , 'Reset Password afokado Account')
+                return res.send({
+                    message: 'Please check your email to reset your password',
+                })
+            }
+        })
+    })
+    
+}
+authController.resetPassword =  (req , res , next)=>{
+   const { password } =  req.body;
+   const {resetLink} =req.params;
+   if(resetLink){
+       jwt.verify(resetLink , process.env.RESET_PASSWORD_KEY ,(error , decodedData)=>{
+           if(error){
+               return res.status(400).json({
+                   error : "InCorrect Token or Expired Token"
+               })
+           }
+               User.findOne({resetLink} , (err , user) =>{
+               if(err || !user){
+                   return res.status(400).json({error : "InCorrect Token or Expired Token"})
+               }            
+               const obj = {password }
+               obj.password = bcryptjs.hashSync(obj.password , 10)
+               user = loadsh.extend(user, obj)
+               user.save()
+               return res.send({
+                message: 'your password reseted successfully',
+            })
+           })    
+       })
+   } 
+   else{
+    return res.status(401).send({
+        error :'Valied token or token expire !!'
+    });
+   }
+}
 
 authController.me = (req, res, next) => {
     const { user } = req;

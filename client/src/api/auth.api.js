@@ -30,6 +30,13 @@ export const apiUpgradeUser= () =>{
 }
 
 
+export const apiForgetPassword= (email) =>{
+    return axios.put(`http://localhost:5000/forget_password`,email)
+}
+export const apiResetPassword= (pass , link) =>{
+    return axios.put(`http://localhost:5000/reset_password/${link}`, pass)
+}
+
 
 
 

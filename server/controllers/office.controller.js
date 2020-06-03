@@ -1,7 +1,7 @@
 const officeController = {};
 const User = require('../models/user.model.js');
 const Office = require('../models/office.model');
-const nodemailer = require('nodemailer');
+const emailController = require('./email.controller')
 
 
 officeController.addToOffice = async (req, res, next) => {
@@ -11,52 +11,24 @@ officeController.addToOffice = async (req, res, next) => {
         subLawyer: req.params.id,
         status: { $in: ['pending', 'accept'] }
     }
-
     try {
         const existOrNot = await Office.find(queryCheckExisting)
         if (existOrNot.length === 0) {
-
-            const transporter = nodemailer.createTransport({
-                service: "gmail",
-                auth: {
-                    user: "afokadolawyer@gmail.com",
-                    pass: "emad1998"
-                },
-                tls: {
-                    rejectUnauthorized: false
-                }
-            });
-            const subLawyer = await User.findOne({ _id: req.params.id })
-            const mailOption = {
-                from: 'afokadolawyer@gmail.com',
-                to: subLawyer.email,
-                subject: 'Apply Confirmation Email',
-                text: `Confrim your application please  http://localhost:3000/my_app `
-            }
-            const newOffice = new Office({
+            const sub = await User.findOne({ _id: req.params.id })
+            const newOffice =new Office({
                 mainLawyer: user._id,
                 subLawyer: req.params.id,
             })
-
             await newOffice.save();
-            transporter.sendMail(mailOption, (err, info) => {
-                if (err) {
-                    return res.status(401).send({
-                        error: 'email sended failed !!'
-                    });
-                }
-                else {
-                    return res.send({
-                        message: 'add successfully',
-                    })
-                }
-            })
+            emailController.sendNewMail(sub.email, 'Follow Link to accept the request to enter new office  http://localhost:3000/my_office', 'New Office Request')
+            return res.send({
+                message:"Added Successfully To Your Office"
+            });
         } else {
             return res.status(401).send({
                 error: 'Already added !!'
             });
         }
-
     } catch (e) {
         return res.status(401).send({
             error: 'Please try again to Apply !!'

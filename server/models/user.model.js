@@ -72,7 +72,18 @@ const user = mongoose.Schema({
     },
     rate:{
         type:Number
+    },
+    resetLink:{
+        type:String,
+        default:""
+    },
+     startTime:{
+         type:Date
+     },
+     endTime:{
+        type:Date
     }
+
 })
 
 

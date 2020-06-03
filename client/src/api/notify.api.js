@@ -13,6 +13,10 @@ export const apiFetchStudentNotifications= () =>{
     return axios.get('http://localhost:5000/fetch_student_notifications')
 }
 
-export const apiOpenStudentNotifications= () =>{
-    return axios.put(`http://localhost:5000/open_student_notifications`)
+export const apiOpenStudentAppNotifications= () =>{
+    return axios.put(`http://localhost:5000/open_student_app_notifications`)
+}
+
+export const apiOpenStudentTaskNotifications= () =>{
+    return axios.put(`http://localhost:5000/open_student_task_notifications`)
 }

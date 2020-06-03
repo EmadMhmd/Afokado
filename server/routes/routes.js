@@ -25,6 +25,8 @@ var router = express.Router();
 
 router.post('/sign', authController.sign );
 router.post('/auth',authController.auth);
+router.put('/forget_password',authController.forgetPassword);
+router.put('/reset_password/:resetLink',authController.resetPassword);
 router.post('/signforbook',authController.SignForBook);
 
 
@@ -59,7 +61,7 @@ router.all('*',(req ,res , next )=>{
   router.get('/fetch_cases/:archive?/:type?', caseController.fetchCases);
     router.get('/get_case/:id', caseController.getCase);
   router.delete('/delete_case/:_id', caseController.deleteCase);
-  router.put('/archive_case/:_id', caseController.archiveCase);
+  router.put('/archive_case', caseController.archiveCase);
   router.put('/update_case/:_id', caseController.updateCase);
 
 
@@ -105,7 +107,8 @@ router.all('*',(req ,res , next )=>{
   router.get('/fetch_student_notifications',notifyController.studentNotificationsCount);
   router.put('/open_app_notifications/' , notifyController.openAppNotifications);
   router.put('/open_book_notifications/' , notifyController.openBookNotifications);
-  router.put('/open_student_notifications' , notifyController.openStudentNotifications);
+  router.put('/open_student_app_notifications' , notifyController.openStudentAppNotifications);
+   router.put('/open_student_task_notifications' , notifyController.openStudentTaskNotifications);
 
   
   router.post('/add_to_office/:id', officeController.addToOffice);

@@ -3,6 +3,7 @@ import {addError ,clearError} from './error.action';
 import {fetchingTime , fetchingFailed} from './fetch.action';
 import {apiAddCase ,apiFetchCases , apiUpdateCase ,apiDeleteCase ,apiArchiveCase , apiGetCase} from '../api/case.api';
 import {addMessage ,clearMessage} from './message.action';
+import {getOffice} from './office.action';
 
 export const addCase= newCase =>{
 return async dispatch=>{
@@ -68,6 +69,7 @@ export const fetchCases= (query) =>{
             dispatch(clearError())
             dispatch(clearMessage())
             dispatch(fetchingTime())
+            dispatch(getOffice())
             const {data:{cases}} =await apiFetchCases(query);
             dispatch({type:CASES_FETCHING_SUCCESS , payload:cases})
             dispatch(fetchingFailed())

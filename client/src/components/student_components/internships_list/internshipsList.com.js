@@ -45,7 +45,6 @@ class Internships extends Component {
         return (
             <div>
             <div className="bg items">
-                <HeaderSearch />
                 <div className='listConatiner'>
          
                 <h3 className='header' style={{width:'360px'}}> 

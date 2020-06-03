@@ -69,7 +69,7 @@ class MyOffice extends Component {
 
 const mapStateToProps = ({ office }) => {
     return {
-        office: office.office,
+        office: office.myOffice,
     }
 }
 

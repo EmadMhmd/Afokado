@@ -2,7 +2,6 @@ const mongoose =require('mongoose');
 
 const init=0;
 const status='pending';
-const dvStatus='cur';
 const applySchema = mongoose.Schema({
     notify:{
         type:Number,

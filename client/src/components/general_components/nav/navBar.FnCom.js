@@ -10,7 +10,6 @@ import {
     NavbarBrand,
     Nav,
     NavItem,
-
     UncontrolledDropdown,
     DropdownToggle,
     DropdownMenu,
@@ -32,7 +31,7 @@ const NavBar = (props) => {
     }
 
     const renderLinks = () => {
-        const { isAuth, profile, booksCount, applicationsCount, BookDeletesCount, AppDeletesCount, rejectsCount, acceptsCount, logUserOut } = props;
+        const { isAuth, profile, booksCount, applicationsCount, BookDeletesCount, AppDeletesCount, rejectsCount, acceptsCount , tasksCount, logUserOut } = props;
         if (isAuth) {
             if (profile.type === 1) {
                 return (
@@ -75,7 +74,7 @@ const NavBar = (props) => {
                                         <NavLink className='navLink' to="/times">Times</NavLink>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink className='navLink' to="/agenda">Agenda</NavLink>
+                                        <NavLink className='navLink' to="/agenda">My Tasks</NavLink>
                                     </NavItem>
                                     <NavItem>
                                         <NavLink className='navLink' to="/book_requests">Books
@@ -89,7 +88,9 @@ const NavBar = (props) => {
                                             <Badge color="danger"> {AppDeletesCount} </Badge>
                                             <Badge color="secondary"> {applicationsCount} </Badge>
                                         </NavLink>
-
+                                    </NavItem>
+                                    <NavItem>
+                                        <NavLink className='navLink' to="/my_tasks">Agenda<Badge color="secondary"> {tasksCount} </Badge></NavLink>
                                     </NavItem>
                                     <NavItem><NavLink className='navLink' to="/profile">profile</NavLink></NavItem>
                                 </Nav>
@@ -122,7 +123,7 @@ const NavBar = (props) => {
                                         <NavLink className='navLink' to="/my_office">Office</NavLink>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink className='navLink' to="/my_tasks">My Tasks</NavLink>
+                                        <NavLink className='navLink' to="/my_tasks">Agenda <Badge color="secondary"> {tasksCount} </Badge></NavLink>
                                     </NavItem>
                                     <NavItem><NavLink className='navLink' to="/profile">profile</NavLink></NavItem>
                                 </Nav>
@@ -169,17 +170,18 @@ const NavBar = (props) => {
     )
 }
 
-const mapStateToProps = ({ auth, book, internship, notify }) => {
+const mapStateToProps = ({ auth, book, internship, stuNotify , lawNotify }) => {
     return {
         isAuth: auth.isAuth,
         profile: auth.profile,
         internships: internship.internships,
-        booksCount: notify.booksCount,
-        BookDeletesCount: notify.BookDeletesCount,
-        applicationsCount: notify.applicationsCount,
-        AppDeletesCount: notify.AppDeletesCount,
-        rejectsCount: notify.rejectsCount,
-        acceptsCount: notify.acceptsCount
+        booksCount: lawNotify.booksCount,
+        BookDeletesCount: lawNotify.BookDeletesCount,
+        applicationsCount: lawNotify.applicationsCount,
+        AppDeletesCount: lawNotify.AppDeletesCount,
+        rejectsCount: stuNotify.rejectsCount,
+        acceptsCount: stuNotify.acceptsCount,
+        tasksCount: stuNotify.tasksCount
     }
 }
 export default connect(mapStateToProps, { logUserOut })(NavBar);

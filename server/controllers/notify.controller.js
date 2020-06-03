@@ -1,6 +1,7 @@
 const notifyController={};
 const Book =require('../models/book.model');
 const Apply =require('../models/apply.model');
+const Task =require('../models/task.model');
 
 notifyController.lawyerNotificationsCount= async (req ,res ,next)=>{
     const {user} =req;
@@ -62,11 +63,14 @@ notifyController.studentNotificationsCount= async (req ,res ,next)=>{
     try{
         const rejects= await Apply.find({status:'reject' ,stuNotify:0 , trainee:user._id})
         const accepts=  await Apply.find({status:'accept',stuNotify:0 , trainee:user._id })
+        const tasks=await Task.find({subLawyer:user._id , notify:0})
         const rejectsCount=rejects.length
         const acceptsCount=accepts.length
+        const tasksCount=tasks.length
         return res.send({
             rejectsCount ,
-            acceptsCount
+            acceptsCount,
+            tasksCount
         })
     }catch(e){
         return res.status(401).send({
@@ -74,13 +78,30 @@ notifyController.studentNotificationsCount= async (req ,res ,next)=>{
         });
     }
 }
-notifyController.openStudentNotifications=async(req ,res ,next)=>{
+notifyController.openStudentAppNotifications=async(req ,res ,next)=>{
     const {user} =req
     try{
         
         //await Apply.deleteMany({trainee:user._id ,deleted:1 })
         //await Apply.updateMany({trainee:user._id , stuNotify:0 ,status:'reject'} , {stuNotify:1})
         await Apply.updateMany({$or: [ { trainee:user._id , stuNotify:0 ,status:'accept' }, {trainee:user._id , stuNotify:0 ,status:'reject' } ]} , {stuNotify:1})
+        return res.send({
+           message:'Opened successfully'
+            
+        })
+    }catch(e){
+        return res.status(401).send({
+            error :'open notification failed'
+        });
+    }
+}
+notifyController.openStudentTaskNotifications=async(req ,res ,next)=>{
+    const {user} =req
+    try{
+        
+        //await Apply.deleteMany({trainee:user._id ,deleted:1 })
+        //await Apply.updateMany({trainee:user._id , stuNotify:0 ,status:'reject'} , {stuNotify:1})
+        await Task.updateMany({subLawyer:user._id} , {notify:1})
         return res.send({
            message:'Opened successfully'
             

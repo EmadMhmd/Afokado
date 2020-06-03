@@ -1,4 +1,4 @@
-import {OFFICE_GETTING_SUCCESS , NEW_OFFICE_GETTING_SUCCESS} from './actionTypes';
+import {OFFICE_GETTING_SUCCESS , NEW_OFFICE_GETTING_SUCCESS , MY_OFFICE_GETTING_SUCCESS} from './actionTypes';
 import {addError ,clearError} from './error.action';
 import {addMessage ,clearMessage} from './message.action';
 import {fetchingFailed ,fetchingTime} from './fetch.action'
@@ -25,8 +25,9 @@ export const getOffice=()=>{
             dispatch(clearError())
             dispatch(clearMessage())
             dispatch(fetchingTime())
+            dispatch(getMyOffice())
             const {data:{office}}=await apiGetOffice()
-            dispatch({type:OFFICE_GETTING_SUCCESS , payload:office})
+            dispatch({type:OFFICE_GETTING_SUCCESS , payload:office })
             dispatch(fetchingFailed())
         }catch(e){
             dispatch(fetchingFailed())
@@ -56,7 +57,7 @@ export const getMyOffice=()=>{
             dispatch(clearMessage())
             dispatch(fetchingTime())
             const {data:{office}}=await apiGetMyOffice()
-            dispatch({type:OFFICE_GETTING_SUCCESS , payload:office})
+            dispatch({type:MY_OFFICE_GETTING_SUCCESS , payload:office})
             dispatch(fetchingFailed())
         }catch(e){
             dispatch(fetchingFailed())

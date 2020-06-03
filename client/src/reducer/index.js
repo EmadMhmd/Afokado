@@ -12,10 +12,11 @@ import task from './task.reducer';
 import apply from './apply.reducer';
 import error from './error.reducer';
 import fetch from './fetch.reducer';
-import notify from './notify.reducer';
 import message from './message.reducer';
 import star from './star.reducer';
 import office from './office.reducer';
+import stuNotify from './studentNotification.reducer';
+import lawNotify from './lawyerNotification.reducer';
 
 export default combineReducers({
     auth,
@@ -28,9 +29,11 @@ export default combineReducers({
     task,
     error,
     fetch,
-    notify,
     message,
     apply,
     star,
-    office
+    office,
+    stuNotify,
+    lawNotify
+
 })

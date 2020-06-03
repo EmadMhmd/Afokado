@@ -1,27 +1,10 @@
 const applyController = {};
 const Internship = require('../models/internship.model.js');
 const Apply = require('../models/apply.model.js');
-const nodemailer = require('nodemailer');
-
+const emailController = require('./email.controller')
 
 applyController.apply = async (req, res, next) => {
     const {user}=req
-    const transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-            user: "afokadolawyer@gmail.com",
-            pass: "emad1998"
-        },
-        tls:{
-            rejectUnauthorized : false
-        }
-    });
-    const mailOption = {
-        from:'afokadolawyer@gmail.com',
-        to : 'emadcuster@gmail.com',
-        subject :'Apply Confirmation Email',
-        text :`Confrim your application please  http://localhost:3000/my_app `   
-    }
     try {
         const internship = await Internship.findOne({ _id: req.params._id })
         const queryCheckExisting={
@@ -34,22 +17,13 @@ applyController.apply = async (req, res, next) => {
             const Applications = await Apply.find()
             const app = new Apply({
                 trainee: user._id,
-                no: Applications.length + 1,
                 lawyer:internship.owner,
                 internshipId:req.params._id
             })
             await app.save();
-            transporter.sendMail(mailOption , (err , info )=>{
-                if(err){
-                    return res.status(401).send({
-                        error :'email sended failed !!'
-                    });
-                }
-                else{
-                    return res.send({
-                        message: 'applied successfully , please confirm your application Now to alert the lawyer',          
-                    })
-                }
+            emailController.sendNewMail(user.email, 'Confrim your Application please  http://localhost:3000/my_app', 'Apply Confirmation Email')
+            return res.send({
+                message: 'Applied successfully',
             })
         }else
             return res.status(401).send({
@@ -149,6 +123,8 @@ applyController.rejectApplication = async (req, res, next) => {
 applyController.acceptApplication = async (req, res, next) => {
     try {
         await Apply.updateOne({ _id: req.params._id } ,{status:'accept'})
+        const stu=await (await Apply.findOne({ _id: req.params._id })).populated('trainee')
+        emailController.sendNewMail(stu.trainee.email, 'Follow link to visit your applications http://localhost:3000/my_app', 'your application accepted')
         return res.send({
             message: 'the app accepted  successfully',
         })

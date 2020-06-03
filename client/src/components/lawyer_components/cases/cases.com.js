@@ -9,12 +9,14 @@ import Spinner from '../../general_components/spinner_com/spinner.com.js';
 import EmptyMessage from '../../general_components/empty.com.js';
 import { Link } from 'react-router-dom';
 import CaseSearch from './caseSearch.com.js';
+import AddTask from '../agenda/addTask.com.js';
+import Archive from './archiveCase.com.js';
+import profileCom from '../../general_components/profile/profile.com.js';
 
 class CasesList extends Component {
     componentDidMount() {
-        const { fetchCases, cases } = this.props;
-        if (cases.length === 0) {
-
+        const { fetchCases, cases ,profile} = this.props;
+        if (cases.length === 0 || cases[0].owner !== profile._id) {
             fetchCases({ archive: 'em', type: 'em' })
         }
 
@@ -38,7 +40,9 @@ class CasesList extends Component {
                 <ButtonGroup>
                     <Button className='mainBtn btnL'><Link to={'/casepage/' + item._id}>Case Details</Link></Button>
                     <UpdateCase oneCase={item} />
-                    <Button className='mainBtn btnR' onClick={() => this.props.archievCase(item._id)}>Archive</Button>
+                    <AddTask caseId={item._id}/>
+                    <Archive caseId={item._id}/>
+                    {/* <Button className='mainBtn btnR' onClick={() => this.props.archievCase(item._id)}>Archive</Button> */}
 
                 </ButtonGroup>
             </div>
@@ -91,10 +95,11 @@ class CasesList extends Component {
     }
 }
 
-const mapStateToProps = ({ cases, fetch }) => {
+const mapStateToProps = ({ cases, fetch,auth }) => {
     return {
         fetching: fetch.fetching,
         cases: cases.cases,
+        profile:auth.profile
     }
 }
 export default connect(mapStateToProps, { fetchCases, deleteCase, archievCase })(CasesList);

@@ -40,6 +40,9 @@ const caseSchema = mongoose.Schema({
     finalDecision :{
         type : String,
     },
+    notes:{
+        type:String
+    }
 })
 
 module.exports = mongoose.model( 'Case' , caseSchema) ;

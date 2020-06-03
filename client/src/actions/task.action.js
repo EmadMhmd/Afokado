@@ -3,6 +3,9 @@ import {addError ,clearError} from './error.action';
 import {addMessage ,clearMessage} from './message.action';
 import {fetchingTime , fetchingFailed} from './fetch.action';
 import {apiAddTask ,apiDeleteTask ,apiUpdateTask ,apiFetchTasks , apiFetchTasksForCase , apiFetchTaskRequests} from '../api/task.api.js';
+import {openStudentTaskNotifications} from './notify.action';
+import {getOffice} from './office.action';
+
 
 
 export const addTask=(task)=>{
@@ -52,6 +55,7 @@ export const fetchTasks=(query)=>{
         try{
             dispatch(clearError())
             dispatch(fetchingTime())
+            dispatch(getOffice())
             const {data:{tasks}}= await apiFetchTasks(query);
             dispatch({type:TASKS_FETCHING_SUCCESS ,payload:tasks})
             dispatch(fetchingFailed())
@@ -66,6 +70,7 @@ export const fetchTaskRequsts=()=>{
         try{
             dispatch(clearError())
             dispatch(fetchingTime())
+            dispatch(openStudentTaskNotifications())
             const {data:{tasks}}= await apiFetchTaskRequests();
             dispatch({type:TASKS_FETCHING_SUCCESS ,payload:tasks})
             dispatch(fetchingFailed())

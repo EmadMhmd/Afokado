@@ -1,6 +1,7 @@
 const taskController={};
 const Task = require('../models/task.model');
 const Moment = require('moment');
+const emailController = require('./email.controller')
 
 taskController.addTask= async (req ,res ,next)=>{
     const {user}=req;
@@ -12,6 +13,8 @@ taskController.addTask= async (req ,res ,next)=>{
             owner:user._id
             })
             await newTask.save()
+            const sub=await User.findOne({_id:subLawyer})
+            emailController.sendNewMail(sub.email, 'Follow The Link To Task Details  http://localhost:3000/my_tasks', 'New Task Request')
             return res.send({
                 message:'the task added ssuccessfully'
             })

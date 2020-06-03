@@ -44,9 +44,11 @@ class AddTaskPage extends Component{
         )
     }
     render(){
+        const {btn}=this.props
         return(
           <div>
-            <Button className='add' onClick={this.toggle}>Add Task</Button>
+            <Button className={`${btn ? 'add' : 'mainBtn' }`} onClick={this.toggle}>Add Task</Button>
+
             <Modal isOpen={this.state.modal} toggle={this.toggle} >
               <ModalHeader toggle={this.toggle}>Add New Task</ModalHeader>
               <ModalBody>

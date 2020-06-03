@@ -3,7 +3,7 @@ import {addError ,clearError} from './error.action';
 import {addMessage ,clearMessage} from './message.action';
 import {fetchingFailed ,fetchingTime} from './fetch.action'
 import {apiApply , apiFetchApplications ,apiDeleteApplication ,apiFetchApplicationRequests,apiUpdateApplication  , apiAcceptApplication ,apiRejectApplication} from '../api/apply.api.js';
-import {openAppNotifications ,openStudentNotifications} from './notify.action'
+import {openAppNotifications ,openStudentAppNotifications} from './notify.action'
 
 
 export const apply=(id)=>{
@@ -25,7 +25,7 @@ export const fetchApplications=()=>{
             dispatch(clearError())
             dispatch(clearMessage())
             dispatch(fetchingTime())
-            dispatch(openStudentNotifications())
+            dispatch(openStudentAppNotifications())
             const {data:{applications}}=await apiFetchApplications()
             dispatch({type:APPLICATIONS_FETCHING_SUCCESS , payload:applications})
             dispatch(fetchingFailed())

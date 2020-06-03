@@ -24,6 +24,6 @@ export const apiDeleteCase= (id) => {
     return axios.delete(`http://localhost:5000/delete_case/${id}`)
 }
 
-export const apiArchiveCase= (id) => {
-    return axios.put(`http://localhost:5000/archive_case/${id}`)
+export const apiArchiveCase= (archivedCase) => {
+    return axios.put(`http://localhost:5000/archive_case`,archivedCase)
 }

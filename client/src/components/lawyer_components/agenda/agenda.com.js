@@ -8,11 +8,9 @@ import TaskSearch from './taskSearch.com'
 import UpdateTask from './updateTask.com.js';
 import { fetchTasks, deleteTask } from '../../../actions/task.action';
 import EmptyMessage from '../../general_components/empty.com';
-import {getOffice} from '../../../actions/office.action.js';
 
 class Agenda extends Component {
     componentDidMount() {
-        this.props.getOffice()
         const { fetchTasks, tasks } = this.props;
         if (tasks.length === 0) {
             fetchTasks({ dateline: 'em', subLawyer: 'em' })
@@ -40,7 +38,7 @@ class Agenda extends Component {
 
                         <div cleas='headBar'>
                             <h3 className='header'>Agenda</h3>
-                            <AddTask />
+                            <AddTask btn='add' />
                         </div>
 
                         {tasks.map((item) => (
@@ -83,4 +81,4 @@ const mapStateToProps = ({ task, fetch }) => {
     }
 }
 
-export default connect(mapStateToProps, { fetchTasks, deleteTask,getOffice })(Agenda);
+export default connect(mapStateToProps, { fetchTasks, deleteTask })(Agenda);

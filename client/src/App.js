@@ -9,6 +9,7 @@ import {Route , BrowserRouter ,Redirect } from 'react-router-dom';
 import NavBar from './components/general_components/nav/navBar.FnCom.js';
 
 import Auth from './components/general_components/auth/auth.com.js';
+import ResetPassword from './components/general_components/auth/resetPassword.com.js';
 import UserSignUp from './components/general_components/signup/signup.user.com.js';
 import LawyerSignUp from './components/general_components/signup/signup.lawyer.com.js';
 import StudentSignUp from './components/general_components/signup/singup.student.com.js';
@@ -41,8 +42,6 @@ import {connect} from 'react-redux';
 
 class App extends Component {
 
-
-
   renderLayout(){
     const {isAuth} = this.props;
     const {profile :{type}} = this.props;
@@ -57,7 +56,6 @@ class App extends Component {
               <Route exact path='/list' component={LawyerList} />
               <Route exact path='/lawyerpage/:id' component={LawyerPage} />
             
-
             </div>
           );
         }else if(type===2){
@@ -74,6 +72,7 @@ class App extends Component {
               <Route exact path='/app_requests' component={AppRequests} />
               <Route exact path='/internship_requests' component={BookRequests} />
               <Route exact path='/agenda' component={Agenda} />
+              <Route exact path='/my_tasks' component={MyTasks} />
               <Route exact path='/casepage/:id' component={CasePage}/>
             </div>
           );
@@ -89,8 +88,12 @@ class App extends Component {
           );
         }
     }else{
+      /*console.log('path :',window.location.pathname , "location :" ,window.location)
+      const paths=['/' , '/auth' , '/user_signup' , '/lawyer_signup' , '/student_signup' , '/list' , '/lawyerpage/:id' , '/book_sign' , '/book_login/:time_id' , '/reset_password/:token']
+      if(paths.includes(window.location.pathname) paths.indexOf(window.location.pathname) > -1){ */
       return(
         <div>
+          
             <Route exact path='/' component={Home} />
             <Route exact path='/auth' component={Auth} />
             <Route exact path='/user_signup' component={UserSignUp} />
@@ -100,9 +103,17 @@ class App extends Component {
             <Route exact path='/lawyerpage/:id' component={LawyerPage} />
             <Route exact path='/book_sign' component={DirectBookWithSign} />
             <Route exact path='/book_login/:time_id' component={DirectBookWithLogin} />
-           <Redirect />
+            <Route exact path='/reset_password/:token' component={ResetPassword} />
+           
         </div>
-      )
+      )/*} else{
+        return (
+          <div>
+            <Redirect to='/'/>
+          </div>
+        )
+         
+      }*/
     }
 
  }

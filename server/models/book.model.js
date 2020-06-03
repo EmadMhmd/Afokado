@@ -7,6 +7,10 @@ const bookSchema = mongoose.Schema({
         type:Number,
         default:init
     },
+    Status:{
+        type:String,
+        default:dvStatus
+    },
     deleted:{
         type:Number,
         default:init

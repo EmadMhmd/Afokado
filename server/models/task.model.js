@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
+const init=0
 const taskSchema = mongoose.Schema({
+    notify:{
+        type:Number,
+        default:init
+    },
     title:{
         type:String
     },
