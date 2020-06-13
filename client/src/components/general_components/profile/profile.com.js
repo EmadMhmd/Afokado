@@ -55,7 +55,7 @@ class Profile extends Component {
                             <span className='bodyPara txt'>{profile.address} , {profile.city} ,{profile.state}</span>
                             <pre className='desc'><i className="fa fa-gavel" />  :<span className='bodyPara'>{profile.spec}</span></pre>
                             <pre className='bodyPara'>Gender :{profile.gender} , Age  :{profile.age}</pre>
-                            <hr/>
+                            <hr />
                             <ButtonGroup>
                                 <UploadImg />
                                 <UpdateLawyer />
@@ -88,28 +88,42 @@ class Profile extends Component {
         } else if (profile.type === 3) {
             return (
                 <Fragment>
-                    <UpdateStudent />
 
                     <div className='item'>
-                        <h3 className='itemHeader'>{profile.userName}</h3>
-                        <div className='itemBody'>
-                            <pre className='desc'>name    : {profile.userName}</pre>
+                        <h3 className='itemHeader'>Personal Info</h3>
+                        <div className='bodyImgSec'>
+                            <img src={profile.img ? require(`../../../images/${profile.img.filename}`) : lm} className='bodyImg' alt='lawyer-img' />
+                        </div>
+                        <div className='itemBody bodyInfoSec' >
+                        <pre className='desc'>name    : {profile.userName}</pre>
                             <pre className='bodyPara'>email     : {profile.email}</pre>
                             <pre className='bodyPara'>mobile    : 0{profile.mobile}</pre>
-                            <pre className='bodyPara'>uni       : {profile.uni}</pre>
+                            <pre className='bodyPara'>adderss   : {profile.address}</pre>
+                            <pre className='bodyPara'>city      : {profile.city}</pre>
+                            <pre className='bodyPara'>state     : {profile.state}</pre>
+                            <pre className='bodyPara'>joined    :{moment(profile.joined).format(' DD-MM-YYYY  dddd')}</pre>
+                            <hr />
+                            <ButtonGroup>
+                                <UploadImg />
+                                <UpdateStudent />
+                                <Upgrade />
+                            </ButtonGroup>
+                        </div>
+                    </div>
+
+                    
+                    <div className='item'>
+                        <h3 className='itemHeader'>Main Info</h3>
+                        <div className='itemBody'>
+                        <pre className='bodyPara'>uni       : {profile.uni}</pre>
                             <pre className='bodyPara'>level     : {profile.level}</pre>
                             <pre className='bodyPara'>Gpa       : {profile.gpa}</pre>
                             <pre className='bodyPara'>gender    : {profile.gender}</pre>
                             <pre className='bodyPara'>age       : {profile.age}</pre>
                             <pre className='bodyPara'>degree    : Student</pre>
-                            <pre className='bodyPara'>adderss   : {profile.address}</pre>
-                            <pre className='bodyPara'>city      : {profile.city}</pre>
-                            <pre className='bodyPara'>state     : {profile.state}</pre>
-                            <pre className='bodyPara'>joined    :{moment(profile.joined).format(' DD-MM-YYYY  dddd')}</pre>
                         </div>
-                        <hr />
-                        <Upgrade />
                     </div>
+
                 </Fragment>
             )
         }

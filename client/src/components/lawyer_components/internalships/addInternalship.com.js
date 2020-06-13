@@ -5,6 +5,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import {addInternship} from '../../../actions/internalship.action.js';
+import moment from 'moment';
 
 class AddInternshipPage extends Component{
     constructor(props){
@@ -41,12 +42,12 @@ class AddInternshipPage extends Component{
                         <Formik
                             initialValues={{ count: '', paid: '', description: '' , title :'' , startDate:'' , duration:''}}
                             validationSchema={Yup.object().shape({
-                                paid: Yup.number().required(),
+                                paid: Yup.number().moreThan(-1 , 'paid must be zero or more').required(),
                                 description: Yup.string().required(),
                                 title: Yup.string().required(),
-                                count: Yup.number().required(),
-                                duration: Yup.number(),
-                            
+                                count: Yup.number().positive().moreThan(0).required(),
+                                duration: Yup.number().positive().moreThan(0),
+                                startDate:Yup.date().min(new Date() ,`Invalid Date , Please date later than ${moment().format('DD-MM-YY dddd')} `).required()
                             })}
                             
                             onSubmit={this._handleFormSubmit.bind(this)}

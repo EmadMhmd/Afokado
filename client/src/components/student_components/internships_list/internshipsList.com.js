@@ -10,8 +10,8 @@ import moment from 'moment';
 
 class Internships extends Component {
   componentDidMount(){
-      const {internships}=this.props;
-      if(internships.length ===0){
+      //const {internships}=this.props;
+      //if(internships.length ===0){
           const {fetchInternshipsForApply}=this.props;
           const query={
               spec: "",
@@ -19,7 +19,7 @@ class Internships extends Component {
               paid:""
           }
           fetchInternshipsForApply(query)
-      }
+      //}
   }
     emptyCase(){
         const { internships } = this.props

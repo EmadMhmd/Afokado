@@ -49,7 +49,7 @@ class AddCasePage extends Component {
                                         claimant: Yup.string().required(),
                                         defendant: Yup.string().required(),
                                         court: Yup.string().required(),
-                                        number: Yup.number().required(),
+                                        number: Yup.number().positive().required(),
                                         type: Yup.string().required(),
                                         title: Yup.string().required(),
                                         description:Yup.string()

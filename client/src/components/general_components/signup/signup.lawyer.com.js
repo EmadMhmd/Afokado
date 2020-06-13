@@ -75,13 +75,12 @@ class Signup_lawyer extends Component {
                                 password: Yup.string().min(6).required(),
                                 mobile: Yup.number().min(11).required(),
                                 gender:Yup.string(),
-                                age: Yup.number(),
+                                age: Yup.number().moreThan(20),
                                 address: Yup.string().required(),
                                 city: Yup.string().required(),
                                 state: Yup.string().required(),
                                 spec: Yup.string().required(),
                                 sspec: Yup.string(),
-                                
 
                             })}
                             onSubmit={this._handleFormSubmit.bind(this)}

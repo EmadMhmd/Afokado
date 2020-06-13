@@ -23,7 +23,7 @@ caseController.fetchCases = async (req, res, next) => {
     const { user } = req;
     const { archive, type } = req.params
     let query;
-    if (archive && type) {
+    if (archive || type) {
         if (archive !== 'em' && type !== 'em') {
             const archiveToBool = (archive === 'archive' ? 1 : 0)
             query = {
@@ -41,6 +41,10 @@ caseController.fetchCases = async (req, res, next) => {
             query = {
                 owner: user._id,
                 archive: archiveToBool
+            };
+        }else {
+            query = {
+                owner: user._id
             };
         }
     } else {

@@ -1,7 +1,7 @@
-import { LAWYER_NOTIFICATIONS_FETCHING_SUCCESS, BOOK_NOTIFICATIONS_OPNED,APP_NOTIFICATIONS_OPNED,
+import { LAWYER_NOTIFICATIONS_FETCHING_SUCCESS, BOOK_NOTIFICATIONS_OPNED,APP_NOTIFICATIONS_OPNED,TASK_NOTIFICATIONS_OPNED,
          STUDENT_NOTIFICATIONS_FETCHING_SUCCESS ,STUDENT_TASK_NOTIFICATIONS_OPNED ,STUDENT_APP_NOTIFICATIONS_OPNED
         } from './actionTypes';
-import { apiFetchLawyerNotifications, apiFetchStudentNotifications, apiOpenBookNotifications,apiOpenAppNotifications ,apiOpenStudentAppNotifications , apiOpenStudentTaskNotifications} from '../api/notify.api';
+import { apiFetchLawyerNotifications, apiFetchStudentNotifications, apiOpenBookNotifications,apiOpenAppNotifications,apiOpenTaskNotifications,apiOpenStudentAppNotifications , apiOpenStudentTaskNotifications} from '../api/notify.api';
 import {fetchingTime ,fetchingFailed} from './fetch.action';
 import { addError, clearError } from './error.action';
 
@@ -10,8 +10,8 @@ export const fetchLawyerNotifications = () => {
         try {
             dispatch(fetchingTime())
             dispatch(clearError());
-            const {data:{booksCount , BookDeletesCount, applicationsCount ,AppDeletesCount}}=await apiFetchLawyerNotifications()
-            dispatch({type:LAWYER_NOTIFICATIONS_FETCHING_SUCCESS , booksCount ,BookDeletesCount , applicationsCount ,AppDeletesCount})
+            const {data:{booksCount , BookDeletesCount, applicationsCount ,AppDeletesCount , tasksCount}}=await apiFetchLawyerNotifications()
+            dispatch({type:LAWYER_NOTIFICATIONS_FETCHING_SUCCESS , booksCount ,BookDeletesCount , applicationsCount ,AppDeletesCount , tasksCount})
             dispatch(fetchingFailed())
         } catch (e) {
             dispatch(fetchingFailed())
@@ -33,12 +33,23 @@ export const fetchStudentNotifications = () => {
         }
     }
 }
-export const openBookNotifications = (type) => {
+export const openBookNotifications = () => {
     return async dispatch => {
         try {
             dispatch(clearError());
             await apiOpenBookNotifications()
             dispatch({type:BOOK_NOTIFICATIONS_OPNED})
+        } catch (e) {
+            dispatch(addError(e))
+        }
+    }
+}
+export const openTaskNotifications = () => {
+    return async dispatch => {
+        try {
+            dispatch(clearError());
+            await apiOpenTaskNotifications()
+            dispatch({type:TASK_NOTIFICATIONS_OPNED})
         } catch (e) {
             dispatch(addError(e))
         }

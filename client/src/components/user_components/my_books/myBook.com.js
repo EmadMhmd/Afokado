@@ -5,6 +5,7 @@ import { Button } from 'reactstrap';
 import EmptyMessage from '../../general_components/empty.com.js';
 import Spinner from '../../general_components/spinner_com/spinner.com.js';
 import moment from 'moment';
+import {Link} from 'react-router-dom';
 
 class MyBook extends Component {
     state = {
@@ -84,7 +85,7 @@ class MyBook extends Component {
 
                         <div cleasName='headBar'>
                             <h3 className='header'>My Book</h3>
-                            <Button className='add'>Book Now</Button>
+                            <Button className='add'><Link to='/'>Book Now</Link></Button>
                         </div>
 
                         {books.map((item) => (

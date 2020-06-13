@@ -37,22 +37,21 @@ class UpdateUser extends Component {
     }
 
     render() {
-        const { userName, mobile, email ,password} = this.props.profile;
+        const { userName, mobile, email } = this.props.profile;
         return (
             <div>
-                <Button className='add' onClick={this.toggle}>Update Student</Button>
+                <Button className='add' onClick={this.toggle}>Update User</Button>
 
                 <Modal isOpen={this.state.modal} toggle={this.toggle} >
-                    <ModalHeader toggle={this.toggle}>Update Student</ModalHeader>
+                    <ModalHeader toggle={this.toggle}>Update Your Info</ModalHeader>
                     <ModalBody>
                         <div>
-                            <h3 className='formHeader'>Update Student</h3>
+                            <h3 className='formHeader'>Update User</h3>
                             <Formik
-                                initialValues={{ userName, mobile, email, password }}
+                                initialValues={{ userName, mobile, email}}
                                 validationSchema={Yup.object().shape({
                                     userName: Yup.string().required(),
                                     email: Yup.string().email().required(),
-                                    password: Yup.string().min(6).required(),
                                     mobile: Yup.number().min(11).required(),
 
                                 })}
@@ -111,20 +110,7 @@ class UpdateUser extends Component {
                                                 />
 
                                                 {errors.mobile && touched.mobile ? (<FormFeedback>{errors.mobile}</FormFeedback>) : null}
-                                            </FormGroup>                                            
-                                            <FormGroup className='field'>
-                                                <Label>Password <span className='star'>*</span></Label>
-                                                <Input
-                                                    placeholder="Enter Your password"
-                                                    invalid={errors.password && touched.password && errors.password}
-                                                    type="password"
-                                                    name="password"
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                    value={values.password}
-                                                />
-                                                {errors.password && touched.password ? (<FormFeedback>{errors.password}</FormFeedback>) : null}
-                                            </FormGroup>
+                                            </FormGroup>  
                                             <ModalFooter>
                                                 <Button className='modelBtn' type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
                                                     Update

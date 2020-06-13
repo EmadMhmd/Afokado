@@ -43,7 +43,7 @@ class AddReview extends Component {
                                     initialValues={{ comment: '', stars: 3 }}
                                     validationSchema={Yup.object().shape({
                                         comment: Yup.string().required(),
-                                        stars: Yup.number().max(5)
+                                        stars: Yup.number().max(5).min(1)
                                     })}
                                     onSubmit={this._handleFormSubmit.bind(this)}
                                 >

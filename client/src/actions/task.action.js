@@ -70,7 +70,7 @@ export const fetchTaskRequsts=()=>{
         try{
             dispatch(clearError())
             dispatch(fetchingTime())
-            dispatch(openStudentTaskNotifications())
+            //dispatch(openStudentTaskNotifications())
             const {data:{tasks}}= await apiFetchTaskRequests();
             dispatch({type:TASKS_FETCHING_SUCCESS ,payload:tasks})
             dispatch(fetchingFailed())

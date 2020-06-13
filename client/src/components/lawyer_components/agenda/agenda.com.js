@@ -12,9 +12,7 @@ import EmptyMessage from '../../general_components/empty.com';
 class Agenda extends Component {
     componentDidMount() {
         const { fetchTasks, tasks } = this.props;
-        if (tasks.length === 0) {
-            fetchTasks({ dateline: 'em', subLawyer: 'em' })
-        }
+         fetchTasks({ dateline: 'em', subLawyer: 'em' })
     }
     emptyCase() {
         const { tasks } = this.props
@@ -37,7 +35,7 @@ class Agenda extends Component {
                     <div className='listConatiner'>
 
                         <div cleas='headBar'>
-                            <h3 className='header'>Agenda</h3>
+                            <h3 className='header'>My Tasks</h3>
                             <AddTask btn='add' />
                         </div>
 
@@ -56,11 +54,13 @@ class Agenda extends Component {
                                     <abbr title='Delete the task'><Button className='del' onClick={() => this.props.deleteTask(item._id)}><i className='fa fa-trash fas' /></Button></abbr>
                                 </div>
                                 <hr />
+                                {item.notify===1 ?  <pre className='bodyPara'>status  : Viewd</pre>: <pre className='bodyPara'>status  : Assigned</pre>}
+                                <hr />
                                 <div>
 
-                                    <ButtonGroup>
-                                        <UpdateTask task={item} />
-                                    </ButtonGroup>
+                                <ButtonGroup>
+                                    <UpdateTask task={item} />
+                                </ButtonGroup>
                                 </div>
                             </div>
                         ))}

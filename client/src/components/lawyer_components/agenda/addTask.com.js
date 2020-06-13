@@ -5,6 +5,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import {addTask} from '../../../actions/task.action.js';
+import moment from 'moment';
 
 
 class AddTaskPage extends Component{
@@ -45,6 +46,7 @@ class AddTaskPage extends Component{
     }
     render(){
         const {btn}=this.props
+        const {profile}=this.props
         return(
           <div>
             <Button className={`${btn ? 'add' : 'mainBtn' }`} onClick={this.toggle}>Add Task</Button>
@@ -60,7 +62,7 @@ class AddTaskPage extends Component{
                                 description: Yup.string().required(),
                                 notes: Yup.string(),
                                 subLawyer: Yup.string(),
-                                dateline: Yup.date().required(),
+                                dateline: Yup.date().min(new Date() ,`Invalid Date , Please date later than ${moment().format('DD-MM-YY dddd')} `).required(),
                                 title:Yup.string()
                             })}
                             onSubmit={this._handleFormSubmit.bind(this)}
@@ -128,6 +130,7 @@ class AddTaskPage extends Component{
                                                 value={values.subLawyer}
                                             >
                                                 <option>Select Lawyer</option>
+                                                <option value={profile._id}>For Me</option>
                                                 {this.renderOffice()}
                                             </Input>
 
@@ -166,9 +169,10 @@ class AddTaskPage extends Component{
         )
     }
 }
-const mapStateToProps=({office})=>{
+const mapStateToProps=({office , auth})=>{
 return{
-    office:office.office
+    office:office.office,
+    profile:auth.profile
 }
 }
 export default connect(mapStateToProps,{addTask })(AddTaskPage);

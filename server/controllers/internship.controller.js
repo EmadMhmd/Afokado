@@ -84,7 +84,7 @@ internshipController.fetchInternshipsForLawyer = async (req, res, next) => {
 }
 internshipController.deleteInternship = async (req, res, next) => {
     try {
-        const existOrNot=await Apply.find({internshipId:req.params._id})
+        const existOrNot=await Apply.find({internshipId:req.params._id , status:'accept'})
         if(existOrNot.length===0){
             await Internship.deleteOne({ _id: req.params._id });
             return res.send({

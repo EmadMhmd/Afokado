@@ -43,7 +43,7 @@ class ForgetPassword extends Component {
                                 <Formik
                                     initialValues={{ email:'' }}
                                     validationSchema={Yup.object().shape({
-                                        email: Yup.string().required(),
+                                        email: Yup.string().email().required(),
                                       
                                     })}
                                     onSubmit={this._handleFormSubmit.bind(this)}

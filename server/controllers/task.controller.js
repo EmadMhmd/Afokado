@@ -2,6 +2,7 @@ const taskController={};
 const Task = require('../models/task.model');
 const Moment = require('moment');
 const emailController = require('./email.controller')
+const User=require('../models/user.model');
 
 taskController.addTask= async (req ,res ,next)=>{
     const {user}=req;
@@ -64,6 +65,11 @@ taskController.fetchTasks=async (req ,res,next)=>{
             query={
                 owner:user._id,
                 subLawyer,
+            }
+        }else{
+            const time =Moment(new Date())
+            query={
+                owner:user._id
             }
         }
     }else{

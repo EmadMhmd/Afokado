@@ -69,26 +69,25 @@ class UpdateLawyer extends Component {
     }
 
     render() {
-        const { userName, mobile, email, gender, age, spec, sspec, tspec, address, city, state, password} = this.props.profile;
+        const { userName, mobile, email, gender, age, spec, sspec, tspec, address, city, state} = this.props.profile;
         return (
             <div>
                 <Button className='mainBtn btnR' onClick={this.toggle}>Update Info</Button>
 
                 <Modal isOpen={this.state.modal} toggle={this.toggle} >
-                    <ModalHeader toggle={this.toggle}>Update User</ModalHeader>
+                    <ModalHeader toggle={this.toggle}>Update Your Info</ModalHeader>
                     <ModalBody>
                         <div>
-                            <h3 className='formHeader'>Update User</h3>
+                            <h3 className='formHeader'>Update Lawyer</h3>
                             <Formik
-                                initialValues={{ userName, mobile, email, gender, age, spec, sspec, tspec, address, city, state, password, }}
+                                initialValues={{ userName, mobile, email, gender, age, spec, sspec, tspec, address, city, state,  }}
                                 validationSchema={Yup.object().shape({
                                     userName: Yup.string().required(),
                                     email: Yup.string().email().required(),
                                     password: Yup.string().min(6).required(),
                                     mobile: Yup.number().min(11).required(),
-                                    gender: Yup.string(),
-                                    age: Yup.number(),
-                                    address: Yup.string().required(),
+                                    gender:Yup.string(),
+                                    age: Yup.number().moreThan(20),
                                     city: Yup.string().required(),
                                     state: Yup.string().required(),
                                     spec: Yup.string().required(),
@@ -264,20 +263,6 @@ class UpdateLawyer extends Component {
                                                 </Col>
 
                                             </Row>
-
-                                            <FormGroup>
-                                                <Label >Password <span className='star'>*</span></Label>
-                                                <Input
-                                                    placeholder="Enter Your password"
-                                                    invalid={errors.password && touched.password && errors.password}
-                                                    type="password"
-                                                    name="password"
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                    value={values.password}
-                                                />
-                                                {errors.password && touched.password ? (<FormFeedback>{errors.password}</FormFeedback>) : null}
-                                            </FormGroup>
 
                                             <ModalFooter>
                                                 <Button className='modelBtn' type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>

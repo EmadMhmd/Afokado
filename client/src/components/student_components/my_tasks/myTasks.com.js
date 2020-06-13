@@ -5,12 +5,19 @@ import moment from 'moment';
 import Spinner from '../../general_components/spinner_com/spinner.com.js';
 import UpdateTask from '../../lawyer_components/agenda/updateTask.com.js';
 import { fetchTaskRequsts } from '../../../actions/task.action';
+import { openStudentTaskNotifications ,openTaskNotifications } from '../../../actions/notify.action';
 import EmptyMessage from '../../general_components/empty.com';
 
 class MyTasks extends Component {
     componentDidMount() {
-        const { fetchTaskRequsts } = this.props;
+        const { fetchTaskRequsts,openStudentTaskNotifications ,openTaskNotifications , profile } = this.props;
         fetchTaskRequsts()
+        if(profile.type===2){
+            openTaskNotifications()
+        }
+        if(profile.type===3){
+            openStudentTaskNotifications()
+        }
     }
     emptyCase() {
         const { tasks } = this.props
@@ -32,7 +39,7 @@ class MyTasks extends Component {
                     <div className='listConatiner'>
 
                         <div cleas='headBar'>
-                            <h3 className='header'>My Tasks</h3>
+                            <h3 className='header'>Agenda</h3>
                         </div>
 
                         {tasks.map((item) => (
@@ -66,11 +73,12 @@ class MyTasks extends Component {
 }
 
 
-const mapStateToProps = ({ task, fetch }) => {
+const mapStateToProps = ({ task, fetch ,auth}) => {
     return {
         fetching: fetch.fetching,
-        tasks: task.tasks
+        tasks: task.tasks,
+        profile:auth.profile
     }
 }
 
-export default connect(mapStateToProps, { fetchTaskRequsts  })(MyTasks);
+export default connect(mapStateToProps, { fetchTaskRequsts,openStudentTaskNotifications ,openTaskNotifications  })(MyTasks);

@@ -69,25 +69,24 @@ class UpdateLawyer extends Component {
     }
 
     render() {
-        const { userName, mobile, email, gender, age, level, address, city, state, uni, password, gpa } = this.props.profile;
+        const { userName, mobile, email, gender, age, level, address, city, state, uni, gpa } = this.props.profile;
         return (
             <div>
-                <Button className='add' onClick={this.toggle}>Update Student</Button>
+                <Button className='mainBtn' onClick={this.toggle}>Update Student</Button>
 
                 <Modal isOpen={this.state.modal} toggle={this.toggle} >
-                    <ModalHeader toggle={this.toggle}>Update Student</ModalHeader>
+                    <ModalHeader toggle={this.toggle}>Update Your Info</ModalHeader>
                     <ModalBody>
                         <div>
                             <h3 className='formHeader'>Update Student</h3>
                             <Formik
-                                initialValues={{ userName, mobile, email, gender, age, gpa, level, address, city, state, password, uni }}
+                                initialValues={{ userName, mobile, email, gender, age, gpa, level, address, city, state,  uni }}
                                 validationSchema={Yup.object().shape({
                                     userName: Yup.string().required(),
                                     email: Yup.string().email().required(),
-                                    password: Yup.string().min(6).required(),
                                     mobile: Yup.number().min(11).required(),
                                     gender: Yup.string(),
-                                    age: Yup.number(),
+                                    age: Yup.number().moreThan(17),
                                     address: Yup.string().required(),
                                     city: Yup.string().required(),
                                     state: Yup.string().required(),
@@ -273,20 +272,6 @@ class UpdateLawyer extends Component {
                                                     </FormGroup>
                                                 </Col>
                                             </Row>
-
-                                            <FormGroup className='field'>
-                                                <Label>Password <span className='star'>*</span></Label>
-                                                <Input
-                                                    placeholder="Enter Your password"
-                                                    invalid={errors.password && touched.password && errors.password}
-                                                    type="password"
-                                                    name="password"
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                    value={values.password}
-                                                />
-                                                {errors.password && touched.password ? (<FormFeedback>{errors.password}</FormFeedback>) : null}
-                                            </FormGroup>
                                             <ModalFooter>
                                                 <Button className='modelBtn' type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
                                                     Update

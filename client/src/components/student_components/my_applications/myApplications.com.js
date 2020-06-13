@@ -5,6 +5,7 @@ import { Button } from 'reactstrap';
 import EmptyMessage from '../../general_components/empty.com.js';
 import Spinner from '../../general_components/spinner_com/spinner.com.js';
 import moment from 'moment';
+import {Link} from 'react-router-dom';
 
 class MyApp extends Component {
     componentDidMount() {
@@ -65,7 +66,7 @@ class MyApp extends Component {
 
                         <div cleas='headBar'>
                             <h3 className='header'>My App</h3>
-                            <Button className='add'>Apply Now</Button>
+                            <Button className='add'><Link to='/'>Apply Now</Link></Button>
                         </div>
 
                         {applications.map((item) => (
@@ -73,15 +74,15 @@ class MyApp extends Component {
                             <div key={item._id} className='item'>
                                 <h3 className='itemHeader'>{item.internshipId.title}</h3>
                                 <div class='itemBody'>
-                                    <pre className='bodyPara'>Status             : {item.status}</pre>
+                                    
                                     <pre className='bodyPara'>Description        :</pre>
                                     <p className='bodyPara txt'>{item.internshipId.description}</p>
                                     <pre className='bodyPara'>Duration           : {item.internshipId.duration}</pre>
                                     <pre className='bodyPara'>Paid               : {item.internshipId.paid}</pre>
                                     <pre className='bodyPara'>apply time         : {moment(item.created).format(' DD-MM-YYYY  dddd')}</pre>
-                                    <abbr title='Cancel the Application'><Button className='del' onClick={() => this.props.deleteApplication(item._id)}><i className='fa fa-trash fas' /></Button></abbr>
-                                </div>
-                                
+                                   </div>
+                                   <hr/>
+                                   {(item.notify===1 && item.status==='pending') ?<pre className='bodyPara'>Status  : viewed</pre> : <pre className='bodyPara'>Status  : {item.status}</pre>}
                                 {this.renderBtns(item)}
                             </div>
                         ))}

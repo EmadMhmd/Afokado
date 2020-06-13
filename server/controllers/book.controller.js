@@ -77,11 +77,12 @@ bookController.fetchBookRequests = async (req, res, next) => {
 
 bookController.deleteBook = async (req, res, next) => {
     try {
+       
         const book = await Book.findOne({ _id: req.params._id })
-        const timeCount = await Time.findOne({ _id: book.timeId })
-        const newCount = timeCount.count - 1
-        await Time.updateOne({ _id: book.timeId }, { count: newCount })
-
+        if(book.confirmed===1){
+            const timeCount = await Time.findOne({ _id: book.timeId })
+            await Time.updateOne({ _id: book.timeId }, { count: timeCount.count - 1 }) 
+        }
         if (book.notify === 0) {
             await Book.deleteOne({ _id: req.params._id })
             return res.send({
@@ -102,11 +103,10 @@ bookController.confiremBook = async (req, res, next) => {
     try {
         const {user}=req
         await Book.updateOne({ _id: req.params._id }, { confirmed: 1 })
-        const timeId = await (await Book.findOne({ _id: req.params._id })).populated('owner')
-        const timeCount = await Time.findOne({ _id: timeId.timeId })
-        const newCount = timeCount.count + 1
-        await Time.updateOne({ _id: timeId.timeId }, { count: newCount })
-        emailController.sendNewMail(user.email, `book time is ${timeCount.time} and lawyer address is ${timeId.owner.address},${timeId.owner.state},${timeId.owner.city}`, 'Book Confirmed successfull')
+        const timeId = await (await Book.findOne({ _id: req.params._id }))
+        const timeCount = await Time.findOne({ _id: timeId.timeId }).populate('owner')
+        await Time.updateOne({ _id: timeId.timeId }, { count: timeCount.count + 1})
+        emailController.sendNewMail(user.email, `book time is ${timeCount.time} and lawyer address is ${timeCount.owner.address},${timeCount.owner.state},${timeCount.owner.city}`, 'Book Confirmed successfull')
         return res.send({
             message: 'you confirmed your book successfull book',
         })

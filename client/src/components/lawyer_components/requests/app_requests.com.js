@@ -58,7 +58,8 @@ class AppRequests extends Component {
                                     <pre className='bodyPara'>age             : {app.trainee.age}</pre>
                                     <pre className='bodyPara'>uni             : {app.trainee.uni}</pre>
                                     <pre className='bodyPara'>Graduation Year : {moment(app.trainee.level).format('MM-YYYY')}</pre>
-                                    <abbr title='Cancel the Application'><Button className='del' ><i className='fa fa-trash fas' /></Button></abbr>
+                                    <pre className='bodyPara'>Email           : {app.trainee.email}</pre>
+                                    <pre className='bodyPara'>Mobile          : {app.trainee.mobile}</pre>
                                 </div>
                                 {this.renderBtn(app)}
                             </div>

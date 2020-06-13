@@ -409,6 +409,22 @@ padding-top:25px
   text-decoration: none;
   color: #fff;
 }
+.dropLink{
+  text-align: left;
+  margin-right: 22px;
+  font-size: 22px;
+  text-decoration: none;
+  color: #fff;
+  background-color: transparent;
+  margin-top: 0;
+  padding-top: 0;
+  border:none;
+}
+.dropLink:hover , .dropLink:active{
+  color: red;
+  background-color: transparent;
+  border:none;
+}
 .navLink:hover {
   text-decoration: none;
   color: red;

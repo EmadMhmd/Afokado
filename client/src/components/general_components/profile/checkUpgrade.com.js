@@ -23,7 +23,7 @@ class Upgrade extends Component {
     render() {
         return (
             <div>
-                <Button className='mainBtn btnN' onClick={this.toggle}>Upgrade to Lawyer</Button>
+                <Button className='mainBtn btnR' onClick={this.toggle}>Upgrade to Lawyer</Button>
 
                 <Modal isOpen={this.state.modal} toggle={this.toggle} >
                     <ModalHeader toggle={this.toggle}>Upgrade To Lawyer</ModalHeader>

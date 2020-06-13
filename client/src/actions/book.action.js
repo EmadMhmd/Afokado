@@ -12,7 +12,7 @@ export const bookWithLogin=(user , id)=>{
         try{
             dispatch(clearError())
             dispatch(clearMessage())
-         dispatch(login(user)).then(()=>dispatch(book(id)))
+              dispatch(login(user)).then(()=>dispatch(book(id)))
         }catch(e){
             dispatch(addError(e))
         }
@@ -23,7 +23,7 @@ export const bookWithSign=(user , id)=>{
         try{
             dispatch(clearError())
             dispatch(clearMessage())
-             dispatch(sign(user)).then(()=>dispatch(login(user)).then(()=>dispatch(book(id))))
+             dispatch(sign(user)).then(()=>dispatch(bookWithLogin(user , id)))
              
         }catch(e){
             dispatch(addError(e))

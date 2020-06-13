@@ -47,7 +47,7 @@ class UpdateTaskPage extends Component{
                             initialValues={{ decision: '', notes}}
                             validationSchema={Yup.object().shape({
                                 decision: Yup.string().required(),
-                                descison:Yup.string()
+                                notes:Yup.string()
                             })}
                             onSubmit={this._handleFormSubmit.bind(this)}
                         >

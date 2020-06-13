@@ -10,15 +10,18 @@ notifyController.lawyerNotificationsCount= async (req ,res ,next)=>{
         const bookDeletes= await Book.find({notify:1 , confirmed :1,lawyer:user._id , deleted:1})
         const appDeletes= await Apply.find({notify:1 , confirmed :1,lawyer:user._id , deleted:1})
         const applications=  await Apply.find({notify:0 ,  confirmed :1, lawyer:user._id , deleted:0})
+        const tasks=await Task.find({subLawyer:user._id , notify:0})
         const booksCount=books.length
         const BookDeletesCount=bookDeletes.length
         const AppDeletesCount=appDeletes.length
         const applicationsCount=applications.length
+        const tasksCount=tasks.length
         return res.send({
             booksCount,
             BookDeletesCount,
             applicationsCount,
-            AppDeletesCount
+            AppDeletesCount,
+            tasksCount
         })
     }catch(e){
         return res.status(401).send({
@@ -98,9 +101,6 @@ notifyController.openStudentAppNotifications=async(req ,res ,next)=>{
 notifyController.openStudentTaskNotifications=async(req ,res ,next)=>{
     const {user} =req
     try{
-        
-        //await Apply.deleteMany({trainee:user._id ,deleted:1 })
-        //await Apply.updateMany({trainee:user._id , stuNotify:0 ,status:'reject'} , {stuNotify:1})
         await Task.updateMany({subLawyer:user._id} , {notify:1})
         return res.send({
            message:'Opened successfully'

@@ -11,15 +11,19 @@ import { Link } from 'react-router-dom';
 import CaseSearch from './caseSearch.com.js';
 import AddTask from '../agenda/addTask.com.js';
 import Archive from './archiveCase.com.js';
-import profileCom from '../../general_components/profile/profile.com.js';
 
 class CasesList extends Component {
     componentDidMount() {
         const { fetchCases, cases ,profile} = this.props;
-        if (cases.length === 0 || cases[0].owner !== profile._id) {
+       /* if (cases.length === 0 ) {
             fetchCases({ archive: 'em', type: 'em' })
-        }
+        }else{
+            if(cases[0].owner !== profile._id){
+                fetchCases({ archive: 'em', type: 'em' })
+            }
+        }*/
 
+        fetchCases({ archive: 'em', type: 'em' })
     }
     emptyCase() {
         const { cases } = this.props

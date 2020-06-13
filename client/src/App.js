@@ -104,7 +104,7 @@ class App extends Component {
             <Route exact path='/book_sign' component={DirectBookWithSign} />
             <Route exact path='/book_login/:time_id' component={DirectBookWithLogin} />
             <Route exact path='/reset_password/:token' component={ResetPassword} />
-           
+            <Redirect to='/auth'/>
         </div>
       )/*} else{
         return (

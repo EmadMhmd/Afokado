@@ -5,6 +5,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import {updateInternship } from '../../../actions/internalship.action.js';
+import moment from 'moment';
 
 class UpdateInternshipPage extends Component{
     constructor(props){
@@ -32,7 +33,7 @@ class UpdateInternshipPage extends Component{
         })
     }
     render(){
-        const {count, description, paid } =this.props.internship;
+        const {count, paid, description, title, startDate, duration} =this.props.internship;
         return(
           <div>
             <Button className='mainBtn btnN'  onClick={this.toggle}>Update</Button>
@@ -42,13 +43,16 @@ class UpdateInternshipPage extends Component{
                     <div>
                         <h3 className='formHeader'>Update Internalship</h3>
                         <Formik
-                            initialValues={{count, description, paid}}
+                            initialValues={{ count, paid, description, title, startDate, duration}}
                             validationSchema={Yup.object().shape({
-                                count: Yup.number().required(),
+                                paid: Yup.number().moreThan(-1 , 'paid must be zero or more').required(),
                                 description: Yup.string().required(),
-                                paid: Yup.number().required(),
-                            
+                                title: Yup.string().required(),
+                                count: Yup.number().positive().moreThan(0).required(),
+                                duration: Yup.number().positive().moreThan(0),
+                                startDate:Yup.date().min(new Date() ,`Invalid Date , Please date later than ${moment().format('DD-MM-YY dddd')} `).required()
                             })}
+
                             onSubmit={this._handleFormSubmit.bind(this)}
                         >
                             {({

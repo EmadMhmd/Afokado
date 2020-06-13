@@ -5,6 +5,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { addTime} from '../../../actions/time.action.js';
+import moment from 'moment';
 
 
 class AddTimePage extends Component {
@@ -44,7 +45,7 @@ class AddTimePage extends Component {
                                 <Formik
                                     initialValues={{ time:'' }}
                                     validationSchema={Yup.object().shape({
-                                        time: Yup.date().required(),
+                                        time: Yup.date().min(new Date() , `Invalid Date , Please date later than ${moment().format('DD-MM-YY dddd')} `).required(),
                                       
                                     })}
                                     onSubmit={this._handleFormSubmit.bind(this)}

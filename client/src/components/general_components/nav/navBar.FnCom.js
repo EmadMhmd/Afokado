@@ -15,8 +15,10 @@ import {
     DropdownMenu,
     DropdownItem,
     NavbarText,
-    Badge
+    Badge,
+    Button
 } from 'reactstrap';
+import lm from '../../../images/lawm.png';
 
 
 const NavBar = (props) => {
@@ -31,7 +33,7 @@ const NavBar = (props) => {
     }
 
     const renderLinks = () => {
-        const { isAuth, profile, booksCount, applicationsCount, BookDeletesCount, AppDeletesCount, rejectsCount, acceptsCount , tasksCount, logUserOut } = props;
+        const { isAuth, profile, booksCount, applicationsCount, BookDeletesCount, AppDeletesCount, rejectsCount, acceptsCount, tasksCount, logUserOut ,StuTasksCount} = props;
         if (isAuth) {
             if (profile.type === 1) {
                 return (
@@ -44,10 +46,21 @@ const NavBar = (props) => {
                                     <NavItem>
                                         <NavLink className='navLink' to='/my_books'>My Books</NavLink>
                                     </NavItem>
-                                    <NavItem><NavLink className='navLink' to="/profile">profile</NavLink></NavItem>
+                                    <UncontrolledDropdown nav inNavbar>
+                                        <DropdownToggle caret className='dropLink' >
+                                            profile
+                                        </DropdownToggle>
+                                        <DropdownMenu right className='navLink'>
+                                            <DropdownItem >
+                                                <NavItem><NavLink to="/profile">profile</NavLink></NavItem>
+                                            </DropdownItem>
+                                            <DropdownItem  />
+                                            <DropdownItem>
+                                                <NavItem onClick={() => logUserOut()}><p >Logout</p></NavItem>
+                                            </DropdownItem>
+                                        </DropdownMenu>
+                                    </UncontrolledDropdown>
                                 </Nav>
-                                <NavbarText onClick={() => logUserOut()}><p className='navLink'>Logout</p></NavbarText>
-
                             </Collapse>
                         </Navbar>
 
@@ -61,21 +74,29 @@ const NavBar = (props) => {
                             <NavbarToggler onClick={toggle} />
                             <Collapse isOpen={isOpen} navbar>
                                 <Nav className="mr-auto" navbar>
-                                    <NavItem>
-                                        <NavLink className='navLink' to="/">My Cases</NavLink>
-                                    </NavItem>
-                                    <NavItem>
-                                        <NavLink className='navLink' to="/office">Office</NavLink>
-                                    </NavItem>
-                                    <NavItem>
-                                        <NavLink className='navLink' to="/internalships">My Internships</NavLink>
-                                    </NavItem>
-                                    <NavItem>
-                                        <NavLink className='navLink' to="/times">Times</NavLink>
-                                    </NavItem>
-                                    <NavItem>
-                                        <NavLink className='navLink' to="/agenda">My Tasks</NavLink>
-                                    </NavItem>
+
+                                    <UncontrolledDropdown nav inNavbar>
+
+                                        <DropdownToggle caret className='dropLink'>Manager</DropdownToggle>
+
+                                        <DropdownMenu right className='navLink'>
+                                            <DropdownItem>
+                                                <NavLink to="/">Cases</NavLink>
+                                            </DropdownItem>
+                                            <DropdownItem>
+                                                <NavLink to="/times">Times</NavLink>
+                                            </DropdownItem>
+                                            <DropdownItem>
+                                                <NavLink to="/office">Office</NavLink>
+                                            </DropdownItem>
+                                            <DropdownItem>
+                                                <NavLink to="/agenda">My Tasks</NavLink>
+                                            </DropdownItem>
+                                            <DropdownItem>
+                                                <NavLink to="/internalships">Internships</NavLink>
+                                            </DropdownItem>
+                                        </DropdownMenu>
+                                    </UncontrolledDropdown>
                                     <NavItem>
                                         <NavLink className='navLink' to="/book_requests">Books
                                         <Badge color="danger"> {BookDeletesCount} </Badge>
@@ -92,9 +113,26 @@ const NavBar = (props) => {
                                     <NavItem>
                                         <NavLink className='navLink' to="/my_tasks">Agenda<Badge color="secondary"> {tasksCount} </Badge></NavLink>
                                     </NavItem>
-                                    <NavItem><NavLink className='navLink' to="/profile">profile</NavLink></NavItem>
+                                    <UncontrolledDropdown nav inNavbar>
+                                        <DropdownToggle caret className='dropLink' >
+                                            <img style={{width:'35px' ,height:'35px', marginLeft:'0' ,border:'none' , marginRight:'5px'}} src={profile.img ? require(`../../../images/${profile.img.filename}`) : lm} className='bodyImg' alt='lawyer-img' />
+                                           
+                                        </DropdownToggle>
+                                        <DropdownMenu right className='navLink'>
+                                            <DropdownItem >
+                                                <NavItem><NavLink to="/profile">profile</NavLink></NavItem>
+                                            </DropdownItem>
+                                            <DropdownItem  />
+                                            <DropdownItem>
+                                                <NavItem onClick={() => logUserOut()}><p >Logout</p></NavItem>
+                                            </DropdownItem>
+                                        </DropdownMenu>
+                                    </UncontrolledDropdown>
                                 </Nav>
-                                <NavbarText onClick={() => logUserOut()}><p className='navLink'>Logout</p></NavbarText>
+
+
+
+
 
                             </Collapse>
                         </Navbar>
@@ -110,9 +148,6 @@ const NavBar = (props) => {
                             <Collapse isOpen={isOpen} navbar>
                                 <Nav className="mr-auto" navbar>
                                     <NavItem>
-                                        <NavLink className='navLink' to='/'>Apply</NavLink>
-                                    </NavItem>
-                                    <NavItem>
                                         <NavLink className='navLink' to='/my_app'>
                                             My App
                                             <Badge color="danger"> {rejectsCount} </Badge>
@@ -123,11 +158,24 @@ const NavBar = (props) => {
                                         <NavLink className='navLink' to="/my_office">Office</NavLink>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink className='navLink' to="/my_tasks">Agenda <Badge color="secondary"> {tasksCount} </Badge></NavLink>
+                                        <NavLink className='navLink' to="/my_tasks">Agenda <Badge color="secondary"> {StuTasksCount} </Badge></NavLink>
                                     </NavItem>
-                                    <NavItem><NavLink className='navLink' to="/profile">profile</NavLink></NavItem>
+                                    <UncontrolledDropdown nav inNavbar>
+                                        <DropdownToggle caret className='dropLink' >
+                                            <img style={{width:'35px' ,height:'35px', marginLeft:'0' ,border:'none' , marginRight:'5px'}} src={profile.img ? require(`../../../images/${profile.img.filename}`) : lm} className='bodyImg' alt='lawyer-img' />
+                                            profile
+                                        </DropdownToggle>
+                                        <DropdownMenu right className='navLink'>
+                                            <DropdownItem >
+                                                <NavItem><NavLink to="/profile">profile</NavLink></NavItem>
+                                            </DropdownItem>
+                                            <DropdownItem  />
+                                            <DropdownItem>
+                                                <NavItem onClick={() => logUserOut()}><p >Logout</p></NavItem>
+                                            </DropdownItem>
+                                        </DropdownMenu>
+                                    </UncontrolledDropdown>
                                 </Nav>
-                                <NavbarText onClick={() => logUserOut()}><p className='navLink'>Logout</p></NavbarText>
 
                             </Collapse>
                         </Navbar>
@@ -169,8 +217,7 @@ const NavBar = (props) => {
         </div>
     )
 }
-
-const mapStateToProps = ({ auth, book, internship, stuNotify , lawNotify }) => {
+const mapStateToProps = ({ auth, book, internship, stuNotify, lawNotify }) => {
     return {
         isAuth: auth.isAuth,
         profile: auth.profile,
@@ -181,7 +228,9 @@ const mapStateToProps = ({ auth, book, internship, stuNotify , lawNotify }) => {
         AppDeletesCount: lawNotify.AppDeletesCount,
         rejectsCount: stuNotify.rejectsCount,
         acceptsCount: stuNotify.acceptsCount,
-        tasksCount: stuNotify.tasksCount
+        StuTasksCount: stuNotify.tasksCount,
+        tasksCount: lawNotify.tasksCount
     }
+
 }
 export default connect(mapStateToProps, { logUserOut })(NavBar);

@@ -1,9 +1,10 @@
-import {BOOK_NOTIFICATIONS_OPNED , APP_NOTIFICATIONS_OPNED ,LAWYER_NOTIFICATIONS_FETCHING_SUCCESS } from '../actions/actionTypes'
+import {BOOK_NOTIFICATIONS_OPNED , APP_NOTIFICATIONS_OPNED ,LAWYER_NOTIFICATIONS_FETCHING_SUCCESS ,TASK_NOTIFICATIONS_OPNED} from '../actions/actionTypes'
 const initState={
     booksCount : 0,
     BookDeletesCount:0,
     applicationsCount:0,
     AppDeletesCount:0,
+    tasksCount:0
 }
 export default (state=initState ,action)=>{
     switch(action.type){
@@ -13,11 +14,14 @@ export default (state=initState ,action)=>{
                 BookDeletesCount:action.BookDeletesCount,
                 applicationsCount:action.applicationsCount ,
                 AppDeletesCount:action.AppDeletesCount, 
+                tasksCount:action.tasksCount
             }
         case BOOK_NOTIFICATIONS_OPNED:
             return {...state , booksCount : 0, BookDeletesCount:0};
         case APP_NOTIFICATIONS_OPNED:
-                return {...state , applicationsCount:0, AppDeletesCount:0};
+                return {...state , applicationsCount:0, AppDeletesCount:0 };
+        case TASK_NOTIFICATIONS_OPNED:
+                return {...state , tasksCount:0 };
         default:
             return state
     }

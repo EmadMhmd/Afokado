@@ -1,8 +1,9 @@
 const emailController = {};
 const nodemailer = require('nodemailer');
+const ejs = require('ejs')
 
 
-emailController.sendNewMail = (email , body , header) => {
+emailController.sendNewMail = async (email , body , header) => {
 
     const transporter = nodemailer.createTransport({
         service: "gmail",
@@ -14,21 +15,28 @@ emailController.sendNewMail = (email , body , header) => {
             rejectUnauthorized: false
         }
     });
-    const mailOption = {
-        from: 'afokadolawyer@gmail.com',
-        to: email,
-        subject: header,
-        text: body
-    }
-
-    transporter.sendMail(mailOption, (err, info) => {
-        if (err) {
-            return res.status(401).send({
-                error: 'email sended failed !!'
-            });
+     await  ejs.renderFile("./views/email.ejs" ,{body : body},function(err , data){
+        if(err){
+            console.log(err)
+        }
+        else{
+            const mailOption = {
+                from: 'afokadolawyer@gmail.com',
+                to: email,
+                subject: header,
+                html : data
+                 }
+         transporter.sendMail(mailOption, (err, info) => {     
+                    if (err) {
+                        return res.status(401).send({
+                            error: 'email sended failed !!'
+                        });
+                    }
+                })
         }
     })
-
+           
+            
 };
 
 module.exports = emailController;

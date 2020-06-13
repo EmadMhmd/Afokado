@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import { connect } from 'react-redux';
 import { sign } from '../../../actions/auth.actions.js';
 import axios from 'axios';
+import moment from 'moment';
 
 
 
@@ -71,11 +72,12 @@ class Signup_student extends Component {
                                 password: Yup.string().min(6).required(),
                                 mobile: Yup.number().min(11).required(),
                                 uni: Yup.string(),
-                                age: Yup.number(),
+                                age: Yup.number().moreThan(17),
                                 address: Yup.string(),
                                 city: Yup.string(),
                                 state: Yup.string(),
                                 gender: Yup.string(),
+                                level:Yup.date().min(new Date() , `Invalid Date , Please date later than ${moment().format('DD-MM-YY dddd')} `).required(),
                                 
 
                             })}
