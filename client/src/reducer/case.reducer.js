@@ -1,11 +1,12 @@
-import {CASE_ADDED , CASE_UPDATED , CASE_DELETED ,CASES_FETCHING_SUCCESS,CASE_GETTING_SUCCESS } from '../actions/actionTypes';
+import {CASE_ADDED , CASE_UPDATED , CASE_DELETED ,CASES_FETCHING_SUCCESS,CASE_GETTING_SUCCESS,CASES_OWNER_FETCHING_SUCCESS } from '../actions/actionTypes';
 
 const initState={
     added : false,
     cases :[],
     oneCase:[],
     updated:false,
-    deleted:false
+    deleted:false,
+    owners:[]
 }
 
 
@@ -21,6 +22,8 @@ export default (state=initState , action)=>{
             return{...state , deleted : true};
         case CASE_UPDATED:
             return{...state , updated : true};
+        case CASES_OWNER_FETCHING_SUCCESS:
+            return{...state , owners : action.payload};
         default:
             return state;
     }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'reactstrap';
+import { Button,CustomInput , FormGroup ,Label } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import axios from 'axios';
 
@@ -56,19 +56,23 @@ class UploadImg extends Component {
 
 
                             <form onSubmit={this.onSubmit}>
-                                <div className="form-group">
-                                    <input type="file" name='profileImg' onChange={this.onFileChange} />
-                                </div>
+                                
+                                
+                                <FormGroup>
+                                    <Label for="exampleCustomFileBrowser">Select Image</Label>
+                                    <CustomInput type="file" id="exampleCustomFileBrowser" name='profileImg' onChange={this.onFileChange} />
+                                </FormGroup>
+
                                 <ModalFooter>
-                                <Button className='modelBtn' type="submit" >
-                                    Upload
+                                    <Button className='modelBtn' type="submit" >
+                                        Upload
                                 </Button>
-                                <Button className='modelBtn' color="secondary" onClick={this.toggle}>Cancel</Button>
-                            </ModalFooter>
-                               
+                                    <Button className='modelBtn' color="secondary" onClick={this.toggle}>Cancel</Button>
+                                </ModalFooter>
+
                             </form>
 
-                           
+
                         </div>
                     </ModalBody>
 

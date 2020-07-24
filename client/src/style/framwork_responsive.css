@@ -1,3 +1,4 @@
+
 /*********************** {general} ***************************/
 @media  (min-width : 1008px) and (max-width : 1200px){  
   .container{
@@ -18,10 +19,10 @@
 @media  (max-width : 1200px){  
 
 .highOne{
-  height: 350px;
+  height: 450px;
 }
 .highTwo{
-  height: 600px;
+  height: 700px;
 }
 .cell {
   border-top-left-radius: 0;

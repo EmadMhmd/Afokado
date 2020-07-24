@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import {NavLink , withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import { Button, FormGroup, Label, Input, FormFeedback} from 'reactstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { connect } from 'react-redux';
 import { apiResetPassword } from '../../../api/auth.api.js';
 
 class ResetPassword extends Component {
     _handleFormSubmit = (values, bag) => {
         apiResetPassword(values ,this.props.match.params.token).then(()=>{ this.props.history.push('/auth') })
         this.bag = bag; 
+    }
+    componentDidMount(){
+        document.title='AFokado | ResetPassword'
     }
     render() {
         return (
@@ -36,11 +38,10 @@ class ResetPassword extends Component {
                                 isValid
                             }) => (
                                     <div >
-                                        
                                         <FormGroup>
                                             <Label>New Password</Label>
                                             <Input
-                                                placeholder="Enter Your password"
+                                                placeholder="Type Your password"
                                                 invalid={errors.password && touched.password && errors.password}
                                                 type="password"
                                                 name="password"
@@ -62,6 +63,5 @@ class ResetPassword extends Component {
         )
     }
 }
-
 const LoginWithRouter=withRouter(ResetPassword)
 export default LoginWithRouter;

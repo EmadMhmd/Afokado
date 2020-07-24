@@ -9,11 +9,12 @@ import moment from 'moment';
 class AppRequests extends Component {
     componentDidMount() {
         const { fetchApplicationRequests } = this.props;
-        fetchApplicationRequests()
+        fetchApplicationRequests(this.props.match.params.id)
+        document.title='AFokado | Applications'
     }
     emptyCase() {
         const { applications } = this.props
-        const message = `great! you haven't any apply notification !?`
+        const message = `great !! There no application late !?`
         if (applications.length === 0) {
             return (
                 <EmptyMessage message={message} />
@@ -26,8 +27,8 @@ class AppRequests extends Component {
             return (
                 <Fragment>
                     <hr />
-                    <Button className='mainBtn btnL' onClick={() => rejectApplication(app._id)}>Reject</Button>
-                    <Button className='mainBtn btnR' onClick={() => acceptApplication(app._id)}>Accept</Button>
+                    <Button className='mainBtn btnL' onClick={() => rejectApplication(app._id , this.props.match.params.id)}>Reject</Button>
+                    <Button className='mainBtn btnR' onClick={() => acceptApplication(app._id , this.props.match.params.id)}>Accept</Button>
                 </Fragment>
             )
         } else {
@@ -46,7 +47,7 @@ class AppRequests extends Component {
 
 
                         <div cleas='headBar'>
-                            <h3 className='header' style={{width:'350px'}}>Internships Requests</h3>
+                            <h3 className='header' style={{width:'350px'}}>My Applications</h3>
                         </div>
 
                         {applications.map(app => (
@@ -56,10 +57,17 @@ class AppRequests extends Component {
                                     <pre className='bodyPara'>Name            : {app.trainee.userName}</pre>
                                     <pre className='bodyPara'>gender          : {app.trainee.gender}</pre>
                                     <pre className='bodyPara'>age             : {app.trainee.age}</pre>
-                                    <pre className='bodyPara'>uni             : {app.trainee.uni}</pre>
-                                    <pre className='bodyPara'>Graduation Year : {moment(app.trainee.level).format('MM-YYYY')}</pre>
                                     <pre className='bodyPara'>Email           : {app.trainee.email}</pre>
                                     <pre className='bodyPara'>Mobile          : {app.trainee.mobile}</pre>
+                                    <pre className='bodyPara'>Adderss         :</pre>
+                                    <p className='bodyPara txt'>{app.trainee.address} , {app.trainee.city} , {app.trainee.state}</p>
+
+                                    {app.trainee.uni ? <pre className='bodyPara'  >University      : {app.trainee.uni}</pre> : <></>}
+                                    {app.trainee.level ? <pre className='bodyPara'>Graduation Year : {moment(app.trainee.level).format('MM-YYYY')}</pre> : <></>}
+
+                                    {app.trainee.spec ? <pre className='bodyPara'>Specialty          : {app.trainee.spec} , {app.trainee.sspec}</pre> : <></>}
+
+                                    
                                 </div>
                                 {this.renderBtn(app)}
                             </div>

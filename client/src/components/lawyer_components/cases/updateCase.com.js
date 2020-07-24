@@ -33,7 +33,7 @@ class UpdateCasePage extends Component {
         })
     }
     render() {
-        const { claimant, defendant, court, type, number, title } = this.props.oneCase;
+        const { claimant, defendant, court, type, number, title , description} = this.props.oneCase;
         return (
             <div>
                 <Button className='mainBtn' onClick={this.toggle}>Update</Button>
@@ -44,14 +44,15 @@ class UpdateCasePage extends Component {
                             <div>
                                 <h3 className='formHeader'>Update Case</h3>
                                 <Formik
-                                    initialValues={{ claimant, defendant, court, type, number, title }}
+                                    initialValues={{ claimant, defendant, court, type, number, title ,description}}
                                     validationSchema={Yup.object().shape({
                                         claimant: Yup.string().required(),
                                         defendant: Yup.string().required(),
                                         court: Yup.string().required(),
                                         number: Yup.number().positive().required(),
                                         type: Yup.string().required(),
-                                        title: Yup.string().required()
+                                        title: Yup.string().required(),
+                                        description:Yup.string().required()
                                     })}
                                     onSubmit={this._handleFormSubmit.bind(this)}
                                 >
@@ -108,7 +109,20 @@ class UpdateCasePage extends Component {
 
                                                     {errors.defendant && touched.defendant ? (<FormFeedback>{errors.defendant}</FormFeedback>) : null}
                                                 </FormGroup>
+                                                <FormGroup>
+                                                    <Label>Description</Label>
+                                                    <Input
+                                                        placeholder="Enter description"
+                                                        invalid={errors.description && touched.description && errors.description}
+                                                        type="textarea"
+                                                        name="description"
+                                                        onChange={handleChange}
+                                                        onBlur={handleBlur}
+                                                        value={values.description}
+                                                    />
 
+                                                    {errors.description && touched.description ? (<FormFeedback>{errors.description}</FormFeedback>) : null}
+                                                </FormGroup >
                                                 <FormGroup>
                                                     <Label>court</Label>
                                                     <Input

@@ -27,10 +27,12 @@ padding-top:25px
   border: 1px solid #0070cd;
   margin-top: 15px;
   border-radius: 0;
+  transition: 0.5s all ease-in-out;
 }
 .mainBtn:hover{
     background-color: #0070cd;
     color: #fff;
+    text-decoration: none;
 }
 .btnL{
   /*add left radius to mainBt*/
@@ -46,6 +48,13 @@ padding-top:25px
 .btnN{
   /*add  radius to mainBt*/
   border-radius: 10px;
+}
+.btnLink{
+  transition: 0.5s all ease-in-out;
+}
+.btnLink:hover{
+  color:white;
+  text-decoration: none;
 }
 .btnT{
   /*add float right to mainBtn*/
@@ -91,13 +100,19 @@ padding-top:25px
   font-size: 24px;
   margin-top:40px;
   margin-right: 8%;
-  color: #fff;
   float: right;
-  background-color: #0070cd;
+  background-color: #fff;
+  color: #0070cd;
+  transition: 0.5s all ease-in-out;
+  
+}
+.addTwo{
+  margin-right:0;
+  border-right:none
 }
 .add:hover{
-  color: #0070cd;
-  background-color: #fff;
+  color: #fff;
+  background-color: #0070cd;
   border-color: #0070cd;
 }
 
@@ -119,6 +134,7 @@ padding-top:25px
   border:1px solid #0070cd;
   border-radius: 50%;
   font-size: 18px;
+  transition: 0.5s all ease-in-out;
 }
 .del:hover{
   background-color: #0070cd;
@@ -133,10 +149,10 @@ padding-top:25px
   padding-left: 100px;
 }
 .highOne{
-  height: 250px;
+  height: 400px;
 }
 .highTwo{
-  height: 400px;
+  height: 600px;
 }
 .searchHeader{
   color: #fff;
@@ -151,6 +167,7 @@ padding-top:25px
   font-weight: normal;
   font-size: 22px;
   margin-bottom: 50px;
+  margin-top: 75px;
 }
 
 
@@ -355,6 +372,12 @@ padding-top:25px
   word-spacing: 1.3;
   font-size: 18px;
 }
+.bodyParaWithoutUpper{
+  overflow: auto;
+  line-height: 1.8;
+  word-spacing: 1.3;
+  font-size: 18px;
+}
 .txt{
   margin-right: 30%;
   color: #0070cd;
@@ -395,9 +418,7 @@ padding-top:25px
 }
 
 /***************************** {NavBar} *****************************/
-.active{
-  color:red
-}
+
 .nav{
    /*colors  => 4e342e , 3e2723, 000  , 3b3f65 , 3e2723*/
   background-color: #0070cd  ;
@@ -419,6 +440,7 @@ padding-top:25px
   margin-top: 0;
   padding-top: 0;
   border:none;
+  transition: 0.5s all ease-in-out;
 }
 .dropLink:hover , .dropLink:active{
   color: red;
@@ -435,11 +457,16 @@ padding-top:25px
   width: 40%;
   
 }
+.logo img{
+  width:250px;
+  height:80px
+}
 .title{
   text-decoration: none;
   font-size: 34px;
   font-weight: bold;
   color: white;
+  transition: 0.5s all ease-in-out;
 }
  .title:hover{
   text-decoration: none;

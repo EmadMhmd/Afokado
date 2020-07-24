@@ -11,7 +11,9 @@ export const apiFetchCases=(query)=>{
     }
     return axios.get(`http://localhost:5000/fetch_cases`);
 }
-
+export const apiFetchUserCases=()=>{
+    return axios.get(`http://localhost:5000/fetch_user_cases`);
+}
 export const apiGetCase= (id) => {
     return axios.get(`http://localhost:5000/get_case/${id}`)
 }
@@ -26,4 +28,10 @@ export const apiDeleteCase= (id) => {
 
 export const apiArchiveCase= (archivedCase) => {
     return axios.put(`http://localhost:5000/archive_case`,archivedCase)
+}
+export const apiGetNewCaseOwner= ({email='em' , mobile='em'}) => {
+    return axios.get(`http://localhost:5000/get_new_owner/${ (email) ? email : 'em'}/${ (mobile) ? mobile : 'em'}`);
+}
+export const apiCaseOwnerUpdate= (caseId , owner) => {
+    return axios.put(`http://localhost:5000/update_case_owner/${caseId}/${owner}`)
 }

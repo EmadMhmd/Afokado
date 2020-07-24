@@ -9,7 +9,7 @@ lawyerController.fetchLawyers = async (req, res, next) => {
     if (spec && city && userName) {
         if (spec != 'em' && city != 'em' && userName != 'em') {
             query = {
-                type: 2, spec, city, userName
+                type: 2, spec, city, userName:{ $regex: userName, $options: "i" }
             }
         } else if (spec != 'em' && city != 'em' && userName === 'em') {
             query = {
@@ -17,11 +17,11 @@ lawyerController.fetchLawyers = async (req, res, next) => {
             }
         } else if (spec != 'em' && city === 'em' && userName != 'em') {
             query = {
-                type: 2, userName, spec
+                type: 2, userName:{ $regex: userName, $options: "i" }, spec
             }
         } else if (spec === 'em' && city != 'em' && userName != 'em') {
             query = {
-                type: 2, city, userName
+                type: 2, city, userName:{ $regex: userName, $options: "i" }
             }
         } else if (spec != 'em' && city === 'em' && userName === 'em') {
             query = {
@@ -33,7 +33,8 @@ lawyerController.fetchLawyers = async (req, res, next) => {
             }
         } else if (spec === 'em' && city === 'em' && userName != 'em') {
             query = {
-                type: 2, userName
+                type: 2, userName:{ $regex: userName, $options: "i" }
+
             }
         }
     } else {
@@ -48,7 +49,7 @@ lawyerController.fetchLawyers = async (req, res, next) => {
         });
     } catch (e) {
         return res.status(401).send({
-            error: 'now , try again to fetch lawyers'
+            error: 'Please try again to fetch lawyers'
         });
     }
 }
@@ -65,7 +66,7 @@ lawyerController.getLawyer = async (req, res, next) => {
         });
     } catch (e) {
         return res.status(401).send({
-            error: 'now , try again to fetch lawyer info'
+            error: 'Please try again to fetch lawyer info'
         });
     }
 }

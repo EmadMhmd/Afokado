@@ -6,11 +6,6 @@ const timeSchema = mongoose.Schema({
         type:Date,
         require:true
     },
-    created:{
-        type:Date,
-        required : true,
-        default:new Date()
-    },
     owner :{
         type : mongoose.Schema.Types.ObjectId,
         ref : 'User',
@@ -19,7 +14,13 @@ const timeSchema = mongoose.Schema({
     count:{
         type:Number,
         default:init
-    }
+    },
+    start:{
+        type:String
+    },
+    end:{
+       type:String
+   }
 })
 
 module.exports = mongoose.model( 'Time' , timeSchema) ;

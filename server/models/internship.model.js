@@ -11,8 +11,7 @@ const internshipSchema = mongoose.Schema({
         default:count
     },
     paid :{
-        type : Number,
-        default:init
+        type : String
     },
     duration :{
         type : Number
@@ -42,10 +41,28 @@ const internshipSchema = mongoose.Schema({
     appCount:{
         type:Number,
         default:init
+    },
+    minExp:{
+        type:Number,
+        default:init
+    },
+    maxExp:{
+        type:Number,
+        default:init
+    },
+    job:{
+        type:Number,
+        default:init
+    },
+    role:{
+        type:String
+    },
+    jobType:{
+        type:String
+    },
+    salary:{
+        type:Number
     }
 })
-
-
-
 
 module.exports = mongoose.model( 'Internship' , internshipSchema) ;

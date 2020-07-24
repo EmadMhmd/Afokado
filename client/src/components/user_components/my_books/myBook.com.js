@@ -13,46 +13,12 @@ class MyBook extends Component {
     }
     componentDidMount() {
         const { fetchBooks } = this.props;
-        //bookData()
         fetchBooks()
-        //  setTimeout(()=>{
-        //      const {books}=this.props
-        //      this.setState({completeBookData:books})
-        //   },1500)  
-
-
-
+        document.title='AFokado | My Books'
     }
-    /*setBooks(){
-        const {books , bookData}=this.props
-        let completeBookData=[]
-        console.log('books before ' ,books)
-        books.map(book=>{
-            const {data : {lawyers}}= apiGetLawyer(book.owner)
-            //const lawyers=returnedData.data.lawyers
-            console.log('lawyers:' ,lawyers)
-            const newBook={...book , lawyers}
-            completeBookData.push(newBook)
-            
-        })
-        books.forEach(book => {
-            const {data : {lawyers}}= apiGetLawyer(book.lawyer)
-            const newBook={...book , lawyers}
-            completeBookData.push(newBook)
-        });
-     for(let i=0 ; i < books.length-1 ; i ++){
-        const {data : {lawyers}}= apiGetLawyer(books[i].lawyer)
-        console.log('book no ' , i , books[i])
-        const newBook={...books[i] , lawyers}
-        completeBookData.push(newBook)
-        console.log('all:' , completeBookData)
-     }
-        this.setState({completeBookData})
-        console.log('books after', completeBookData)
-    }*/
     emptyCase() {
         const { books } = this.props
-        const message = `oops! you still don't have any book !?`
+        const message = `oops !! You still don't have any a book late !?`
         if (books.length === 0) {
             return (
                 <EmptyMessage message={message} />
@@ -70,8 +36,6 @@ class MyBook extends Component {
                 </div>
             )
         }
-
-
     }
     render() {
         const { books, fetching } = this.props;
@@ -82,35 +46,28 @@ class MyBook extends Component {
             <div>
                 <div className='bg items'>
                     <div className='listConatiner'>
-
                         <div cleasName='headBar'>
-                            <h3 className='header'>My Book</h3>
-                            <Button className='add'><Link to='/'>Book Now</Link></Button>
+                            <h3 className='header'>My Books</h3>
+                            <Button className='add'><Link className='btnLink' to='/'>Book Now</Link></Button>
                         </div>
-
                         {books.map((item) => (
-
                             <div key={item._id} className='item'>
-
                                 <div class='itemBodyNoHeader'>
-                                    <pre className='bodyPara'>book Time          : {moment(item.timeId.time).format(' DD-MM-YYYY  dddd')}</pre>
+                                    <pre className='bodyPara'>book Date          :{moment(item.timeId.time).format(' DD-MM-YYYY  dddd')}</pre>
+                                    <pre className='bodyPara'>Book Times         : from {item.timeId.start} To {item.timeId.end}</pre>
                                     <pre className='bodyPara'>lawyer Name        : {item.lawyer.userName}</pre>
                                     <pre className='bodyPara'>lawyer Mobile      : 0{item.lawyer.mobile}</pre>
                                     <pre className='bodyPara'>address            :</pre>
-                                    <pre className='bodyPara txt'>{item.lawyer.address}</pre>
-                                    <pre className='bodyPara'>city               : {item.lawyer.city}</pre>
-                                    <pre className='bodyPara'>state              :{item.lawyer.state}</pre>
+                                    <p className='bodyPara txt'>{item.lawyer.address} , {item.lawyer.city} , {item.lawyer.state}</p>
                                     <abbr title='Delete the Book'><Button className='del' onClick={() => this.props.deleteBook(item._id)}><i className='fa fa-trash fas' /></Button></abbr>
                                 </div>
                                 {this.renderBtn(item)}
                             </div>
                         ))}
-
                     </div>
                 </div>
                 {this.emptyCase()}
             </div>
-
 
         )
     }

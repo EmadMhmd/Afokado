@@ -1,6 +1,6 @@
-import React, { Fragment, useState } from 'react';
+import React, {  useState } from 'react';
 import { NavLink } from 'react-router-dom';
-//import { NavLink } from 'react-router-dom';
+import LogoImg from '../../../images/all white.png';
 import { connect } from 'react-redux';
 import { logUserOut } from '../../../actions/auth.actions.js';
 import {
@@ -14,9 +14,7 @@ import {
     DropdownToggle,
     DropdownMenu,
     DropdownItem,
-    NavbarText,
     Badge,
-    Button
 } from 'reactstrap';
 import lm from '../../../images/lawm.png';
 
@@ -25,12 +23,7 @@ const NavBar = (props) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggle = () => setIsOpen(!isOpen);
-    const out = () => {
-        this.props.logUserOut().then(() => {
-            this.props.history.push('/')
-        })
 
-    }
 
     const renderLinks = () => {
         const { isAuth, profile, booksCount, applicationsCount, BookDeletesCount, AppDeletesCount, rejectsCount, acceptsCount, tasksCount, logUserOut ,StuTasksCount} = props;
@@ -39,13 +32,17 @@ const NavBar = (props) => {
                 return (
                     <div>
                         <Navbar className='nav' light expand="md">
-                            <NavbarBrand className='logo'> <NavLink className="title" to='/'>Afo<span>kado</span></NavLink></NavbarBrand>
+                        <NavbarBrand className='logo'> <NavLink className="title" to='/'><img alt='Logo_Img' src={LogoImg}/></NavLink></NavbarBrand>
                             <NavbarToggler onClick={toggle} />
                             <Collapse isOpen={isOpen} navbar>
                                 <Nav className="mr-auto" navbar>
                                     <NavItem>
                                         <NavLink className='navLink' to='/my_books'>My Books</NavLink>
                                     </NavItem>
+                                    <NavItem>
+                                        <NavLink className="navLink" to='/user_cases'>My Cases</NavLink>
+                                    </NavItem>
+                                    
                                     <UncontrolledDropdown nav inNavbar>
                                         <DropdownToggle caret className='dropLink' >
                                             profile
@@ -70,7 +67,7 @@ const NavBar = (props) => {
                 return (
                     <div>
                         <Navbar className='nav' light expand="xl">
-                            <NavbarBrand className='logo'> <NavLink className="title" to='/'>Afo<span>kado</span></NavLink></NavbarBrand>
+                            <NavbarBrand className='logo'> <NavLink className="title" to='/'><img alt='Logo_Img' src={LogoImg}/></NavLink></NavbarBrand>
                             <NavbarToggler onClick={toggle} />
                             <Collapse isOpen={isOpen} navbar>
                                 <Nav className="mr-auto" navbar>
@@ -93,7 +90,7 @@ const NavBar = (props) => {
                                                 <NavLink to="/agenda">My Tasks</NavLink>
                                             </DropdownItem>
                                             <DropdownItem>
-                                                <NavLink to="/internalships">Internships</NavLink>
+                                                <NavLink to="/offer">Offer</NavLink>
                                             </DropdownItem>
                                         </DropdownMenu>
                                     </UncontrolledDropdown>
@@ -115,8 +112,7 @@ const NavBar = (props) => {
                                     </NavItem>
                                     <UncontrolledDropdown nav inNavbar>
                                         <DropdownToggle caret className='dropLink' >
-                                            <img style={{width:'35px' ,height:'35px', marginLeft:'0' ,border:'none' , marginRight:'5px'}} src={profile.img ? require(`../../../images/${profile.img.filename}`) : lm} className='bodyImg' alt='lawyer-img' />
-                                           
+                                            <img style={{width:'35px' ,height:'35px', marginLeft:'0' ,border:'none' , marginRight:'5px'}}  src={profile.img ? require(`../../../images/${profile.img.filename}`) : lm} className='bodyImg' alt='lawyer-img' /> 
                                         </DropdownToggle>
                                         <DropdownMenu right className='navLink'>
                                             <DropdownItem >
@@ -143,7 +139,7 @@ const NavBar = (props) => {
                 return (
                     <div>
                         <Navbar className='nav' light expand="md">
-                            <NavbarBrand className='logo'> <NavLink className="title" to='/'>Afo<span>kado</span></NavLink></NavbarBrand>
+                        <NavbarBrand className='logo'> <NavLink className="title" to='/'><img alt='Logo_Img' src={LogoImg}/></NavLink></NavbarBrand>
                             <NavbarToggler onClick={toggle} />
                             <Collapse isOpen={isOpen} navbar>
                                 <Nav className="mr-auto" navbar>
@@ -187,7 +183,7 @@ const NavBar = (props) => {
             return (
                 <div>
                     <Navbar className='nav' light expand="lg">
-                        <NavbarBrand className='logo'> <NavLink className="title" to='/'>Afo<span>kado</span></NavLink></NavbarBrand>
+                    <NavbarBrand className='logo'> <NavLink className="title" to='/'><img alt='Logo_Img' src={LogoImg}/></NavLink></NavbarBrand>
                         <NavbarToggler className='navLink' onClick={toggle} />
                         <Collapse isOpen={isOpen} navbar>
                             <Nav className="mr-auto" navbar>

@@ -29,9 +29,6 @@ const user = mongoose.Schema({
     sspec :{
         type : String
     },
-    tspec :{
-        type : String
-    },
     level :{
         type : Date
     },
@@ -78,12 +75,11 @@ const user = mongoose.Schema({
         default:""
     },
      startTime:{
-         type:Date
+         type:String
      },
      endTime:{
-        type:Date
+        type:String
     }
-
 })
 
 

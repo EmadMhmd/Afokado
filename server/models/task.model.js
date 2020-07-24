@@ -6,6 +6,10 @@ const taskSchema = mongoose.Schema({
         type:Number,
         default:init
     },
+    session:{
+        type:Number,
+        default:init
+    },
     title:{
         type:String
     },

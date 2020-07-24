@@ -4,7 +4,6 @@ import { Button, FormGroup, Label, Input } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import {updateTask} from '../../../actions/task.action.js';
 import { archievCase } from '../../../actions/case.action';
 
 

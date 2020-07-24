@@ -51,28 +51,28 @@ export const deleteApplication=id=>{
         }
     }
 }
-export const rejectApplication=id=>{
+export const rejectApplication=(id , internId)=>{
     return async dispatch =>{
         try{
            dispatch(clearError())
            dispatch(clearMessage())
            const {data:{message}}=await apiRejectApplication(id)
            dispatch({type:APPLICATION_REJECTED})
-           dispatch(fetchApplicationRequests())
+           dispatch(fetchApplicationRequests(internId))
            dispatch(addMessage(message))
         }catch(e){
             dispatch(addError(e))
         }
     }
 }
-export const acceptApplication=id=>{
+export const acceptApplication=(id , internId)=>{
     return async dispatch =>{
         try{
             dispatch(clearError())
             dispatch(clearMessage())
            const {data:{message}}=await apiAcceptApplication(id)
            dispatch({type:APPLICATION_ACCEPTED})
-           dispatch(fetchApplicationRequests())
+           dispatch(fetchApplicationRequests(internId))
            dispatch(addMessage(message))
         }catch(e){
             dispatch(addError(e))
@@ -95,14 +95,14 @@ export const updateApplication=id=>{
     }
 }
 
-export const fetchApplicationRequests =()=>{
+export const fetchApplicationRequests =(id)=>{
     return async dispatch =>{
         try{
             dispatch(clearError())
             dispatch(clearMessage())
             dispatch(fetchingTime())
             dispatch(openAppNotifications())
-            const {data:{applications}}=await apiFetchApplicationRequests()
+            const {data:{applications}}=await apiFetchApplicationRequests(id)
             dispatch({type:APPLICATIONS_FETCHING_SUCCESS , payload:applications})
             dispatch(fetchingFailed())
         }catch(e){

@@ -2,7 +2,7 @@ import {TIME_ADDED ,TIME_DELETED  , TIMES_FETCHING_SUCCESS } from '../actions/ac
 import {addError ,clearError} from './error.action';
 import {addMessage ,clearMessage} from './message.action';
 import {fetchingTime , fetchingFailed} from './fetch.action';
-import {apiAddTime ,apiDeleteTime  ,apiFetchTimes } from '../api/times.api';
+import {apiAddTime ,apiDeleteTime  ,apiFetchTimes ,apiOfficeTimes} from '../api/times.api';
 
 export const addTime= time =>{
 return async dispatch=>{
@@ -18,7 +18,18 @@ return async dispatch=>{
     }
 }
 }
-
+export const officeTimes= times =>{
+    return async dispatch=>{
+        try{
+            dispatch(clearError())
+            dispatch(clearMessage())
+            const {data:{message}}=await  apiOfficeTimes(times);
+            dispatch(addMessage(message))
+        }catch(e){
+            dispatch(addError(e))
+        }
+    }
+    }
 export const deleteTime= time =>{
     return async dispatch=>{
         try{

@@ -1,35 +1,34 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { Button, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
-import {NavLink} from 'react-router-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import {bookWithLogin } from '../../../actions/book.action.js';
-
 class DirectBookWithLogin extends Component {
     _handleFormSubmit = (values, bag) => {
         if (values) {
             const {bookWithLogin} =this.props;
             const id=this.props.match.params.time_id 
             bookWithLogin(values , id).then(()=>this.props.history.push('/my_books'))
-            
         }
         else {
             bag.isSubmitting(false)
         }
+    }
+    componentDidMount(){
+        document.title='AFokado | Book With Login'
     }
     render() {
         return (
             <div className='bg mt'>
                 <div className='container'>
                     <div className='formPage'>
-                        <h3 className='formHeader'>Direct Book with SignUp</h3>
+                        <h3 className='formHeader'>Direct Book with Login</h3>
                         <Formik
                             initialValues={{ email: '', password: '' }}
                             validationSchema={Yup.object().shape({
                                 email: Yup.string().email().required(),
                                 password: Yup.string().min(6).required()
-                            
                             })}
                             onSubmit={this._handleFormSubmit.bind(this)}
                         >
@@ -45,9 +44,9 @@ class DirectBookWithLogin extends Component {
                             }) => (
                                     <div>
                                         <FormGroup className='field'>
-                                            <Label>Email</Label>
+                                            <Label>Email <span className='star'>*</span></Label>
                                             <Input
-                                                placeholder="Enter Your Email"
+                                                placeholder="Type Your Email"
                                                 invalid={errors.email && touched.email && errors.email}
                                                 type="email"
                                                 name="email"
@@ -58,9 +57,9 @@ class DirectBookWithLogin extends Component {
                                             {errors.email && touched.email ? (<FormFeedback>{errors.email}</FormFeedback>) : null}
                                         </FormGroup>
                                         <FormGroup className='field'>
-                                            <Label>Password</Label>
+                                            <Label>Password <span className='star'>*</span></Label>
                                             <Input
-                                                placeholder="Enter Your password"
+                                                placeholder="Type Your password"
                                                 invalid={errors.password && touched.password && errors.password}
                                                 type="password"
                                                 name="password"
@@ -76,19 +75,11 @@ class DirectBookWithLogin extends Component {
                                         </Button>
                                     </div>
                                 )}
-
                         </Formik>
-                        <div >
-                            <p className='checkPara'>Don't have account in afokado ?</p>
-                            <NavLink to='/'>Direct Book with SignUp</NavLink>
-                        </div>
                     </div>
-
-
                 </div>
             </div>
         )
     }
 }
-
 export default connect(null, { bookWithLogin})(DirectBookWithLogin);

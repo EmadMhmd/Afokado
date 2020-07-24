@@ -37,6 +37,10 @@ const caseSchema = mongoose.Schema({
         ref : 'User',
         required : true
     },
+    caseOwner :{
+        type : mongoose.Schema.Types.ObjectId,
+        ref : 'User'
+    },
     finalDecision :{
         type : String,
     },

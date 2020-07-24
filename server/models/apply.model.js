@@ -43,7 +43,6 @@ const applySchema = mongoose.Schema({
         ref:'User',
         required : true
     }
-        
 })
 
 module.exports = mongoose.model( 'Apply' , applySchema) ;

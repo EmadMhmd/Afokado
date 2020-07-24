@@ -50,7 +50,7 @@ officeController.getOffice = async (req, res, next) => {
         });
     } catch (e) {
         return res.status(401).send({
-            error: 'fetching falied , try again !!'
+            error: 'Fetching falied ,Please try again !!'
         });
 
     }
@@ -68,7 +68,7 @@ officeController.getMyOffice = async (req, res, next) => {
         });
     } catch (e) {
         return res.status(401).send({
-            error: 'fetching falied , try again !!'
+            error: 'Fetching falied ,Please try again !!'
         });
 
     }
@@ -90,7 +90,7 @@ officeController.getNewOffice = async (req, res, next) => {
         });
     } catch (e) {
         return res.status(401).send({
-            error: 'fetching failed , try again !!'
+            error: 'Fetching failed ,Please try again !!'
         });
 
     }
@@ -100,11 +100,11 @@ officeController.deleteFromOffice = async (req, res, next) => {
     try {
         await Office.updateOne({ _id: req.params.id, mainLawyer: user.id }, { status: 'delete' })
         return res.send({
-            message: 'you delete employee from office successfully ',
+            message: 'You delete employee from office successfully ',
         })
     } catch (e) {
         return res.status(401).send({
-            error: 'please try again to delete the employee from office !!'
+            error: 'Please try again to delete the employee from office !!'
         });
     }
 }
@@ -117,7 +117,7 @@ officeController.outFromOffice = async (req, res, next) => {
         })
     } catch (e) {
         return res.status(401).send({
-            error: 'please try again to Exist from office !!'
+            error: 'Please try again to Exist from office !!'
         });
     }
 }
@@ -127,7 +127,7 @@ officeController.rejectOffice = async (req, res, next) => {
     try {
         await Office.updateOne({ subLawyer: user._id, _id: req.params.id }, { status: 'reject' })
         return res.send({
-            message: 'you rejected the office successfully',
+            message: 'You rejected the office successfully',
         })
     } catch (e) {
         return res.status(401).send({
@@ -144,7 +144,7 @@ officeController.acceptOffice = async (req, res, next) => {
         })
     } catch (e) {
         return res.status(401).send({
-            error: 'please try again to accept the office !!'
+            error: 'Please try again to accept the office !!'
         });
     }
 }

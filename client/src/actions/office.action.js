@@ -40,7 +40,6 @@ export const getNewOffice=(query)=>{
         try{
             dispatch(clearError())
             dispatch(clearMessage())
-            dispatch(fetchingTime())
             const {data:{newOffice}}=await apiGetNewOffice(query)
             dispatch({type:NEW_OFFICE_GETTING_SUCCESS , payload:newOffice})
             dispatch(fetchingFailed())

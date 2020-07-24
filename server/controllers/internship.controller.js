@@ -4,19 +4,19 @@ const Apply = require('../models/apply.model.js');
 
 
 internshipController.addInternship = async (req, res, next) => {
-    const { count, description, created, paid , title , startDate , duration} = req.body;
+    const { count, description, created, paid , title , startDate , duration , job , role , minExp , maxExp , salary ,jobType} = req.body;
     const newIntern = new Internship({
-        count, description, created, paid,title,startDate,duration,
+        count, description, created, paid,title,startDate,duration,job,role,minExp , maxExp , salary ,jobType,
         owner: req.user
     })
     try {
         await newIntern.save();
         return res.send({
-            message: 'the internship added successfully'
+            message: 'The internship added successfully'
         })
     } catch (e) {
         return res.status(401).send({
-            error: 'please try again to add new internship'
+            error: 'Please try again to add new internship'
         });
     }
 }
@@ -58,13 +58,13 @@ internshipController.fetchInternshipsForApply = async (req, res, next) => {
         query = {}
     }
     try {
-        const internships = await Internship.find(query).sort({ created: 'asc' });
+        const internships = await Internship.find(query).populate('owner').sort({ created: 'asc' });
         return res.send({
             internships
         });
     } catch (e) {
         return res.status(401).send({
-            error: 'fetching failed'
+            error: 'Fetching failed , Please try again'
         });
     }
 }
@@ -88,35 +88,35 @@ internshipController.deleteInternship = async (req, res, next) => {
         if(existOrNot.length===0){
             await Internship.deleteOne({ _id: req.params._id });
             return res.send({
-                message: 'the internship deleted successfully'
+                message: 'The internship deleted successfully'
             });
         }else{
             return res.status(401).send({
-                error: 'you can not delete this internship , there are applications on this internship'
+                error: 'You can not delete this internship , there are applications on this internship'
             });
         }
     
     } catch (e) {
         return res.status(401).send({
-            error: 'please try again to delete the internship'
+            error: 'Please try again to delete the internship'
         });
     }
 
 }
 
 internshipController.updateInternship = async (req, res, next) => {
-    const { count, description, created, paid } = req.body;
+    const { count, description, paid,title,startDate,duration,role,minExp , maxExp , salary ,jobType } = req.body;
     try {
         await Internship.updateOne(
             { _id: req.params._id },
-            { count, description, created, paid }
+            {count, description, paid,title,startDate,duration,role,minExp , maxExp , salary ,jobType}
         );
         return res.send({
-            message: 'the internshi[p updated successfully'
+            message: 'The internshi[p updated successfully'
         });
     } catch (e) {
         return res.status(401).send({
-            error: 'please try again to update the internship'
+            error: 'Please try again to update the internship'
         });
     }
 }

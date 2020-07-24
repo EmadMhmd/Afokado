@@ -5,10 +5,6 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { connect } from 'react-redux';
 import { sign } from '../../../actions/auth.actions.js';
-
-
-
-
 class Signup_user extends Component {
     _handleFormSubmit = (values, bag) => {
         if (values) {
@@ -19,8 +15,10 @@ class Signup_user extends Component {
         }
         else {
             bag.isSubmitting(false)
-
         }
+    }
+    componentDidMount(){
+        document.title='AFokado | User SignUp'
     }
     render() {
         return (
@@ -34,9 +32,12 @@ class Signup_user extends Component {
                                 userName: Yup.string().required(),
                                 email: Yup.string().email().required(),
                                 password: Yup.string().min(6),
-                                mobile: Yup.number().min(11).required(),
-                             
-
+                                mobile: Yup.number()
+                                    .typeError("That doesn't look like a phone number")
+                                    .positive("A phone number can't start with a minus")
+                                    .integer("A phone number can't include a decimal point")
+                                    .min(10)
+                                    .required('A phone number is required'),
                             })}
                             onSubmit={this._handleFormSubmit.bind(this)}
                         >
@@ -49,13 +50,12 @@ class Signup_user extends Component {
                                 handleSubmit,
                                 isSubmitting,
                                 isValid
-                                /* and other goodies */
                             }) => (
                                     <div>
                                         <FormGroup className='field'>
                                             <Label>Name <span className='star'>*</span></Label>
                                             <Input
-                                                placeholder="Enter Your  Name"
+                                                placeholder="Type Your  Name"
                                                 invalid={errors.userName && touched.userName && errors.userName}
                                                 type="text"
                                                 name="userName"
@@ -63,13 +63,12 @@ class Signup_user extends Component {
                                                 onBlur={handleBlur}
                                                 value={values.userName}
                                             />
-
                                             {errors.userName && touched.userName ? (<FormFeedback>{errors.userName}</FormFeedback>) : null}
                                         </FormGroup >
                                         <FormGroup className='field'>
-                                            <Label>Email</Label>
+                                            <Label>Email <span className='star'>*</span></Label>
                                             <Input
-                                                placeholder="Enter Your Email"
+                                                placeholder="Type Your Email"
                                                 invalid={errors.email && touched.email && errors.email}
                                                 type="email"
                                                 name="email"
@@ -77,13 +76,12 @@ class Signup_user extends Component {
                                                 onBlur={handleBlur}
                                                 value={values.email}
                                             />
-
                                             {errors.email && touched.email ? (<FormFeedback>{errors.email}</FormFeedback>) : null}
                                         </FormGroup>
                                         <FormGroup className='field'>
                                             <Label>Mobile Number <span className='star'>*</span></Label>
                                             <Input
-                                                placeholder="Enter Your Number"
+                                                placeholder="Type Your Number"
                                                 invalid={errors.mobile && touched.mobile && errors.mobile}
                                                 type="tel"
                                                 name="mobile"
@@ -91,14 +89,13 @@ class Signup_user extends Component {
                                                 onBlur={handleBlur}
                                                 value={values.mobile}
                                             />
-
                                             {errors.mobile && touched.mobile ? (<FormFeedback>{errors.mobile}</FormFeedback>) : null}
                                         </FormGroup>
 
                                         <FormGroup className='field'>
                                             <Label>Password <span className='star'>*</span></Label>
                                             <Input
-                                                placeholder="Enter Your password"
+                                                placeholder="Type Your password"
                                                 invalid={errors.password && touched.password && errors.password}
                                                 type="password"
                                                 name="password"
@@ -108,23 +105,17 @@ class Signup_user extends Component {
                                             />
                                             {errors.password && touched.password ? (<FormFeedback>{errors.password}</FormFeedback>) : null}
                                         </FormGroup>
-
-
-
                                         <Button className='formBtn' type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
                                             Sign Up 
                                         </Button>
                                     </div>
                                 )}
-
                         </Formik>
                         <div >
                             <p className='checkPara'>Already Registered in Afokado ?</p>
                             <NavLink to='/auth'>Login</NavLink>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         )

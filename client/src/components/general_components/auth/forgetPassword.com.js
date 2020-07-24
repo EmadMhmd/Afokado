@@ -62,7 +62,7 @@ class ForgetPassword extends Component {
                                                 <FormGroup>
                                                     <Label>Email</Label>
                                                     <Input
-                                                        placeholder="Enter your email"
+                                                        placeholder="Type your email"
                                                         invalid={errors.email && touched.email && errors.email}
                                                         type="email"
                                                         name="email"

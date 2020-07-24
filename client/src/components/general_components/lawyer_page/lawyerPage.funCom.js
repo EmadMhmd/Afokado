@@ -11,7 +11,7 @@ import { apiFetchRates } from '../../../api/rate.api';
 import { apiFetchTimes } from '../../../api/times.api';
 import lm from '../../../images/lawm.png';
 
-
+//delete it
 const LawyerPage = (props) => {
     const [rateing, setRateing] = useState(0)
     const [time, setTime] = useState('')
@@ -149,9 +149,9 @@ const LawyerPage = (props) => {
                         <Col md={8}>
                             <FormGroup>
                                 <Input style={{ marginLeft: '10px' }} type="select" name="select" onChange={handleChange} >
-                                    <option>Select Time</option>
+                                    <option>Select Date</option>
                                     {times.map(onetime => (
-                                        <option key={onetime._id} value={onetime._id}> {moment(onetime.time).format(' DD-MM-YYYY  dddd')}</option>
+                                        <option key={onetime._id} value={onetime._id}> {moment(onetime.time).format(' DD-MM-YYYY  dddd')}  From {onetime.start}  To  {onetime.end}</option>
                                     ))}
 
                                 </Input>
@@ -160,6 +160,9 @@ const LawyerPage = (props) => {
                         <Col md={3}>
                             <Button style={{ marginTop: '0' }} className='mainBtn btnN' onClick={handleSubmit}>Book</Button>
                         </Col>
+                        {/* <Col md={6}>
+                            <pre className='bodyPara'>Office Times : from {lawyer.startTime} To {lawyer.endTime}</pre>
+                        </Col> */}
                     </Row>
                 </div>
 

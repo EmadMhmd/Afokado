@@ -14,14 +14,18 @@ import UserSignUp from './components/general_components/signup/signup.user.com.j
 import LawyerSignUp from './components/general_components/signup/signup.lawyer.com.js';
 import StudentSignUp from './components/general_components/signup/singup.student.com.js';
 import Footer from './components/general_components/footer/footer.com';
+import About from './components/general_components/footer/about.com';
+import Contact from './components/general_components/footer/contact.com';
+import OurTeam from './components/general_components/footer/ourTeam.com';
 import Home from './components/general_components/home/home.com.js';
 import CasesList from './components/lawyer_components/cases/cases.com.js';
 import CasePage from './components/lawyer_components/cases/casePage.com.js';
 import Internalships from './components/lawyer_components/internalships/internalships.com.js';
+import Jobs from './components/lawyer_components/jobs/jobs.com.js';
+import JobsList from './components/lawyer_components/jobs_list/jobsList.com.js';
 import Times from './components/lawyer_components/times/times.com.js';
 import Office from './components/lawyer_components/office/office.com';
 import Profile from './components/general_components/profile/profile.com';
-import ImgUpload from './components/general_components/profile/imgUpload.fnCom';
 import LawyerList from './components/general_components/list_lawyers/lawyerList.com.js';
 import LawyerPage from './components/general_components/lawyer_page/lawyerPage.com.js';
 //import LawyerPage from './components/general_components/lawyer_page/lawyerPage.funCom.js';
@@ -29,8 +33,10 @@ import LawyerPage from './components/general_components/lawyer_page/lawyerPage.c
 import DirectBookWithLogin from './components/general_components/lawyer_page/directBookWithLogin.com';
 import DirectBookWithSign from './components/general_components/lawyer_page/directBookWithSign.com';
 import MyBooks from './components/user_components/my_books/myBook.com.js';
+import UserCases from './components/user_components/user_cases/userCases.com';
 import BookRequests from './components/lawyer_components/requests/book_requests.com.js';
-import AppRequests from './components/lawyer_components/requests/app_requests.com.js';
+import AppRequests from './components/lawyer_components/requests/appRequests.com.js';
+import Applications from './components/lawyer_components/requests/applications.com.js';
 import Agenda from './components/lawyer_components/agenda/agenda.com.js';
 import Message from './components/general_components/message_com/message.com';
 
@@ -55,7 +61,8 @@ class App extends Component {
               <Route exact path='/profile' component={Profile} />
               <Route exact path='/list' component={LawyerList} />
               <Route exact path='/lawyerpage/:id' component={LawyerPage} />
-            
+              <Route exact path='/casepage/:id' component={CasePage}/>
+              <Route exact path='/user_cases' component={UserCases}/>
             </div>
           );
         }else if(type===2){
@@ -64,16 +71,19 @@ class App extends Component {
               
               <Route exact path='/' component={CasesList} />
               <Route exact path='/internalships' component={Internalships} />
+              <Route exact path='/offer' component={Jobs} />
+              <Route exact path='/jobs_list' component={JobsList} />
               <Route exact path='/office' component={Office} />
               <Route exact path='/times' component={Times} />
               <Route exact path='/profile' component={Profile} />
-              <Route exact path='/img' component={ImgUpload} />
               <Route exact path='/book_requests' component={BookRequests} />
               <Route exact path='/app_requests' component={AppRequests} />
-              <Route exact path='/internship_requests' component={BookRequests} />
+              <Route exact path='/applications/:id' component={Applications} />
               <Route exact path='/agenda' component={Agenda} />
               <Route exact path='/my_tasks' component={MyTasks} />
               <Route exact path='/casepage/:id' component={CasePage}/>
+              <Route exact path='/my_app' component={MyApp} />
+              <Route exact path='/intern_list' component={Internships} />
             </div>
           );
         }else if(type===3){
@@ -81,9 +91,11 @@ class App extends Component {
             <div>
               <Route exact path='/profile' component={Profile} />
               <Route exact path='/' component={Internships} />
+              <Route exact path='/intern_list' component={Internships} />
               <Route exact path='/my_app' component={MyApp} />
               <Route exact path='/my_office' component={MyOffice} />
               <Route exact path='/my_tasks' component={MyTasks} />
+              <Route exact path='/jobs_list' component={JobsList} />
             </div>
           );
         }
@@ -124,6 +136,9 @@ class App extends Component {
             <NavBar />
             <Message />
             {this.renderLayout()}
+            <Route exact path='/about' component={About} />
+            <Route exact path='/contact' component={Contact} />
+            <Route exact path='/our_team' component={OurTeam} />
             <Footer />
           </div>
         </BrowserRouter>

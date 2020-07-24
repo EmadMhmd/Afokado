@@ -6,6 +6,8 @@ import {Badge} from 'reactstrap';
 
 import './nav.com.css';
 
+
+//Delete it
 class NavBar extends Component {
     out() {
         this.props.logUserOut()
@@ -28,6 +30,7 @@ class NavBar extends Component {
                     <div>
 
                         <NavLink className="link" to='/my_books'>My Books</NavLink>
+                        <NavLink className="link" to='/user_cases'>My Cases</NavLink>
                         {this.share()}
                     </div>
                 )

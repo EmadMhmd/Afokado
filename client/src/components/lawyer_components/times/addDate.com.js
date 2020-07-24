@@ -36,14 +36,14 @@ class AddTimePage extends Component {
     render() {
         return (
             <div>
-                <Button className='add' onClick={this.toggle}  >Add Time</Button>
+                <Button className='btnR add' onClick={this.toggle}  >Add Date</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} >
-                    <ModalHeader toggle={this.toggle}>Add New Case</ModalHeader>
+                    <ModalHeader toggle={this.toggle}>Add New Date</ModalHeader>
                     <ModalBody>
                             <div>
-                                <h3 className='formHeader'>Add New Case</h3>
+                                <h3 className='formHeader'>Add Date</h3>
                                 <Formik
-                                    initialValues={{ time:'' }}
+                                    initialValues={{ time:'' , start:this.props.profile.startTime , end:this.props.profile.endTime}}
                                     validationSchema={Yup.object().shape({
                                         time: Yup.date().min(new Date() , `Invalid Date , Please date later than ${moment().format('DD-MM-YY dddd')} `).required(),
                                       
@@ -62,7 +62,7 @@ class AddTimePage extends Component {
                                     }) => (
                                             <div>
                                                 <FormGroup>
-                                                    <Label>Time</Label>
+                                                    <Label>Day</Label>
                                                     <Input
                                                         placeholder="Enter Time"
                                                         invalid={errors.time && touched.time && errors.time}
@@ -74,9 +74,35 @@ class AddTimePage extends Component {
                                                     />
                                                     {errors.time && touched.time ? (<FormFeedback>{errors.time}</FormFeedback>) : null}
                                                 </FormGroup >
+                                                <FormGroup>
+                                                    <Label>Start Time</Label>
+                                                    <Input
+                                                        placeholder="Enter Satrt Time"
+                                                        invalid={errors.start && touched.start && errors.start}
+                                                        type="time"
+                                                        name="start"
+                                                        onChange={handleChange}
+                                                        onBlur={handleBlur}
+                                                        value={values.start}
+                                                    />
+                                                    {errors.start && touched.start ? (<FormFeedback>{errors.start}</FormFeedback>) : null}
+                                                </FormGroup >
+                                                <FormGroup>
+                                                    <Label>End Time</Label>
+                                                    <Input
+                                                        placeholder="Enter End Time"
+                                                        invalid={errors.end && touched.end && errors.end}
+                                                        type="time"
+                                                        name="end"
+                                                        onChange={handleChange}
+                                                        onBlur={handleBlur}
+                                                        value={values.end}
+                                                    />
+                                                    {errors.end && touched.end ? (<FormFeedback>{errors.end}</FormFeedback>) : null}
+                                                </FormGroup >
                                                 <ModalFooter>
                                                     <Button className='modelBtn' type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
-                                                        Add New time
+                                                        Add New Date
                                             </Button>
                                                     <Button className='modelBtn' color="secondary" onClick={this.toggle}>Cancel</Button>
                                                 </ModalFooter>

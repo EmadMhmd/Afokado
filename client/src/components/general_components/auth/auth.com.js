@@ -9,29 +9,22 @@ import ForgetPassword from './forgetPassword.com';
 
 class LoginPage extends Component {
     componentDidUpdate() {
+        document.title='AFokado | Login' 
         const {error} = this.props;
         if (error && this.bag) {
             this.bag.setSubmitting(false);
-        }   
+        }  
     }
     _handleFormSubmit = (values, bag) => {
-        /*this.props.login(values).then(({auth}=this.props)=>{
-            if(auth){
-                this.props.history.push('/') 
-            }else{
-                this.props.history.push('/auth')   
-            }
-        })*/
         this.props.login(values).then(()=>{ this.props.history.push('/') })
         this.bag = bag; 
-        
     }
     render() {
         return (
             <div className='bg mt'>
                 <div className='container'>
                     <div className='formPage'>
-                        <h3 className='formHeader'>Login IN</h3>
+                        <h3 className='formHeader'>Login</h3>
                         <hr />
                         <Formik
                             initialValues={{ email: '', password: '' }}
@@ -53,9 +46,9 @@ class LoginPage extends Component {
                             }) => (
                                     <div >
                                         <FormGroup>
-                                            <Label>Email</Label>
+                                            <Label>Email <span className='star'>*</span></Label>
                                                 <Input
-                                                    placeholder="Enter Your Email"
+                                                    placeholder="Type Your Email"
                                                     invalid={errors.email && touched.email && errors.email}
                                                     type="email"
                                                     name="email"
@@ -66,9 +59,9 @@ class LoginPage extends Component {
                                             {errors.email && touched.email ? (<FormFeedback>{errors.email}</FormFeedback>) : null}
                                         </FormGroup>
                                         <FormGroup>
-                                            <Label>Password</Label>
+                                            <Label>Password <span className='star'>*</span></Label>
                                             <Input
-                                                placeholder="Enter Your password"
+                                                placeholder="Type Your Password"
                                                 invalid={errors.password && touched.password && errors.password}
                                                 type="password"
                                                 name="password"

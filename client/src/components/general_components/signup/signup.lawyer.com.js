@@ -6,15 +6,11 @@ import * as Yup from 'yup';
 import { connect } from 'react-redux';
 import { sign } from '../../../actions/auth.actions.js';
 import axios from 'axios';
-
-
-
 class Signup_lawyer extends Component {
     state = {
         spec: [],
         city: []
     }
-    
     componentDidMount() {
         axios.get('./data/spec.json ').then(res => {
             this.setState({
@@ -26,6 +22,7 @@ class Signup_lawyer extends Component {
                 city: res.data.egypt
             })
         })
+        document.title='AFokado | Lawyer SignUp'
     }
     renderSpecOptions() {
         return (
@@ -46,8 +43,6 @@ class Signup_lawyer extends Component {
         )
     }
     _handleFormSubmit = (values, bag) => {
-        //apiSignup(values)
-
         if (values) {
             const { sign } = this.props;
             values.type = 2;
@@ -56,10 +51,8 @@ class Signup_lawyer extends Component {
         }
         else {
             bag.isSubmitting(false)
-
         }
     }
-
     render() {
         return (
             <div className='bg mt'>
@@ -73,7 +66,6 @@ class Signup_lawyer extends Component {
                                 userName: Yup.string().required(),
                                 email: Yup.string().email().required(),
                                 password: Yup.string().min(6).required(),
-                                mobile: Yup.number().min(11).required(),
                                 gender:Yup.string(),
                                 age: Yup.number().moreThan(20),
                                 address: Yup.string().required(),
@@ -81,30 +73,31 @@ class Signup_lawyer extends Component {
                                 state: Yup.string().required(),
                                 spec: Yup.string().required(),
                                 sspec: Yup.string(),
-
+                                mobile: Yup.number()
+                                    .typeError("That doesn't look like a phone number")
+                                    .positive("A phone number can't start with a minus")
+                                    .integer("A phone number can't include a decimal point")
+                                    .min(10)
+                                    .required('A phone number is required'),
                             })}
                             onSubmit={this._handleFormSubmit.bind(this)}
-
                         >
-
-
                             {({
-                                values,
-                                errors,
-                                touched,
-                                handleChange,
-                                handleBlur,
-                                handleSubmit,
-                                isSubmitting,
-                                isValid
-                                
+                               values,
+                               errors,
+                               touched,
+                               handleChange,
+                               handleBlur,
+                               handleSubmit,
+                               isSubmitting,
+                               isValid
                             }) => (
                                     <div>
                                         <FormGroup >
                                             <Label >Name <span className='star'>*</span></Label>
                                             <Input
                                                 className='input'
-                                                placeholder="Enter Your name"
+                                                placeholder="Type Your Name"
                                                 invalid={errors.userName && touched.userName && errors.userName}
                                                 type="text"
                                                 name="userName"
@@ -112,14 +105,13 @@ class Signup_lawyer extends Component {
                                                 onBlur={handleBlur}
                                                 value={values.userName}
                                             />
-
                                             {errors.userName && touched.userName ? (<FormFeedback>{errors.userName}</FormFeedback>) : null}
                                         </FormGroup >
                                         <FormGroup >
-                                            <Label >Email<span className='star'>*</span></Label>
+                                            <Label >Email <span className='star'>*</span></Label>
                                             <Input
                                                 className='input'
-                                                placeholder="Enter Your Email"
+                                                placeholder="Type Your Email"
                                                 invalid={errors.email && touched.email && errors.email}
                                                 type="email"
                                                 name="email"
@@ -127,14 +119,13 @@ class Signup_lawyer extends Component {
                                                 onBlur={handleBlur}
                                                 value={values.email}
                                             />
-
                                             {errors.email && touched.email ? (<FormFeedback>{errors.email}</FormFeedback>) : null}
                                         </FormGroup>
                                         <FormGroup>
-                                            <Label className='label'>Mobile Number</Label>
+                                            <Label className='label'>Mobile Number <span className='star'>*</span></Label>
                                             <Input
                                                 className='input'
-                                                placeholder="Enter Your Number"
+                                                placeholder="Type Your Number"
                                                 invalid={errors.mobile && touched.mobile && errors.mobile}
                                                 type="tel"
                                                 name="mobile"
@@ -148,7 +139,7 @@ class Signup_lawyer extends Component {
                                             <Label>Age</Label>
                                             <Input
                                                 className='input'
-                                                placeholder="Enter Your age"
+                                                placeholder="Type Your age"
                                                 invalid={errors.age && touched.age && errors.age}
                                                 type="number"
                                                 name="age"
@@ -159,12 +150,12 @@ class Signup_lawyer extends Component {
                                             {errors.age && touched.age ? (<FormFeedback>{errors.age}</FormFeedback>) : null}
                                         </FormGroup>
                                         <FormGroup >
-                                            <Label >Major Spec <span className='star'>*</span></Label>
+                                            <Label >Major Specialty <span className='star'>*</span></Label>
                                             <Input 
                                                 className='select'
                                                 type="select" 
                                                 name="spec"
-                                                placeholder="select Your spec"
+                                                placeholder="Select Your Specialty"
                                                 invalid={errors.spec && touched.spec && errors.spec}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
@@ -176,17 +167,17 @@ class Signup_lawyer extends Component {
                                             {errors.spec && touched.spec ? (<FormFeedback>{errors.spec}</FormFeedback>) : null}
                                         </FormGroup>
                                          <FormGroup>
-                                            <Label >secondary Spec</Label>
+                                            <Label >secondary Specialty</Label>
                                             <Input 
                                                 type="select" 
                                                 name="sspec"
-                                                placeholder="select Your secondary spec"
+                                                placeholder="Select Your Secondary Specialty"
                                                 invalid={errors.sspec && touched.sspec && errors.sspec}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                                 value={values.sspec} 
                                                 >
-                                                <option>select spec</option>
+                                                <option>Select Specialty</option>
                                                 <option value='all' >All</option>
                                                 {this.renderSpecOptions()}
                                             </Input>
@@ -197,20 +188,20 @@ class Signup_lawyer extends Component {
                                             <Input 
                                                 type="select" 
                                                 name="gender"
-                                                placeholder="select Your gender"
+                                                placeholder="Select Your Gender"
                                                 invalid={errors.gender && touched.gender && errors.gender}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                                 value={values.gender} 
                                                 >
-                                                <option>Select geneder</option>
+                                                <option>Select Geneder</option>
                                                 <option>Male</option>
                                                 <option>Femal</option>
                                             </Input>
                                             {errors.gender && touched.gender ? (<FormFeedback>{errors.gender}</FormFeedback>) : null}
                                         </FormGroup>
                                         <FormGroup >
-                                            <Label  >Addres <span className='star'>*</span></Label>
+                                            <Label  >Address <span className='star'>*</span></Label>
                                             <Input
                                                 type="text"
                                                 name="address"
@@ -229,7 +220,7 @@ class Signup_lawyer extends Component {
                                                     <Input
                                                         type="select"
                                                         name="city"
-                                                        placeholder="city"
+                                                        placeholder="City"
                                                         onChange={handleChange}
                                                         onBlur={handleBlur}
                                                         value={values.city}
@@ -246,20 +237,18 @@ class Signup_lawyer extends Component {
                                                     <Input
                                                         type="text"
                                                         name="state"
-                                                        placeholder="state"
+                                                        placeholder="State"
                                                         onChange={handleChange}
                                                         onBlur={handleBlur}
                                                         value={values.state}
                                                     />
                                                 </FormGroup>
                                             </Col>
-                                
                                         </Row>
-
                                         <FormGroup>
                                             <Label >Password <span className='star'>*</span></Label>
                                             <Input
-                                                placeholder="Enter Your password"
+                                                placeholder="Type Your Password"
                                                 invalid={errors.password && touched.password && errors.password}
                                                 type="password"
                                                 name="password"
@@ -269,9 +258,6 @@ class Signup_lawyer extends Component {
                                             />
                                             {errors.password && touched.password ? (<FormFeedback>{errors.password}</FormFeedback>) : null}
                                         </FormGroup>
-
-
-
                                         <Button className='formBtn' type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
                                             Sign Up
                                         </Button>
@@ -284,16 +270,9 @@ class Signup_lawyer extends Component {
                             <NavLink to='/auth'>Login</NavLink>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         )
     }
 }
-const mapStateToProps = ({ auth }) => {
-    return {
-        added: auth.added
-    }
-}
-export default connect(mapStateToProps, { sign })(Signup_lawyer);
+export default connect(null, { sign })(Signup_lawyer);

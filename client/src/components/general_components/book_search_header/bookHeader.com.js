@@ -18,9 +18,12 @@ class LawyerSearchHeader extends Component {
         fetchLawyers(values)
         this.props.history.push('/list');
     }
-    state = {
-        spec: [],
-        city: []
+     constructor(props) {
+        super(props);
+        this.state = {
+            spec: [],
+            city: []
+        }
     }
     componentDidMount() {
         axios.get('./data/spec.json ').then(res => {
@@ -97,7 +100,7 @@ class LawyerSearchHeader extends Component {
                                             onBlur={handleBlur}
                                             value={values.spec}
                                         >
-                                            <option className='searchoOption'>Select Spec</option>
+                                            <option className='searchoOption'>Choose Speciality</option>
                                             {this.renderSpecOptions()}
                                         </Input>
                                     </FormGroup>
@@ -111,7 +114,7 @@ class LawyerSearchHeader extends Component {
                                             onBlur={handleBlur}
                                             value={values.city}
                                         >
-                                            <option className='searchoOption'>Select City</option>
+                                            <option className='searchoOption'>Chosse City</option>
                                             {this.renderCityOptions()}
                                         </Input>
                                     </FormGroup>

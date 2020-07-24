@@ -9,10 +9,11 @@ import EmptyMessage from '../../general_components/empty.com.js';
 class Office extends Component {
     componentDidMount() {
         this.props.getOffice()
+        document.title='AFokado | My Office'
     }
     emptyCase() {
         const { office } = this.props
-        const message = `oops! you still don't have any Lawyer or student in your office !?`
+        const message = `oops !! You still don't have any Lawyer or student in your office !?`
         if (office.length === 0) {
             return (
                 <EmptyMessage message={message} />

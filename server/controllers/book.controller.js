@@ -55,7 +55,7 @@ bookController.fetchBooks = async (req, res, next) => {
         });
     } catch (e) {
         return res.status(401).send({
-            error: 'fetching falied , try again !!'
+            error: 'fFetching falied , Please try again !!'
         });
     }
 }
@@ -69,7 +69,7 @@ bookController.fetchBookRequests = async (req, res, next) => {
         });
     } catch (e) {
         return res.status(401).send({
-            error: 'fetching failed , try again !!'
+            error: 'Fetching failed ,Please try again !!'
         });
 
     }
@@ -86,16 +86,16 @@ bookController.deleteBook = async (req, res, next) => {
         if (book.notify === 0) {
             await Book.deleteOne({ _id: req.params._id })
             return res.send({
-                message: 'your book Deleted successfully'
+                message: 'Your book Deleted successfully'
             })
         }
         await Book.updateOne({ _id: req.params._id }, { deleted: 1 })
         return res.send({
-            message: 'your book Deleted successfully'
+            message: 'Your book Deleted successfully'
         })
     } catch (e) {
         return res.status(401).send({
-            error: 'please try again to cancel book !!'
+            error: 'Please try again to cancel book !!'
         });
     }
 }
@@ -106,13 +106,13 @@ bookController.confiremBook = async (req, res, next) => {
         const timeId = await (await Book.findOne({ _id: req.params._id }))
         const timeCount = await Time.findOne({ _id: timeId.timeId }).populate('owner')
         await Time.updateOne({ _id: timeId.timeId }, { count: timeCount.count + 1})
-        emailController.sendNewMail(user.email, `book time is ${timeCount.time} and lawyer address is ${timeCount.owner.address},${timeCount.owner.state},${timeCount.owner.city}`, 'Book Confirmed successfull')
+        emailController.sendNewMail(user.email, `Book time is ${timeCount.time} and lawyer address is ${timeCount.owner.address},${timeCount.owner.state},${timeCount.owner.city}`, 'Book Confirmed successfull')
         return res.send({
-            message: 'you confirmed your book successfull book',
+            message: 'You confirmed your book successfull book',
         })
     } catch (e) {
         return res.status(401).send({
-            error: 'please try again to confirm your book !!'
+            error: 'Please try again to confirm your book !!'
         });
     }
 }

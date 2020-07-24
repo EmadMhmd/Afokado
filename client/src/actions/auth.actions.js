@@ -34,7 +34,7 @@ export const onLoadingSignIn = ()=>{
             dispatch(clearError())
             const token = localStorage.getItem(TOKEN_NAME);
             if(token === null || token === 'undefined'){
-                dispatch({type:ADD_ERROR ,payload:'you need to login'})
+                dispatch({type:ADD_ERROR ,payload:'You need to login'})
             }else{
                 setAuthHeadre(token)
                 dispatch(getProfile())

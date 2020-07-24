@@ -91,7 +91,6 @@ class UpdateLawyer extends Component {
                                     city: Yup.string().required(),
                                     state: Yup.string().required(),
                                     uni: Yup.string(),
-                                    age: Yup.number(),
 
 
                                 })}

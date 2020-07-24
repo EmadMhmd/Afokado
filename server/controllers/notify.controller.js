@@ -25,7 +25,7 @@ notifyController.lawyerNotificationsCount= async (req ,res ,next)=>{
         })
     }catch(e){
         return res.status(401).send({
-            error :'fetching problem'
+            error :'Fetching failed'
         });
     }
 }

@@ -59,10 +59,13 @@ router.all('*',(req ,res , next )=>{
 
   router.post('/add_case', caseController.addCase);
   router.get('/fetch_cases/:archive?/:type?', caseController.fetchCases);
-    router.get('/get_case/:id', caseController.getCase);
+  router.get('/fetch_user_cases', caseController.fetchUserCases);
+  router.get('/get_case/:id', caseController.getCase);
   router.delete('/delete_case/:_id', caseController.deleteCase);
   router.put('/archive_case', caseController.archiveCase);
   router.put('/update_case/:_id', caseController.updateCase);
+  router.get('/get_new_owner/:email?/:mobile?', caseController.getNewOwner);
+  router.put('/update_case_owner/:_id/:caseOwner', caseController.updateCaseOwner);
 
 
   router.post('/add_internship', internshipController.addInternship);
@@ -78,11 +81,12 @@ router.all('*',(req ,res , next )=>{
   router.put('/confirm_application/:_id', applyController.confiremApplication);
   router.put('/reject_application/:_id', applyController.rejectApplication);
   router.put('/accept_application/:_id', applyController.acceptApplication);
-  router.get('/fetch_application_requests', applyController.fetchApplicationRequests);
+  router.get('/fetch_application_requests/:id', applyController.fetchApplicationRequests);
 
   
   router.post('/add_time', timeController.addTime);
   router.delete('/delete_time/:_id', timeController.deleteTime);
+  router.put('/office_times', timeController.officeTimes);
 
 
 

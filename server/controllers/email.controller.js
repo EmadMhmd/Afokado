@@ -17,7 +17,7 @@ emailController.sendNewMail = async (email , body , header) => {
     });
      await  ejs.renderFile("./views/email.ejs" ,{body : body},function(err , data){
         if(err){
-            console.log(err)
+           return {error: 'email sended failed !!' };
         }
         else{
             const mailOption = {
@@ -28,9 +28,7 @@ emailController.sendNewMail = async (email , body , header) => {
                  }
          transporter.sendMail(mailOption, (err, info) => {     
                     if (err) {
-                        return res.status(401).send({
-                            error: 'email sended failed !!'
-                        });
+                        return {error: 'email sended failed !!'};
                     }
                 })
         }

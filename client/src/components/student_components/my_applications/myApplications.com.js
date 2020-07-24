@@ -11,10 +11,11 @@ class MyApp extends Component {
     componentDidMount() {
         const { fetchApplications } = this.props;
         fetchApplications()
+        document.title='AFokado | My Applications'
     }
     emptyCase() {
         const { applications } = this.props
-        const message = `oops! you still don't have any application !?`
+        const message = `oops !! You still don't have any application  late !?`
         if (applications.length === 0) {
             return (
                 <EmptyMessage message={message} />
@@ -24,7 +25,6 @@ class MyApp extends Component {
 
     renderBtns(app) {
         if (app.status === 'pending') {
-            
             if (app.confirmed === 0) {
                 return (
                     <div>
@@ -42,7 +42,6 @@ class MyApp extends Component {
                 )
             }
         } else if (app.status === 'accept') {
-            
             return(
             <div>
                 <hr />
@@ -57,36 +56,33 @@ class MyApp extends Component {
         if (fetching) {
             return <Spinner size={50} />
         }
-
         return (
-
             <div>
                 <div className='bg items'>
                     <div className='listConatiner'>
-
                         <div cleas='headBar'>
                             <h3 className='header'>My App</h3>
-                            <Button className='add'><Link to='/'>Apply Now</Link></Button>
+                            <Button className='add'><Link className='btnLink' to='/intern_list'>Apply Now</Link></Button>
                         </div>
-
-                        {applications.map((item) => (
-
+                        {applications.map(item => (
                             <div key={item._id} className='item'>
-                                <h3 className='itemHeader'>{item.internshipId.title}</h3>
+                               <h4 className='itemHeader'>{item.internshipId.title}</h4> 
                                 <div class='itemBody'>
-                                    
                                     <pre className='bodyPara'>Description        :</pre>
                                     <p className='bodyPara txt'>{item.internshipId.description}</p>
-                                    <pre className='bodyPara'>Duration           : {item.internshipId.duration}</pre>
+                                    {item.internshipId.duration ? <pre className='bodyPara'>Duration           : {item.internshipId.duration}</pre> : <></>}
+                                    <pre className='bodyPara'>Paid               : {item.internshipId.paid}</pre>
+                                    {item.internshipId.salary ? <pre className='bodyPara'>Salary              : {item.internshipId.salary}</pre> : <></>}
+                                    <pre className='bodyPara'>Vacancies          : {item.internshipId.count}</pre>
+                                    {item.internshipId.role ? <pre className='bodyPara'>Role               : {item.internshipId.role}</pre> : <></>}
                                     <pre className='bodyPara'>Paid               : {item.internshipId.paid}</pre>
                                     <pre className='bodyPara'>apply time         : {moment(item.created).format(' DD-MM-YYYY  dddd')}</pre>
-                                   </div>
-                                   <hr/>
-                                   {(item.notify===1 && item.status==='pending') ?<pre className='bodyPara'>Status  : viewed</pre> : <pre className='bodyPara'>Status  : {item.status}</pre>}
+                                </div>
+                                <hr/>
+                                {(item.notify===1 && item.status==='pending') ?<pre className='bodyPara'>Status  : Viewed</pre> : <pre className='bodyPara'>Status  : {item.status}</pre>}
                                 {this.renderBtns(item)}
                             </div>
                         ))}
-
                     </div>
                 </div>
                 {this.emptyCase()}

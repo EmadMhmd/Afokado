@@ -8,10 +8,13 @@ import moment from 'moment';
 import EmptyMessage from '../../general_components/empty.com.js';
 import Spinner from '../../general_components/spinner_com/spinner.com.js';
 
+
+//Delete it
 class InternalshipsList extends Component {
     componentDidMount() {
         const { fetchInternshipsForLawyer } = this.props;
         fetchInternshipsForLawyer()
+        document.title='AFokado |Internships'
     }
     emptyCase() {
         const { internships } = this.props
@@ -39,12 +42,13 @@ class InternalshipsList extends Component {
                             <h3 className='header'>My internships</h3>
                             <AddInternalship />
                         </div>
-                        {internships.map((item) => (
+                        {internships.filter(intern => intern.job === 0).map((item) => (
                             <div key={item._id} className='item'>
                                 <h3 className='itemHeader'>{item.title}</h3>
                                 <div className='itemBody'>
                                     <p className="desc">Description :</p>
                                     <p className='txt bodyPara'> {item.description}</p>
+                                    <pre className='bodyPara'>Type           : Internshop</pre>
                                     <pre className='bodyPara'>Start Date     :{moment(item.startDate).format(' DD-MM-YYYY  dddd')}</pre>
                                     <pre className='bodyPara'>count          : {item.count}</pre>
                                     <pre className='bodyPara'>paid           : {item.paid}</pre>
@@ -54,11 +58,7 @@ class InternalshipsList extends Component {
                                 <hr />
                                 <UpdateInternalship internship={item} />
                             </div>
-
-
                         ))}
-
-
                     </div>
                 </div>
                 {this.emptyCase()}

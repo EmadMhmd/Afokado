@@ -149,7 +149,7 @@ authController.sign = async (req, res, next) => {
             error.status = 401; 
             next(error);*/
             return res.status(401).send({
-                error: `Please Try Again ,Failed Registartion`
+                error: `Please Try Again To SignUp , Failed Registartion !!`
             });
         }
 
@@ -169,7 +169,7 @@ authController.SignForBook = async (req, res, next) => {
         newUser.password = hashpass
         await newUser.save();
         return res.send({
-            message: 'you are registeted successfully'
+            message: 'You are registeted successfully'
         });
     } catch (e) {
 
@@ -179,7 +179,7 @@ authController.SignForBook = async (req, res, next) => {
             });
         } else {
             return res.status(401).send({
-                error: 'please fill your info again , registration failed'
+                error: 'please fill your info again , registration failed !!'
             });
         }
 
@@ -202,7 +202,7 @@ authController.auth = async (req, res, next) => {
                     const token = jwt.sign({ _id: user._id }, scret, { expiresIn: expir });
                     return res.send({
                         token,
-                        message: 'you are loged successfully'
+                        message: 'You are loged successfully'
 
                     });
                 }
@@ -213,14 +213,14 @@ authController.auth = async (req, res, next) => {
         }
     } catch (e) {
         return res.status(401).send({
-            error: `please login again , login failed`
+            error: `Please try again to login , login failed !!`
         });
     }
 }
 
 
 authController.updateUser = async (req, res, next) => {
-    const { userName, mobile, email, gender, age, spec, sspec, tspec, level, address, city, state, uni, password, type, gpa } = req.body;
+    const { userName, mobile, email, gender, age, spec, sspec, tspec, level, address, city, state, uni, password, type, gpa  , bio } = req.body;
     const { user } = req
     const updatedUser = {
         userName, mobile, email, gender, age, spec, sspec, tspec, level, address, city, state, uni, password, type, gpa
@@ -254,7 +254,7 @@ authController.forgetPassword = async (req , res , next) =>{
     const {email} = req.body;
     User.findOne({email}, (err , user)=>{
         if(err || !user){
-            return res.status(400).json({error : "this email is not exist"})
+            return res.status(400).json({error : "This email is not exist"})
         }
         const token =jwt.sign({_id : user._id } , process.env.RESET_PASSWORD_KEY , {expiresIn : "10m"}) 
         return user.updateOne({resetLink : token } , (err , success)=>{

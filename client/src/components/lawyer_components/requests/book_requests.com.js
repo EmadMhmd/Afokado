@@ -10,11 +10,12 @@ class BookRequests extends Component {
     componentDidMount() {
         const { fetchBookRequests } = this.props;
         fetchBookRequests()
+        document.title='AFokado | My Books'
 
     }
     emptyCase() {
         const { books } = this.props
-        const message = `great! you haven't any notification !?`
+        const message = `great !!There no book late !?`
         if (books.length === 0) {
             return (
                 <EmptyMessage message={message} />

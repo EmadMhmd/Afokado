@@ -7,9 +7,6 @@ import { connect } from 'react-redux';
 import { sign } from '../../../actions/auth.actions.js';
 import axios from 'axios';
 import moment from 'moment';
-
-
-
 class Signup_student extends Component {
     state = {
         city: [],
@@ -27,6 +24,7 @@ class Signup_student extends Component {
                 uni: res.data.egypt
             })
         })
+        document.title='AFokado | Student SignUp'
     }
     renderCityOptions() {
         return (
@@ -57,7 +55,6 @@ class Signup_student extends Component {
             bag.isSubmitting(false)
         }
     }
-
     render() {
         return (
             <div className='bg mt'>
@@ -70,7 +67,6 @@ class Signup_student extends Component {
                                 userName: Yup.string().required(),
                                 email: Yup.string().email().required(),
                                 password: Yup.string().min(6).required(),
-                                mobile: Yup.number().min(11).required(),
                                 uni: Yup.string(),
                                 age: Yup.number().moreThan(17),
                                 address: Yup.string(),
@@ -78,14 +74,15 @@ class Signup_student extends Component {
                                 state: Yup.string(),
                                 gender: Yup.string(),
                                 level:Yup.date().min(new Date() , `Invalid Date , Please date later than ${moment().format('DD-MM-YY dddd')} `).required(),
-                                
-
+                                mobile: Yup.number()
+                                    .typeError("That doesn't look like a mobile number")
+                                    .positive("A mobile number can't start with a minus")
+                                    .integer("A mobile number can't include a decimal point")
+                                    .min(10)
+                                    .required('A mobile number is required'),
                             })}
                             onSubmit={this._handleFormSubmit.bind(this)}
-
                         >
-
-
                             {({
                                 values,
                                 errors,
@@ -100,7 +97,7 @@ class Signup_student extends Component {
                                         <FormGroup className='field'>
                                             <Label>Name <span className='star'>*</span></Label>
                                             <Input
-                                                placeholder="Enter Your Name"
+                                                placeholder="Type Your Name"
                                                 invalid={errors.userName && touched.userName && errors.userName}
                                                 type="text"
                                                 name="userName"
@@ -108,13 +105,12 @@ class Signup_student extends Component {
                                                 onBlur={handleBlur}
                                                 value={values.userName}
                                             />
-
                                             {errors.userName && touched.userName ? (<FormFeedback>{errors.userName}</FormFeedback>) : null}
                                         </FormGroup >
                                         <FormGroup className='field'>
                                             <Label>Email <span className='star'>*</span></Label>
                                             <Input
-                                                placeholder="Enter Your Email"
+                                                placeholder="Type Your Email"
                                                 invalid={errors.email && touched.email && errors.email}
                                                 type="email"
                                                 name="email"
@@ -122,13 +118,12 @@ class Signup_student extends Component {
                                                 onBlur={handleBlur}
                                                 value={values.email}
                                             />
-
                                             {errors.email && touched.email ? (<FormFeedback>{errors.email}</FormFeedback>) : null}
                                         </FormGroup>
                                         <FormGroup className='field'>
                                             <Label>Mobile Number <span className='star'>*</span></Label>
                                             <Input
-                                                placeholder="Enter Your Number"
+                                                placeholder="Type Your Number"
                                                 invalid={errors.mobile && touched.mobile && errors.mobile}
                                                 type="tel"
                                                 name="mobile"
@@ -136,13 +131,12 @@ class Signup_student extends Component {
                                                 onBlur={handleBlur}
                                                 value={values.mobile}
                                             />
-
                                             {errors.mobile && touched.mobile ? (<FormFeedback>{errors.mobile}</FormFeedback>) : null}
                                         </FormGroup>
                                         <FormGroup className='field'>
                                             <Label>Age</Label>
                                             <Input
-                                                placeholder="Enter Your age"
+                                                placeholder="Type Your age"
                                                 invalid={errors.age && touched.age && errors.age}
                                                 type="number"
                                                 name="age"
@@ -150,13 +144,12 @@ class Signup_student extends Component {
                                                 onBlur={handleBlur}
                                                 value={values.age}
                                             />
-
                                             {errors.age && touched.age ? (<FormFeedback>{errors.age}</FormFeedback>) : null}
                                         </FormGroup>
                                         <FormGroup className='field'>
                                             <Label>Expected Graduation Year <span className='star'>*</span></Label>
                                             <Input
-                                                placeholder="Enter Your year"
+                                                placeholder="Type Your year"
                                                 invalid={errors.level && touched.level && errors.level}
                                                 type="date"
                                                 name="level"
@@ -164,7 +157,6 @@ class Signup_student extends Component {
                                                 onBlur={handleBlur}
                                                 value={values.level}
                                             />
-
                                             {errors.level && touched.level ? (<FormFeedback>{errors.level}</FormFeedback>) : null}
                                         </FormGroup>
                                         <FormGroup className='field'>
@@ -172,12 +164,12 @@ class Signup_student extends Component {
                                             <Input
                                                 type="select"
                                                 name="gpa"
-                                                placeholder="select Your Gpa"
+                                                placeholder="Select Your GPA"
                                                 invalid={errors.gpa && touched.gpa && errors.gpa}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                                 value={values.gpa} >
-                                                <option>Select appr</option>
+                                                <option>Select Appreciation</option>
                                                 <option value='accept'>Accept</option>
                                                 <option value='good'>good</option>
                                                 <option value='verygood'>very good</option>
@@ -186,16 +178,16 @@ class Signup_student extends Component {
                                             {errors.gender && touched.gender ? (<FormFeedback>{errors.gender}</FormFeedback>) : null}
                                         </FormGroup>
                                         <FormGroup className='field'>
-                                            <Label>Uni</Label>
+                                            <Label>University </Label>
                                             <Input
                                                 type="select"
                                                 name="uni"
-                                                placeholder="select Your uni"
+                                                placeholder="Select Your University "
                                                 invalid={errors.uni && touched.uni && errors.uni}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                                 value={values.uni} >
-                                                <option>Select Uni</option>
+                                                <option>Select University </option>
                                                 {this.renderUniOptions()}
                                             </Input>
                                             {errors.uni && touched.uni ? (<FormFeedback>{errors.uni}</FormFeedback>) : null}
@@ -205,19 +197,19 @@ class Signup_student extends Component {
                                             <Input
                                                 type="select"
                                                 name="gender"
-                                                placeholder="select Your gender"
+                                                placeholder="Select Your Gender"
                                                 invalid={errors.gender && touched.gender && errors.gender}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                                 value={values.gender} >
-                                                <option>Select gender</option>
-                                                <option>male</option>
-                                                <option>female</option>
+                                                <option>Select Gender</option>
+                                                <option>Male</option>
+                                                <option>Female</option>
                                             </Input>
                                             {errors.gender && touched.gender ? (<FormFeedback>{errors.gender}</FormFeedback>) : null}
                                         </FormGroup>
                                         <FormGroup className='field'>
-                                            <Label >Addres</Label>
+                                            <Label >Address</Label>
                                             <Input
                                                 type="text"
                                                 name="address"
@@ -236,7 +228,7 @@ class Signup_student extends Component {
                                                     <Input
                                                         type="select"
                                                         name="city"
-                                                        placeholder="city"
+                                                        placeholder="City"
                                                         onChange={handleChange}
                                                         onBlur={handleBlur}
                                                         value={values.city}
@@ -252,7 +244,7 @@ class Signup_student extends Component {
                                                     <Input
                                                         type="text"
                                                         name="state"
-                                                        placeholder="state"
+                                                        placeholder="State"
                                                         onChange={handleChange}
                                                         onBlur={handleBlur}
                                                         value={values.state}
@@ -264,7 +256,7 @@ class Signup_student extends Component {
                                         <FormGroup className='field'>
                                             <Label>Password <span className='star'>*</span></Label>
                                             <Input
-                                                placeholder="Enter Your password"
+                                                placeholder="Type Your Password"
                                                 invalid={errors.password && touched.password && errors.password}
                                                 type="password"
                                                 name="password"
@@ -274,31 +266,21 @@ class Signup_student extends Component {
                                             />
                                             {errors.password && touched.password ? (<FormFeedback>{errors.password}</FormFeedback>) : null}
                                         </FormGroup>
-
-
-
                                         <Button className='formBtn' type="submit" disabled={isSubmitting || !isValid} onClick={handleSubmit}>
                                             Sign Up
                                         </Button>
                                     </div>
                                 )}
-
                         </Formik>
                         <div >
                             <p className='checkPara'>Already Registered in Afokado ?</p>
                             <NavLink to='/auth'>Login</NavLink>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         )
     }
 }
-const mapStateToProps = ({ auth }) => {
-    return {
-        added: auth.added
-    }
-}
-export default connect(mapStateToProps, { sign })(Signup_student);
+
+export default connect(null, { sign })(Signup_student);

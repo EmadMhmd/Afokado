@@ -18,6 +18,6 @@ export const apiAcceptApplication= id =>{
 export const apiFetchApplications= () =>{
     return axios.get('http://localhost:5000/fetch_applications')
 }
-export const apiFetchApplicationRequests= () =>{
-    return axios.get('http://localhost:5000/fetch_application_requests')
+export const apiFetchApplicationRequests= (id) =>{
+    return axios.get(`http://localhost:5000/fetch_application_requests/${id}`)
 }
